@@ -3,137 +3,268 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WaveHub — Turn bad habits into a high income skill</title>
-<meta name="description" content="Real ATP analysis, early to the market — lock in a better price than most bettors. Fewer bets, more discipline. WaveHub.">
+<title>WaveHub: Turn bad habits into a high income skill</title>
+<meta name="description" content="Real ATP analysis, early to the market. Take a price higher than the matchup deserves. Fewer bets, more discipline. WaveHub.">
 <meta name="theme-color" content="#0b0a10">
 <link rel="icon" href="https://app.wavehubtennis.com/icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WaveHub: Turn bad habits into a high income skill">
+<meta property="og:description" content="Real ATP analysis, early to the market. Take a price higher than the matchup deserves. Fewer bets, more discipline.">
+<meta property="og:url" content="https://wavehubtennis.com">
+<meta property="og:image" content="https://app.wavehubtennis.com/logo.png">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
 <script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/82993f59324a4177c9edcb4fb/186b2ce64d1fba6dff2c22d4a.js");</script>
 <style>
+/* ============================================================
+   WaveHub landing - editorial dark. Motif: the line / value.
+   Shape lock: buttons 14px / cards 20px / chips pill.
+   Accent lock: one purple family. Theme lock: dark only.
+   ============================================================ */
 :root{
-  --bg:#0b0a10;--bg2:#08070c;--surface:#15131f;--surface2:#1b1828;--elevated:#221d33;
+  --bg:#0a090f;--bg2:#08070c;--surface:#141220;--surface2:#1b1828;--elevated:#221d33;
   --border:rgba(255,255,255,.08);--border2:rgba(255,255,255,.14);
   --text:#f4f2f8;--muted:#9a93ad;--faint:#6b6580;
   --primary:#8b5cf6;--bright:#a855f7;--deep:#6d28d9;
   --pos:#4ade80;--neg:#fb7185;--warn:#fbbf24;
   --display:'Space Grotesk',sans-serif;--body:'Inter',sans-serif;--mono:'JetBrains Mono',monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-.wrap{max-width:1120px;margin:0 auto;padding:0 24px}
-h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.02em;line-height:1.08}
-.mono{font-family:var(--mono);font-variant-numeric:tabular-nums}
+body{background:var(--bg);color:var(--text);font-family:var(--body);line-height:1.6;-webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;overflow-x:hidden}
+.wrap{max-width:1200px;margin:0 auto;padding:0 28px}
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.025em;line-height:1.04}
+.mono{font-family:var(--mono);font-variant-numeric:tabular-nums;letter-spacing:-.01em}
 a{color:inherit;text-decoration:none}
 .eyebrow{font-family:var(--mono);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--bright)}
 .muted{color:var(--muted)}
-.btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;font-family:var(--body);font-weight:600;font-size:15px;padding:13px 26px;border-radius:14px;cursor:pointer;transition:.18s;border:1px solid transparent}
-.btn-primary{background:linear-gradient(135deg,var(--deep),var(--bright));color:#fff;box-shadow:0 10px 30px -8px rgba(139,92,246,.5)}
-.btn-primary:hover{transform:translateY(-2px);box-shadow:0 16px 40px -10px rgba(168,85,247,.6)}
+.accent{background:linear-gradient(110deg,#c4b5fd,#a855f7 52%,#7c3aed);background-size:200% 100%;-webkit-background-clip:text;background-clip:text;color:transparent;animation:sheen 7s var(--ease) infinite}
+@keyframes sheen{0%,100%{background-position:0 0}50%{background-position:100% 0}}
+
+.btn{display:inline-flex;align-items:center;gap:8px;justify-content:center;font-family:var(--body);font-weight:600;font-size:15px;padding:14px 28px;border-radius:14px;cursor:pointer;transition:transform .18s var(--ease),box-shadow .18s var(--ease),border-color .18s var(--ease);border:1px solid transparent;white-space:nowrap}
+.btn-primary{background:linear-gradient(135deg,var(--deep),var(--bright));color:#fff;box-shadow:0 12px 34px -8px rgba(139,92,246,.55)}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 20px 48px -10px rgba(168,85,247,.66)}
+.btn-primary:active{transform:translateY(0) scale(.98)}
 .btn-ghost{border-color:var(--border2);color:var(--text)}
-.btn-ghost:hover{border-color:var(--bright)}
-.glow{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;z-index:0;pointer-events:none}
-.dots{position:absolute;inset:0;z-index:0;pointer-events:none;
-  background-image:radial-gradient(rgba(168,85,247,.25) 1.4px,transparent 1.4px);
-  background-size:26px 26px;
-  -webkit-mask-image:radial-gradient(60% 60% at 50% 100%,#000,transparent 75%);
-          mask-image:radial-gradient(60% 60% at 50% 100%,#000,transparent 75%)}
+.btn-ghost:hover{border-color:var(--bright);transform:translateY(-2px)}
+
 section{position:relative;z-index:1}
-.card{background:var(--surface);border:1px solid var(--border);border-radius:20px}
+.card{background:var(--surface);border:1px solid var(--border);border-radius:20px;transition:transform .25s var(--ease),border-color .25s var(--ease),box-shadow .25s var(--ease)}
 .card-glow{border-color:var(--border2);box-shadow:0 0 0 1px rgba(139,92,246,.08),0 24px 60px -30px rgba(139,92,246,.5)}
-nav{position:sticky;top:0;z-index:50;background:rgba(11,10,16,.72);backdrop-filter:blur(16px);border-bottom:1px solid var(--border)}
-.nav-inner{display:flex;align-items:center;justify-content:space-between;height:68px}
+.lift:hover{transform:translateY(-4px);border-color:var(--border2)}
+
+/* nav */
+nav{position:sticky;top:0;z-index:60;background:rgba(10,9,15,.66);backdrop-filter:blur(18px);border-bottom:1px solid var(--border)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;height:66px}
 .brand{display:flex;align-items:center;gap:10px;font-family:var(--display);font-weight:700;font-size:19px}
 .brand img{width:30px;height:30px;filter:drop-shadow(0 0 8px rgba(139,92,246,.45))}
-.brand b{color:var(--bright);font-weight:700}
+.brand b{color:var(--bright)}
 .nav-right{display:flex;align-items:center;gap:18px}
-.nav-login{font-weight:600;font-size:15px;color:var(--muted)}
-.nav-login:hover{color:var(--text)}
-.hero{padding:80px 0 60px;text-align:center}
-.hero h1{font-size:clamp(38px,7vw,68px);max-width:14ch;margin:18px auto 0}
-.hero .accent{background:linear-gradient(110deg,#c4b5fd,#a855f7 55%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero p{font-size:clamp(16px,2.3vw,20px);color:var(--muted);max-width:34rem;margin:22px auto 0}
-.hero .cta{margin-top:34px}
-.kpis{display:flex;flex-wrap:wrap;gap:30px;justify-content:center;margin-top:46px}
-.kpi b{font-family:var(--mono);font-size:26px;color:var(--text);display:block}
-.kpi span{font-size:13px;color:var(--faint)}
-.hero.split-hero{text-align:left;padding:60px 0 48px}
-.hero-grid{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-.hero-grid h1{margin:16px 0 0;font-size:clamp(40px,6vw,66px);max-width:13ch}
-.hero-grid .accent{background:linear-gradient(110deg,#c4b5fd,#a855f7 55%,#7c3aed);-webkit-background-clip:text;background-clip:text;color:transparent}
-.hero-grid p{font-size:clamp(16px,2vw,19px);color:var(--muted);max-width:30rem;margin:20px 0 0}
-@media(max-width:900px){.hero.split-hero{text-align:center}.hero-grid{grid-template-columns:1fr;gap:40px;text-align:center}.hero-grid p{margin-left:auto;margin-right:auto}}
+.nav-login{font-weight:600;font-size:15px;color:var(--muted)}.nav-login:hover{color:var(--text)}
+
+/* aurora + grid texture */
+.aurora{position:absolute;inset:0;overflow:hidden;z-index:0;pointer-events:none}
+.aurora i{position:absolute;border-radius:50%;filter:blur(100px);opacity:.5;display:block}
+.aurora .g1{width:560px;height:560px;background:var(--deep);left:-160px;top:-200px;animation:drift1 18s var(--ease) infinite alternate}
+.aurora .g2{width:420px;height:420px;background:#4c1d95;right:-120px;top:40px;animation:drift2 22s var(--ease) infinite alternate}
+@keyframes drift1{to{transform:translate(80px,60px) scale(1.1)}}
+@keyframes drift2{to{transform:translate(-70px,40px) scale(1.08)}}
+.grid-tex{position:absolute;inset:0;z-index:0;pointer-events:none;opacity:.5;
+  background-image:linear-gradient(rgba(255,255,255,.035) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.035) 1px,transparent 1px);
+  background-size:64px 64px;
+  -webkit-mask-image:radial-gradient(80% 60% at 50% 30%,#000,transparent 78%);mask-image:radial-gradient(80% 60% at 50% 30%,#000,transparent 78%)}
+
+/* hero */
+.hero{position:relative;padding:56px 0 56px;display:flex;align-items:center}
+.hero-grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;position:relative;z-index:2;width:100%}
+.hero h1{font-size:clamp(42px,7.4vw,86px);line-height:.98;letter-spacing:-.035em;margin:20px 0 0;max-width:12ch}
+.hero p{font-size:clamp(16px,1.6vw,19px);color:var(--muted);max-width:30rem;margin:24px 0 0}
+.hero .cta{margin-top:32px}
+@media(max-width:920px){.hero{padding:40px 0}.hero-grid{grid-template-columns:1fr;gap:36px;text-align:center}.hero h1,.hero p{margin-left:auto;margin-right:auto}}
+
+/* hero 3D stage */
+.hstage{position:relative;perspective:1500px;display:flex;justify-content:center}
+.hhalo{position:absolute;width:300px;height:300px;border-radius:50%;background:var(--deep);filter:blur(110px);opacity:.45;z-index:0}
+.hdevice{position:relative;z-index:2;transform:rotateY(-15deg) rotateX(6deg) rotate(1deg);transform-style:preserve-3d;transition:transform .6s var(--ease)}
+.hstage:hover .hdevice{transform:rotateY(-6deg) rotateX(2deg)}
+@media(max-width:920px){.hdevice,.hstage:hover .hdevice{transform:none}}
+
+/* phone mockup */
+.phone{width:300px;border-radius:42px;border:1px solid var(--border2);background:var(--bg2);padding:12px;box-shadow:0 46px 100px -34px rgba(109,40,217,.6);margin:0 auto}
+.phone .screen{background:var(--bg);border-radius:32px;overflow:hidden;padding:16px}
 .app-head{display:flex;align-items:center;gap:8px;font-family:var(--display);font-weight:700;font-size:15px;margin-bottom:14px}
 .app-head img{width:22px;height:22px}.app-head b{color:var(--bright)}
 .seg{display:flex;gap:5px;background:var(--surface);border:1px solid var(--border);border-radius:13px;padding:4px;margin-bottom:14px}
 .seg button{flex:1;border:none;background:transparent;color:var(--muted);font-family:var(--body);font-weight:600;font-size:13px;padding:8px;border-radius:9px;cursor:pointer}
 .seg button.on{background:linear-gradient(135deg,var(--deep),var(--primary));color:#fff}
+.bet{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:14px;text-align:left}
 .bet+.bet{margin-top:12px}
+.bet .meta{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--faint)}
+.bet h4{font-family:var(--display);font-size:16px;margin-top:4px}
 .bet-top{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
 .ofe{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:10px}
 .ofe .k{font-family:var(--mono);font-size:9px;text-transform:uppercase;color:var(--faint)}
 .ofe .v{font-family:var(--mono);font-weight:700;font-size:15px;margin-top:2px}
 .ofe .v.pos{color:var(--pos)}
-.read{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5}.read b{color:var(--text)}
-.play,.nobet{font-family:var(--mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:4px 8px;border-radius:7px;white-space:nowrap;line-height:1.2;text-align:center}
+.play,.nobet{font-family:var(--mono);font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;padding:4px 8px;border-radius:7px;white-space:nowrap;line-height:1.2}
 .play{color:var(--pos);background:rgba(74,222,128,.1);border:1px solid rgba(74,222,128,.3)}
 .nobet{color:var(--warn);background:rgba(251,191,36,.1);border:1px solid rgba(251,191,36,.3)}
-.phone{width:300px;border-radius:42px;border:1px solid var(--border2);background:var(--bg2);padding:12px;box-shadow:0 40px 90px -30px rgba(109,40,217,.5);margin:0 auto}
-.phone .screen{background:var(--bg);border-radius:32px;overflow:hidden;padding:16px}
-.bet{background:var(--surface);border:1px solid var(--border2);border-radius:16px;padding:14px;text-align:left}
-.bet .meta{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--faint)}
-.bet h4{font-family:var(--display);font-size:16px;margin-top:4px}
-.pick{display:flex;justify-content:space-between;align-items:center;background:var(--surface2);border:1px solid var(--border);border-radius:11px;padding:10px 12px;margin-top:10px}
-.pick .o{font-family:var(--mono);font-weight:700;color:var(--bright);font-size:17px}
-.stat3{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:10px}
-.stat3 div{background:var(--surface2);border:1px solid var(--border);border-radius:9px;padding:7px}
-.stat3 .k{font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--faint)}
-.stat3 .v{font-family:var(--mono);font-weight:700;font-size:13px;margin-top:2px}
-.badge{display:inline-block;font-family:var(--mono);font-size:8px;font-weight:700;text-transform:uppercase;letter-spacing:1px;padding:4px 8px;border-radius:6px;color:var(--bright);background:rgba(139,92,246,.14);border:1px solid rgba(139,92,246,.3)}
-.sec{padding:72px 0}
-.sec h2{font-size:clamp(28px,4.5vw,44px);max-width:18ch}
+.read{font-size:11.5px;color:var(--muted);margin-top:10px;line-height:1.5}.read b{color:var(--text)}
+/* insight mini (used in 3D phone) */
+.insight{background:var(--surface);border:1px solid var(--border2);border-radius:14px;padding:14px;text-align:left}
+.insight .meta{font-family:var(--mono);font-size:9px;text-transform:uppercase;letter-spacing:.5px;color:var(--faint)}
+.insight h4{font-family:var(--display);font-size:16px;margin-top:4px;margin-bottom:10px}
+.irow{display:grid;grid-template-columns:1.4fr .6fr .6fr .6fr;gap:6px;align-items:center;padding:6px 0;border-top:1px solid var(--border)}
+.irow.h{border-top:none}
+.irow .p{font-family:var(--display);font-weight:600;font-size:12px}
+.irow .c{font-family:var(--mono);font-size:11px;text-align:center;color:var(--muted)}
+.irow.h .c,.irow.h .p{font-family:var(--mono);font-size:8px;text-transform:uppercase;color:var(--faint);font-weight:700}
+.irow .c.g{color:var(--pos)}.irow .c.r{color:var(--neg)}
+
+/* IG-DM trust */
+.trustsec{padding:80px 0 40px}
+.dms{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin-top:42px}
+@media(max-width:860px){.dms{grid-template-columns:1fr;max-width:420px;margin-left:auto;margin-right:auto}}
+.dm{background:var(--surface);border:1px solid var(--border);border-radius:20px;padding:18px;display:flex;flex-direction:column;gap:12px}
+.dm:nth-child(2){transform:translateY(-16px)}
+@media(max-width:860px){.dm:nth-child(2){transform:none}}
+.dm-head{display:flex;align-items:center;gap:10px}
+.dm-av{width:40px;height:40px;border-radius:50%;background:conic-gradient(from 210deg,#a855f7,#6d28d9,#c4b5fd,#a855f7);padding:2px}
+.dm-av span{display:flex;width:100%;height:100%;border-radius:50%;background:var(--surface2);align-items:center;justify-content:center;font-family:var(--display);font-weight:700;font-size:14px;color:var(--text)}
+.dm-handle{font-weight:600;font-size:14px;line-height:1.2}.dm-handle .sub{display:block;font-size:11px;color:var(--faint);font-weight:500}
+.dm-ig{margin-left:auto;color:var(--faint)}
+.bubble{background:var(--surface2);border:1px solid var(--border);border-radius:16px 16px 16px 5px;padding:10px 13px;font-size:13.5px;color:var(--text);line-height:1.5;max-width:94%;align-self:flex-start}
+.bubble.out{align-self:flex-end;background:linear-gradient(135deg,var(--deep),var(--primary));border:none;border-radius:16px 16px 5px 16px;color:#fff;max-width:80%}
+.dm-foot{display:flex;align-items:center;gap:6px;font-size:11px;color:var(--faint)}
+.dm-foot svg{color:var(--neg)}
+
+/* generic sections */
+.sec{padding:96px 0}
+.sec h2{font-size:clamp(30px,5vw,56px);max-width:16ch}
 .center{text-align:center;margin-left:auto;margin-right:auto}
-.lead{color:var(--muted);font-size:18px;margin-top:14px;max-width:42rem}
-.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;margin-top:40px}
-.feat{padding:24px}
-.feat .ic{width:46px;height:46px;border-radius:13px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(139,92,246,.25);background:linear-gradient(135deg,rgba(109,40,217,.4),rgba(139,92,246,.08));color:var(--bright);margin-bottom:16px;font-size:22px}
-.feat h3{font-size:19px}
-.feat p{color:var(--muted);font-size:14.5px;margin-top:8px}
-.split{display:grid;grid-template-columns:1.05fr .95fr;gap:48px;align-items:center}
-@media(max-width:840px){.split{grid-template-columns:1fr;gap:36px}}
-.step{display:flex;gap:18px;padding:22px 0;border-bottom:1px solid var(--border)}
-.step:last-child{border-bottom:none}
-.step .n{font-family:var(--mono);font-weight:700;color:var(--bright);font-size:15px;border:1px solid rgba(139,92,246,.3);border-radius:10px;min-width:40px;height:40px;display:flex;align-items:center;justify-content:center;background:rgba(139,92,246,.08)}
-.step h3{font-size:20px}
-.step p{color:var(--muted);font-size:15px;margin-top:4px}
-.clvbars{display:flex;align-items:flex-end;gap:30px;height:210px;padding:22px;justify-content:center}
-.clvbar{width:96px;border-radius:12px 12px 0 0;display:flex;flex-direction:column;justify-content:flex-start;align-items:center;padding-top:12px;color:#fff}
-.clvbar .lab{font-family:var(--mono);font-size:12px;font-weight:700}
-.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:42px;max-width:760px;margin-left:auto;margin-right:auto}
-.price{padding:30px;position:relative}
-.price.reco{border-color:rgba(139,92,246,.4);background:linear-gradient(170deg,rgba(109,40,217,.14),transparent 70%)}
+.lead{color:var(--muted);font-size:18px;margin-top:16px;max-width:42rem}
+.split{display:grid;grid-template-columns:1.05fr .95fr;gap:56px;align-items:center}
+@media(max-width:860px){.split{grid-template-columns:1fr;gap:40px}}
+
+/* how it works */
+.flow{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:48px;position:relative}
+.flow:before{content:"";position:absolute;top:28px;left:8%;right:8%;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent)}
+.fstep{position:relative}
+.fnum{font-family:var(--mono);font-weight:700;font-size:18px;color:var(--bright);width:56px;height:56px;border-radius:16px;display:flex;align-items:center;justify-content:center;background:var(--bg);border:1px solid rgba(139,92,246,.35);box-shadow:0 0 0 6px var(--bg)}
+.fstep h3{font-size:21px;margin-top:22px}
+.fstep p{color:var(--muted);font-size:15px;margin-top:8px;max-width:30ch}
+@media(max-width:860px){.flow{grid-template-columns:1fr;gap:14px}.flow:before{display:none}.fstep{display:flex;gap:18px;align-items:flex-start}.fnum{flex:0 0 auto;width:48px;height:48px}.fstep h3{margin-top:0}}
+
+/* bento - balanced 2 col */
+.bento{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:44px}
+@media(max-width:780px){.bento{grid-template-columns:1fr}}
+.b{padding:26px;position:relative;overflow:hidden}
+.b .ic{width:44px;height:44px;border-radius:13px;display:flex;align-items:center;justify-content:center;border:1px solid rgba(139,92,246,.25);background:linear-gradient(135deg,rgba(109,40,217,.4),rgba(139,92,246,.08));color:var(--bright);margin-bottom:16px}
+.b h3{font-size:20px}.b p{color:var(--muted);font-size:14.5px;margin-top:8px}
+.b.tint{background:linear-gradient(165deg,rgba(109,40,217,.18),transparent 72%)}
+.spot::before{content:"";position:absolute;inset:0;border-radius:inherit;opacity:0;transition:opacity .3s var(--ease);pointer-events:none;background:radial-gradient(220px 220px at var(--mx,50%) var(--my,50%),rgba(168,85,247,.16),transparent 70%)}
+.spot:hover::before{opacity:1}
+.b .bet{background:var(--surface2);position:relative;z-index:1;margin-top:18px}
+.minibars{display:flex;align-items:flex-end;gap:14px;height:80px;margin-top:18px;position:relative;z-index:1}
+.minibars .col{display:flex;flex-direction:column;align-items:center;gap:6px}
+.minibars .bar{width:40px;border-radius:8px 8px 0 0;display:flex;justify-content:center;padding-top:6px}
+.minibars .bar .l{font-family:var(--mono);font-size:11px;font-weight:700;color:#fff}
+.minibars .cap{font-size:11px;color:var(--muted)}
+
+/* value explainer */
+.oddsline{padding:14px 8px 4px}
+.note{color:var(--faint);font-size:14px;margin-top:18px;max-width:34rem;line-height:1.6}.note b{color:var(--muted)}
+
+/* inside the app */
+.app-sec{background:linear-gradient(180deg,transparent,rgba(109,40,217,.06),transparent)}
+.appwrap{display:grid;grid-template-columns:.95fr 1.05fr;gap:56px;align-items:center}
+.stage{position:relative;perspective:1400px;display:flex;justify-content:center;padding:20px 0}
+.stage .halo{position:absolute;width:340px;height:340px;border-radius:50%;background:var(--deep);filter:blur(110px);opacity:.5;z-index:0}
+.device{position:relative;z-index:2;transform:rotateY(-16deg) rotateX(7deg) rotate(1deg);transform-style:preserve-3d;transition:transform .6s var(--ease)}
+.stage:hover .device{transform:rotateY(-6deg) rotateX(3deg)}
+.device .ghost{position:absolute;inset:0;transform:translate(34px,26px) rotateY(-16deg) scale(.97);border-radius:42px;background:var(--surface);border:1px solid var(--border);opacity:.5;z-index:-1}
+.applist{margin-top:26px;display:flex;flex-direction:column;gap:14px}
+.aitem{display:flex;gap:14px;align-items:flex-start}
+.aitem .d{width:34px;height:34px;flex:0 0 auto;border-radius:10px;display:flex;align-items:center;justify-content:center;color:var(--bright);border:1px solid rgba(139,92,246,.3);background:rgba(139,92,246,.08)}
+.aitem h4{font-size:16px}.aitem p{color:var(--muted);font-size:14px;margin-top:2px}
+@media(max-width:860px){.appwrap{grid-template-columns:1fr;gap:40px}.device{transform:none}.stage:hover .device{transform:none}.device .ghost{display:none}}
+
+/* pricing */
+.prices{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:44px;max-width:780px;margin-left:auto;margin-right:auto}
+.price{padding:32px;position:relative}
+.price.reco{border-color:rgba(139,92,246,.4);background:linear-gradient(170deg,rgba(109,40,217,.16),transparent 70%)}
 .price .tag{position:absolute;top:18px;right:18px;font-family:var(--mono);font-size:10px;font-weight:700;letter-spacing:1px;text-transform:uppercase;color:var(--bright);background:rgba(139,92,246,.15);border:1px solid rgba(139,92,246,.3);padding:4px 9px;border-radius:7px}
-.price .amt{font-family:var(--mono);font-size:38px;font-weight:700;margin-top:6px}
+.price .amt{font-family:var(--mono);font-size:40px;font-weight:700;margin-top:6px}
 .price .per{color:var(--muted);font-size:15px}
 .price .mo{color:var(--faint);font-size:13px;margin-top:2px}
-.price ul{list-style:none;margin:18px 0}
+.price ul{list-style:none;margin:20px 0}
 .price li{display:flex;gap:10px;padding:6px 0;font-size:14.5px;color:var(--muted)}
 .price li .c{color:var(--bright)}
 .price .btn{width:100%;margin-top:6px}
-.faq{max-width:760px;margin:36px auto 0}
-.faq details{border-bottom:1px solid var(--border);padding:18px 0}
+
+/* faq */
+.faq{max-width:780px;margin:40px auto 0}
+.faq details{border-bottom:1px solid var(--border);padding:20px 0}
 .faq summary{cursor:pointer;list-style:none;font-family:var(--display);font-weight:600;font-size:18px;display:flex;justify-content:space-between;gap:16px}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary .pl{color:var(--bright);transition:.2s}
+.faq summary .pl{color:var(--bright);transition:transform .2s var(--ease)}
 .faq details[open] summary .pl{transform:rotate(45deg)}
 .faq p{color:var(--muted);font-size:15px;margin-top:12px}
-.band{margin:30px 0;padding:60px 24px;text-align:center;border-radius:28px;background:radial-gradient(120% 140% at 50% 0%,rgba(109,40,217,.3),transparent 60%),var(--surface);border:1px solid var(--border2)}
-.band h2{font-size:clamp(26px,4vw,40px)}
-footer{border-top:1px solid var(--border);padding:40px 0;color:var(--faint);font-size:14px}
+
+/* final band */
+.band{position:relative;margin:30px 0;padding:80px 24px;text-align:center;border-radius:28px;background:radial-gradient(120% 150% at 50% 0%,rgba(109,40,217,.34),transparent 60%),var(--surface);border:1px solid var(--border2);overflow:hidden}
+.band h2{font-size:clamp(30px,5vw,52px);margin:0 auto;max-width:16ch;position:relative;z-index:2}
+.band .cta{margin-top:28px;position:relative;z-index:2}
+
+footer{border-top:1px solid var(--border);padding:44px 0;color:var(--faint);font-size:14px}
 .foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
 .foot a{color:var(--muted)}.foot a:hover{color:var(--text)}
+.foot .links{display:flex;gap:22px}
+
+/* motion */
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
+.reveal.in{opacity:1;transform:none}
+@keyframes rise{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+.enter{opacity:0;animation:rise 1s var(--ease) forwards}
+.enter.d1{animation-delay:.08s}.enter.d2{animation-delay:.18s}.enter.d3{animation-delay:.28s}.enter.d4{animation-delay:.2s}
+@media(prefers-reduced-motion:reduce){
+  .reveal{opacity:1;transform:none;transition:none}
+  .enter{opacity:1;animation:none}
+  .accent,.aurora i{animation:none}
+  .device,.stage:hover .device{transform:none}
+  .hdevice,.hstage:hover .hdevice{transform:none}
+}
+
+/* ===== responsive: tablet + phone ===== */
+@media(max-width:1024px){
+  .sec{padding:78px 0}
+  .appwrap{gap:40px}
+  .split{gap:44px}
+}
+@media(max-width:860px){
+  .bento{grid-template-columns:1fr}
+}
+@media(max-width:760px){
+  .wrap{padding:0 20px}
+  .sec{padding:58px 0}
+  .trustsec{padding:50px 0 16px}
+  .hero{padding:28px 0}
+  .band{padding:54px 20px;margin:20px 0}
+  .flow{gap:12px}
+  .dms{gap:14px}
+  .b{padding:22px}
+  .price{padding:26px}
+}
+@media(max-width:430px){
+  .nav-inner{height:60px}
+  .nav-right{gap:12px}
+  .btn{padding:12px 18px;font-size:14px}
+  .phone{width:264px}
+  .sec h2{font-size:clamp(26px,8vw,34px)}
+}
 </style>
 </head>
 <body>
@@ -148,51 +279,92 @@ footer{border-top:1px solid var(--border);padding:40px 0;color:var(--faint);font
   </div>
 </nav>
 
-<section class="hero split-hero" id="top">
-  <div class="glow" style="width:620px;height:620px;background:var(--deep);left:-140px;top:-140px"></div>
-  <div class="dots" style="height:760px;top:auto;bottom:-120px"></div>
-  <div class="wrap" style="position:relative;z-index:2">
+<section class="hero" id="top">
+  <div class="aurora"><i class="g1"></i><i class="g2"></i></div>
+  <div class="grid-tex"></div>
+  <div class="wrap">
     <div class="hero-grid">
       <div>
-        <span class="eyebrow">ATP betting, with a system</span>
-        <h1>Turn bad habits into a <span class="accent">high income skill</span>.</h1>
-        <p>Real ATP analysis, early to the market — so you lock in a better price than most bettors. Fewer bets, more discipline, no hype.</p>
-        <div class="cta" style="margin-top:30px"><a class="btn btn-primary" href="https://app.wavehubtennis.com/signup">Enroll now →</a></div>
+        <span class="eyebrow enter">ATP betting, with a system</span>
+        <h1 class="enter d1">Turn bad habits into a <span class="accent">high income skill</span>.</h1>
+        <p class="enter d2">Real ATP analysis, early to the market. You take a price higher than the matchup deserves, on fewer, disciplined bets.</p>
+        <div class="cta enter d3"><a class="btn btn-primary" href="https://app.wavehubtennis.com/signup">Enroll now →</a></div>
       </div>
-      <div class="phone">
-        <div class="screen">
-          <div class="app-head"><img src="https://app.wavehubtennis.com/logo.png" alt=""> <span>Wave<b>Hub</b></span></div>
-          <div class="seg"><button class="on">Bets</button><button>Insights</button></div>
-          <div class="bet">
-            <div class="bet-top"><div class="meta">Sun · Queen's · Open</div><span class="play">Play 1.5u</span></div>
-            <h4>Auger-Aliassime — Majchrzak</h4>
-            <div class="ofe"><div><div class="k">Odds</div><div class="v">1.91</div></div><div><div class="k">Fair</div><div class="v">1.74</div></div><div><div class="k">Edge</div><div class="v pos">+9.8%</div></div></div>
-            <p class="read"><b>Read:</b> price is higher than the matchup warrants — value is in the line, not the headline.</p>
-          </div>
-          <div class="bet">
-            <div class="bet-top"><div class="meta">Sun · Halle · Open</div><span class="nobet">No bet</span></div>
-            <h4>Zhang — Mannarino</h4>
-            <p class="read">No value at the current price. Discipline says: skip.</p>
+
+      <div class="hstage enter d4">
+        <div class="hhalo"></div>
+        <div class="hdevice">
+          <div class="phone">
+            <div class="screen">
+              <div class="app-head"><img src="https://app.wavehubtennis.com/logo.png" alt=""> <span>Wave<b>Hub</b></span></div>
+              <div class="seg"><button class="on">Bets</button><button>Insights</button></div>
+              <div class="bet">
+                <div class="bet-top"><div class="meta">Sun · Queen's · Open</div><span class="play">Play 1.5u</span></div>
+                <h4>Auger-Aliassime vs Majchrzak</h4>
+                <div class="ofe"><div><div class="k">Odds</div><div class="v">1.91</div></div><div><div class="k">Fair</div><div class="v">1.74</div></div><div><div class="k">Value</div><div class="v pos">+9.8%</div></div></div>
+                <p class="read"><b>Read:</b> the price is higher than the matchup warrants. The value is in the line.</p>
+              </div>
+              <div class="bet">
+                <div class="bet-top"><div class="meta">Sun · Halle · Open</div><span class="nobet">No bet</span></div>
+                <h4>Zhang vs Mannarino</h4>
+                <p class="read">No value at the current price. Discipline says: skip.</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>
     </div>
-    <div class="kpis" style="margin-top:50px">
-      <div class="kpi"><b>ATP</b><span>men's tennis only</span></div>
-      <div class="kpi"><b>CLV+</b><span>beat the closing price</span></div>
-      <div class="kpi"><b>2022</b><span>in the game since</span></div>
+  </div>
+</section>
+
+<!-- TRUST: placeholder Instagram DMs. Replace text/handles/avatars with real testimonial screenshots. -->
+<section class="trustsec">
+  <div class="wrap">
+    <div class="center reveal" style="max-width:560px">
+      <h2 class="center" style="font-size:clamp(26px,4vw,40px)">What members are saying.</h2>
+      <p class="lead center">Straight from the DMs of people inside the community.</p>
+    </div>
+    <div class="dms">
+      <div class="dm reveal">
+        <div class="dm-head">
+          <div class="dm-av"><span>MK</span></div>
+          <div class="dm-handle">marc_kln<span class="sub">@marc_kln</span></div>
+          <svg class="dm-ig" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div class="bubble">the no-bet calls are what changed it for me. finally stopped chasing every match 🙏</div>
+        <div class="bubble out">that's the whole point 💪</div>
+        <div class="dm-foot"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5.5 6 5.5c2 0 3 1 4 2.5 1-1.5 2-2.5 4-2.5 3.5 0 5 3.5 3.5 6.5C19 16.5 12 21 12 21Z"/></svg> Liked · Seen</div>
+      </div>
+      <div class="dm reveal">
+        <div class="dm-head">
+          <div class="dm-av"><span>TS</span></div>
+          <div class="dm-handle">tom.serves<span class="sub">@tom.serves</span></div>
+          <svg class="dm-ig" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div class="bubble">the staking plan alone is worth the membership. way more disciplined now, no more random stakes</div>
+        <div class="dm-foot"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5.5 6 5.5c2 0 3 1 4 2.5 1-1.5 2-2.5 4-2.5 3.5 0 5 3.5 3.5 6.5C19 16.5 12 21 12 21Z"/></svg> Liked · Seen</div>
+      </div>
+      <div class="dm reveal">
+        <div class="dm-head">
+          <div class="dm-av"><span>VK</span></div>
+          <div class="dm-handle">value.kev<span class="sub">@value.kev</span></div>
+          <svg class="dm-ig" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor" stroke="none"/></svg>
+        </div>
+        <div class="bubble">didn't really get value betting before. now I check the fair price on every match 👀 total eye opener</div>
+        <div class="bubble out">that click is everything 🎾</div>
+        <div class="dm-foot"><svg width="13" height="13" viewBox="0 0 24 24" fill="currentColor"><path d="M12 21s-7-4.5-9.5-9C1 9 2.5 5.5 6 5.5c2 0 3 1 4 2.5 1-1.5 2-2.5 4-2.5 3.5 0 5 3.5 3.5 6.5C19 16.5 12 21 12 21Z"/></svg> Liked · Seen</div>
+      </div>
     </div>
   </div>
 </section>
 
 <section class="sec">
   <div class="wrap split">
-    <div>
-      <span class="eyebrow">The truth</span>
-      <h2 style="margin-top:14px">Most people don't lose to bad luck. They lose to systemless chaos.</h2>
-      <p class="lead">It starts fine. Then a loss stings, the stake creeps up, and emotion takes the wheel. The line below isn't bad luck — it's what greed and tilt do to a bankroll.</p>
+    <div class="reveal">
+      <h2>Most people don't lose to bad luck. They lose to systemless chaos.</h2>
+      <p class="lead">It starts fine. Then a loss stings, the stake creeps up, and emotion takes the wheel. The line on the right isn't bad luck. It's what greed and tilt do to a bankroll.</p>
     </div>
-    <div class="card card-glow" style="padding:18px">
+    <div class="card card-glow reveal" style="padding:18px">
       <svg viewBox="0 0 560 320" width="100%" role="img" aria-label="A bankroll rises, then crashes when emotion takes over">
         <defs>
           <linearGradient id="up" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#a855f7" stop-opacity=".35"/><stop offset="1" stop-color="#a855f7" stop-opacity="0"/></linearGradient>
@@ -205,7 +377,7 @@ footer{border-top:1px solid var(--border);padding:40px 0;color:var(--faint);font
         <circle cx="270" cy="95" r="6" fill="#a855f7"/>
         <text x="270" y="78" fill="#f4f2f8" font-family="Inter" font-size="13" font-weight="600" text-anchor="middle">On a streak</text>
         <circle cx="340" cy="178" r="5.5" fill="#fb7185"/>
-        <text x="350" y="166" fill="#fb7185" font-family="Inter" font-size="12.5" font-weight="600">Stakes too big — greed</text>
+        <text x="350" y="166" fill="#fb7185" font-family="Inter" font-size="12.5" font-weight="600">Stakes too big. Greed.</text>
         <circle cx="440" cy="200" r="5.5" fill="#fb7185"/>
         <text x="452" y="190" fill="#fb7185" font-family="Inter" font-size="12.5" font-weight="600">Chasing the loss</text>
         <circle cx="535" cy="272" r="6" fill="#fb7185"/>
@@ -217,76 +389,160 @@ footer{border-top:1px solid var(--border);padding:40px 0;color:var(--faint);font
 
 <section class="sec">
   <div class="wrap">
-    <div class="center" style="max-width:640px">
-      <span class="eyebrow">How it works</span>
-      <h2 class="center" style="margin-top:14px">Stop guessing. Start reading the line.</h2>
+    <div class="center reveal" style="max-width:640px">
+      <h2 class="center">Stop guessing. Start reading the line.</h2>
       <p class="lead center">Three habits that replace the chaos. The app keeps you honest at every step.</p>
     </div>
-    <div class="card" style="padding:10px 28px;margin-top:38px">
-      <div class="step"><div class="n">1</div><div><h3>Get the picks</h3><p>Structured ATP calls with the reasoning behind every one — surface, form, the numbers that matter.</p></div></div>
-      <div class="step"><div class="n">2</div><div><h3>Stake with discipline</h3><p>A precise budget for every bet. You stake more on fewer, higher-conviction calls — and never chase.</p></div></div>
-      <div class="step"><div class="n">3</div><div><h3>Learn the game</h3><p>Get tools nobody else has access to and build a skill you keep for life — not a one-off tip.</p></div></div>
+    <div class="flow reveal">
+      <div class="fstep"><div class="fnum">01</div><h3>Get the picks</h3><p>Structured ATP calls with the reasoning behind every one. Surface, form, and the numbers that matter.</p></div>
+      <div class="fstep"><div class="fnum">02</div><h3>Stake with discipline</h3><p>A precise budget for every bet. You stake more on fewer, higher-conviction calls, and never chase.</p></div>
+      <div class="fstep"><div class="fnum">03</div><h3>Learn the game</h3><p>Tools nobody else has access to, and a skill you keep for life. Not a one-off tip.</p></div>
     </div>
-  </div>
-</section>
-
-<section class="sec">
-  <div class="wrap center" style="max-width:680px">
-    <span class="eyebrow">Built different</span>
-    <h2 class="center" style="margin-top:14px">Built for operators, not gamblers.</h2>
-    <p class="lead center">WaveHub is an installable app and service for serious ATP bettors who want a repeatable edge. We've been in the game since 2022 — this is the system we actually use.</p>
-    <div style="margin-top:26px"><a class="btn btn-primary" href="https://app.wavehubtennis.com/signup">Enroll now →</a></div>
   </div>
 </section>
 
 <section class="sec">
   <div class="wrap">
-    <div class="center" style="max-width:620px"><span class="eyebrow">Everything to master the craft</span><h2 class="center" style="margin-top:14px">One system. The whole edge.</h2></div>
-    <div class="grid3">
-      <div class="card feat"><div class="ic">◆</div><h3>Structured ATP picks</h3><p>Calm, analytical reasoning behind every call. No hype, no noise.</p></div>
-      <div class="card feat"><div class="ic">↗</div><h3>CLV value chasing</h3><p>Every pick aims to beat the closing price — a higher value than the market.</p></div>
-      <div class="card feat"><div class="ic">▣</div><h3>Bankroll discipline</h3><p>A precise budget for every bet — minimize losses, maximize gains. We show you how to build a bankroll from your monthly income.</p></div>
-      <div class="card feat"><div class="ic">≣</div><h3>Insights &amp; stats</h3><p>Surface, winner/unforced-error ratio, current form — the metrics that decide ATP matches.</p></div>
-      <div class="card feat"><div class="ic">⤓</div><h3>Tools &amp; PDFs</h3><p>Tournament breakdowns and tools you won't find anywhere else.</p></div>
-      <div class="card feat"><div class="ic">◷</div><h3>Tournament view</h3><p>The full ATP calendar at a glance — current and upcoming.</p></div>
+    <div class="center reveal" style="max-width:620px">
+      <span class="eyebrow">Everything to master the craft</span>
+      <h2 class="center" style="margin-top:14px">One system. The whole edge.</h2>
+    </div>
+    <div class="bento">
+      <div class="card b lift spot reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg></div>
+        <h3>Value first</h3>
+        <p>Every pick takes a price higher than the matchup deserves. That gap is your edge.</p>
+        <div class="minibars">
+          <div class="col"><div class="bar" style="height:64px;background:linear-gradient(180deg,var(--bright),var(--primary))"><span class="l">1.91</span></div><span class="cap">Your price</span></div>
+          <div class="col"><div class="bar" style="height:46px;background:linear-gradient(180deg,var(--deep),#4c1d95)"><span class="l">1.74</span></div><span class="cap">Fair</span></div>
+          <div style="align-self:center;color:var(--pos);font-family:var(--mono);font-weight:700;font-size:13px">+9.8% value</div>
+        </div>
+      </div>
+      <div class="card b lift spot reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/><path d="M12 12h.01"/></svg></div>
+        <h3>Structured ATP picks</h3>
+        <p>Calm, analytical reasoning behind every call. No hype, no noise.</p>
+        <div class="bet">
+          <div class="bet-top"><div class="meta">Mon · Halle · R16</div><span class="play">Play 2u</span></div>
+          <h4>Sinner vs Bublik</h4>
+          <div class="ofe"><div><div class="k">Odds</div><div class="v">1.62</div></div><div><div class="k">Fair</div><div class="v">1.50</div></div><div><div class="k">Value</div><div class="v pos">+7.4%</div></div></div>
+        </div>
+      </div>
+      <div class="card b tint lift spot reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/><path d="M9 12l2 2 4-4"/></svg></div>
+        <h3>Bankroll discipline</h3>
+        <p>A precise budget for every bet. Minimize the losses, compound the wins. We show you how to build a bankroll from your monthly income.</p>
+      </div>
+      <div class="card b lift spot reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19V5"/><path d="M4 19h16"/><rect x="7" y="11" width="3" height="5"/><rect x="13" y="7" width="3" height="9"/></svg></div>
+        <h3>Insights &amp; stats</h3>
+        <p>Surface, winner to unforced-error ratio, current form. The metrics that decide ATP matches.</p>
+      </div>
+      <div class="card b lift spot reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3v5h5"/><path d="M14 3H6v18h12V8z"/><path d="M9 15l3 3 3-3"/><path d="M12 12v6"/></svg></div>
+        <h3>Tools &amp; PDFs</h3>
+        <p>Tournament breakdowns and tools you won't find anywhere else.</p>
+      </div>
+      <div class="card b lift spot reveal">
+        <div class="ic"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="17" rx="2"/><path d="M3 9h18M8 2v4M16 2v4"/></svg></div>
+        <h3>Tournament view</h3>
+        <p>The full ATP calendar at a glance, current and upcoming.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec app-sec">
+  <div class="wrap appwrap">
+    <div class="stage reveal">
+      <div class="halo"></div>
+      <div class="device">
+        <div class="ghost"></div>
+        <div class="phone">
+          <div class="screen">
+            <div class="app-head"><img src="https://app.wavehubtennis.com/logo.png" alt=""> <span>Wave<b>Hub</b></span></div>
+            <div class="seg"><button>Bets</button><button class="on">Insights</button></div>
+            <div class="insight">
+              <div class="meta">Mon · Halle · R16</div>
+              <h4>Sinner vs Bublik</h4>
+              <div class="irow h"><div class="p">Player</div><div class="c">Win%</div><div class="c">UE</div><div class="c">Form</div></div>
+              <div class="irow"><div class="p">Sinner</div><div class="c">64</div><div class="c">12</div><div class="c g">↑</div></div>
+              <div class="irow"><div class="p">Bublik</div><div class="c">41</div><div class="c">23</div><div class="c r">↓</div></div>
+            </div>
+            <div class="insight" style="margin-top:12px">
+              <div class="meta">Read</div>
+              <p class="read" style="margin-top:6px">Cleaner from the back. Fewer cheap errors on this surface. The price has not caught up yet.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="reveal">
+      <h2>The whole system, in your pocket.</h2>
+      <div class="applist">
+        <div class="aitem"><div class="d"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><circle cx="12" cy="12" r="4"/></svg></div><div><h4>A clean daily feed</h4><p>Every pick with its read, stake and value. Plus an honest "No bet" when there is none.</p></div></div>
+        <div class="aitem"><div class="d"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 17l6-6 4 4 8-8"/><path d="M17 7h4v4"/></svg></div><div><h4>Value, then proof</h4><p>See where you bought against where the line closed, so you know the edge was real.</p></div></div>
+        <div class="aitem"><div class="d"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l8 3v5c0 5-3.4 8.5-8 10-4.6-1.5-8-5-8-10V6l8-3Z"/></svg></div><div><h4>A staking calculator</h4><p>The exact budget for each bet, capped to protect your bankroll. It even tells you when to pass.</p></div></div>
+      </div>
+      <div style="margin-top:28px"><a class="btn btn-primary" href="https://app.wavehubtennis.com/signup">Enroll now →</a></div>
     </div>
   </div>
 </section>
 
 <section class="sec">
   <div class="wrap split">
-    <div>
-      <span class="eyebrow">The pro metric</span>
-      <h2 style="margin-top:14px">What is Closing Line Value?</h2>
-      <p class="lead">CLV simply means you got a higher value than the market says. You bought the price <em>before</em> it moved — so you're ahead of where the line closes. Consistently beating the close is your edge.</p>
+    <div class="reveal">
+      <h2>What is value?</h2>
+      <p class="lead">Value is the whole game. The price you take is higher than the matchup deserves, so you are paid more than the risk is worth. Take 1.91 where the fair price is 1.74 and the math works for you, not the book. Stack enough of those and the edge compounds.</p>
+      <p class="note"><b>And the proof:</b> when the line later closes below your price, you know the value was real. That confirmation is called Closing Line Value. It is how we check our work, not the pitch.</p>
     </div>
-    <div class="card card-glow">
-      <div class="clvbars">
-        <div style="text-align:center"><div class="clvbar" style="height:160px;background:linear-gradient(180deg,var(--bright),var(--primary))"><span class="lab">1.95</span></div><div style="font-size:12px;color:var(--muted);margin-top:8px">Your price</div></div>
-        <div style="text-align:center"><div class="clvbar" style="height:118px;background:linear-gradient(180deg,var(--deep),#4c1d95)"><span class="lab">1.82</span></div><div style="font-size:12px;color:var(--muted);margin-top:8px">Closing</div></div>
+    <div class="card card-glow reveal" style="padding:24px">
+      <div class="oddsline">
+        <svg viewBox="0 0 500 160" width="100%" role="img" aria-label="An odds line: your price sits above the fair price, the gap between them is your value">
+          <defs><linearGradient id="vseg" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6d28d9"/><stop offset="1" stop-color="#a855f7"/></linearGradient></defs>
+          <!-- value badge -->
+          <rect x="231" y="10" width="84" height="28" rx="14" fill="rgba(168,85,247,.16)" stroke="rgba(168,85,247,.5)"/>
+          <text x="273" y="28" fill="#a855f7" font-family="JetBrains Mono" font-size="12.5" font-weight="700" text-anchor="middle">+9.8% value</text>
+          <!-- bracket connecting the two prices -->
+          <path d="M273,38 L273,52 M193,52 L354,52 M193,52 L193,62 M354,52 L354,62" fill="none" stroke="rgba(168,85,247,.45)" stroke-width="1.5"/>
+          <path d="M193,62 L193,98" stroke="rgba(168,85,247,.25)" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <path d="M354,62 L354,98" stroke="rgba(168,85,247,.25)" stroke-width="1.5" stroke-dasharray="3 4"/>
+          <!-- axis -->
+          <line x1="50" y1="106" x2="450" y2="106" stroke="rgba(255,255,255,.10)" stroke-width="2"/>
+          <g stroke="rgba(255,255,255,.10)"><line x1="60" y1="102" x2="60" y2="110"/><line x1="155" y1="102" x2="155" y2="110"/><line x1="250" y1="102" x2="250" y2="110"/><line x1="345" y1="102" x2="345" y2="110"/><line x1="440" y1="102" x2="440" y2="110"/></g>
+          <!-- value segment -->
+          <line x1="193" y1="106" x2="354" y2="106" stroke="url(#vseg)" stroke-width="6" stroke-linecap="round"/>
+          <!-- markers -->
+          <circle cx="193" cy="106" r="6" fill="#4c1d95" stroke="#a855f7" stroke-width="2"/>
+          <circle cx="354" cy="106" r="7" fill="#a855f7"/>
+          <circle cx="354" cy="106" r="13" fill="none" stroke="#a855f7" stroke-opacity=".35"/>
+          <!-- labels -->
+          <text x="193" y="138" fill="#9a93ad" font-family="JetBrains Mono" font-size="12" font-weight="700" text-anchor="middle">Fair 1.74</text>
+          <text x="354" y="138" fill="#f4f2f8" font-family="JetBrains Mono" font-size="12" font-weight="700" text-anchor="middle">You 1.91</text>
+        </svg>
       </div>
-      <p style="text-align:center;color:var(--pos);font-family:var(--mono);font-weight:700;padding:0 0 18px">You beat the close → CLV+</p>
+      <p style="text-align:center;color:var(--pos);font-family:var(--mono);font-weight:700;padding:4px 0 16px">You are paid more than the risk. That is value.</p>
     </div>
   </div>
 </section>
 
 <section class="sec" id="pricing">
   <div class="wrap">
-    <div class="center" style="max-width:560px"><span class="eyebrow">Membership</span><h2 class="center" style="margin-top:14px">Enroll in WaveHub.</h2></div>
+    <div class="center reveal" style="max-width:560px"><span class="eyebrow">Membership</span><h2 class="center" style="margin-top:14px">Enroll in WaveHub.</h2><p class="lead center">An installable app and service for serious ATP bettors. The system we have actually used since 2022.</p></div>
     <div class="prices">
-      <div class="card price">
+      <div class="card price lift reveal">
         <h3 style="font-size:22px">Core</h3>
         <div class="amt">€479<span class="per"> /year</span></div>
         <div class="mo">≈ €40 / month, billed yearly</div>
         <ul>
           <li><span class="c">✓</span> Daily ATP bet feed</li>
           <li><span class="c">✓</span> Match insights &amp; stats</li>
-          <li><span class="c">✓</span> CLV value chasing</li>
+          <li><span class="c">✓</span> Value on every pick</li>
           <li><span class="c">✓</span> Staking calculator</li>
         </ul>
         <a class="btn btn-ghost" href="https://app.wavehubtennis.com/signup?plan=core">Enroll now</a>
       </div>
-      <div class="card price reco card-glow">
+      <div class="card price reco card-glow reveal">
         <span class="tag">Recommended</span>
         <h3 style="font-size:22px">Private</h3>
         <div class="amt">€779<span class="per"> /year</span></div>
@@ -305,33 +561,57 @@ footer{border-top:1px solid var(--border);padding:40px 0;color:var(--faint);font
 
 <section class="sec">
   <div class="wrap">
-    <div class="center" style="max-width:560px"><span class="eyebrow">FAQ</span><h2 class="center" style="margin-top:14px">Good to know.</h2></div>
-    <div class="faq">
-      <details><summary>Is WaveHub a bookmaker? <span class="pl">+</span></summary><p>No. WaveHub is an analysis and consulting service — no money is staked, held or moved through us. We're on your side of the line, not the house's.</p></details>
-      <details><summary>How do you get a better price than most bettors? <span class="pl">+</span></summary><p>We're early. We analyse the match and lock in the value before the market corrects and the line moves. That gap is Closing Line Value (CLV) — the core of the edge.</p></details>
-      <details><summary>How many picks per day? <span class="pl">+</span></summary><p>Few, high-conviction. Not daily noise. Some days there's nothing worth betting — and we'll say so. The bets that do come are tightly structured.</p></details>
-      <details><summary>What do you actually analyse? <span class="pl">+</span></summary><p>The metrics that decide ATP matches: surface, winner/unforced-error ratio, recent performance and form — through proven systems, not gut feeling.</p></details>
-      <details><summary>Can I use it on desktop and phone? <span class="pl">+</span></summary><p>Yes. One account, everywhere — desktop, mobile and the installable app. Log in once and you're in across all your devices.</p></details>
+    <div class="center reveal" style="max-width:560px"><h2 class="center">Good to know.</h2></div>
+    <div class="faq reveal">
+      <details><summary>Is WaveHub a bookmaker? <span class="pl">+</span></summary><p>No. WaveHub is an analysis and consulting service. No money is staked, held or moved through us. We are on your side of the line, not the house's.</p></details>
+      <details><summary>How do you get a better price than most bettors? <span class="pl">+</span></summary><p>We are early. We find a price that is higher than the matchup deserves, before the market corrects and the line moves. Taking that value, again and again, is the edge.</p></details>
+      <details><summary>How many picks per day? <span class="pl">+</span></summary><p>Few and high-conviction, not daily noise. Some days there is nothing worth betting, and we will say so. The bets that do come are tightly structured.</p></details>
+      <details><summary>What do you actually analyse? <span class="pl">+</span></summary><p>The metrics that decide ATP matches: surface, winner to unforced-error ratio, recent performance and form. Through proven systems, not gut feeling.</p></details>
+      <details><summary>Can I use it on desktop and phone? <span class="pl">+</span></summary><p>Yes. One account everywhere: desktop, mobile and the installable app. Log in once and you are in across all your devices.</p></details>
       <details><summary>How does payment work? <span class="pl">+</span></summary><p>Securely in your browser via Stripe. Memberships are yearly. No money moves inside the app itself.</p></details>
     </div>
   </div>
 </section>
 
 <section class="wrap">
-  <div class="band">
-    <span class="eyebrow">Ready?</span>
-    <h2 style="margin:12px auto 0;max-width:18ch">Turn bad habits into a high income skill.</h2>
-    <div style="margin-top:26px"><a class="btn btn-primary" href="https://app.wavehubtennis.com/signup">Enroll now →</a></div>
+  <div class="band reveal">
+    <div class="aurora"><i class="g1" style="opacity:.4"></i></div>
+    <h2>Turn bad habits into a high income skill.</h2>
+    <div class="cta"><a class="btn btn-primary" href="https://app.wavehubtennis.com/signup">Enroll now →</a></div>
   </div>
 </section>
 
 <footer>
   <div class="wrap foot">
     <a class="brand" href="#top" style="font-size:17px"><img src="https://app.wavehubtennis.com/logo.png" style="width:24px;height:24px" alt=""> <span>Wave<b>Hub</b></span></a>
-    <div style="display:flex;gap:22px"><a href="#pricing">Pricing</a><a href="https://app.wavehubtennis.com/login">Login</a><a href="https://app.wavehubtennis.com/signup">Enroll</a></div>
+    <div class="links"><a href="#pricing">Pricing</a><a href="https://app.wavehubtennis.com/login">Login</a><a href="https://app.wavehubtennis.com/signup">Enroll</a></div>
     <span>© 2026 WaveHub · wavehubtennis.com</span>
   </div>
 </footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var els = document.querySelectorAll('.reveal');
+  if (reduce || !('IntersectionObserver' in window)) {
+    els.forEach(function(el){ el.classList.add('in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(e){ if (e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+    }, { threshold: 0.14, rootMargin: '0px 0px -8% 0px' });
+    els.forEach(function(el){ io.observe(el); });
+  }
+  if (!reduce && window.matchMedia('(hover:hover)').matches) {
+    document.querySelectorAll('.spot').forEach(function(card){
+      card.addEventListener('mousemove', function(ev){
+        var r = card.getBoundingClientRect();
+        card.style.setProperty('--mx', (ev.clientX - r.left) + 'px');
+        card.style.setProperty('--my', (ev.clientY - r.top) + 'px');
+      });
+    });
+  }
+})();
+</script>
 
 </body>
 </html>
