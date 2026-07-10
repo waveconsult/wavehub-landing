@@ -63,7 +63,9 @@ nav.solid{background:rgba(0,0,0,.7);backdrop-filter:blur(14px);border-bottom:1px
 .brand b{color:var(--gold);font-weight:700}
 .nav-mid{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:500;color:var(--ink)}
 .nav-mid a{opacity:.85}.nav-mid a:hover{opacity:1}
-.nav-right{display:flex;align-items:center;gap:14px}
+.nav-right{display:flex;align-items:center;gap:16px}
+.nav-app{font-size:13px;font-weight:500;color:var(--ink);opacity:.82;white-space:nowrap}
+.nav-app:hover{opacity:1}
 @media(max-width:900px){.nav-mid{display:none}.nav-inner{height:64px}}
 @media(max-width:520px){.nav-right .btn:not(.apply){display:none}}
 
@@ -82,7 +84,7 @@ nav.solid{background:rgba(0,0,0,.7);backdrop-filter:blur(14px);border-bottom:1px
 .hstat{text-align:center}
 .hstat b{font-family:var(--sans);font-weight:700;font-size:clamp(20px,2.4vw,30px);color:var(--white);display:block;letter-spacing:-.01em}
 .hstat span{font-family:var(--sans);font-size:11px;font-weight:500;color:rgba(242,240,233,.7);text-transform:uppercase;letter-spacing:1.5px;display:block;margin-top:8px}
-@media(max-width:620px){.hero-stats{gap:26px;bottom:34px}.hstat span{font-size:9.5px;letter-spacing:1px}}
+@media(max-width:620px){.hero-stats{gap:26px;bottom:34px}.hstat span{font-size:9.5px;letter-spacing:1px}.hero .cta{width:100%;gap:12px}.hero .cta .btn{flex:1 1 0;padding:15px 8px;font-size:14px}}
 
 /* emotional hook */
 .hook{background:var(--bg);text-align:center;padding:150px 24px}
@@ -219,6 +221,7 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
       <a href="#membership">Membership</a>
     </div>
     <div class="nav-right">
+      <a class="nav-app" href="https://app.wavehubtennis.com">Get the app</a>
       <a class="btn btn-outline btn-sm" href="https://app.wavehubtennis.com/login">Members access</a>
       <a class="btn btn-sm apply" href="https://app.wavehubtennis.com/apply">Apply</a>
     </div>
