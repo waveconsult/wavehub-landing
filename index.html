@@ -6,7 +6,8 @@
 <title>WaveHub: A members' club for a high-income skill</title>
 <meta name="description" content="A members' club for motivated people learning a high-income skill: disciplined ATP value betting. Few bets, early prices, zero hype. Enroll today.">
 <meta name="theme-color" content="#000000">
-<link rel="icon" href="https://app.wavehubtennis.com/icon.png">
+<link rel="icon" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
 <meta property="og:title" content="WaveHub: A members' club for a high-income skill">
 <meta property="og:description" content="A members' club for motivated people learning a high-income skill. Few bets, early prices, zero hype. Enroll today.">
@@ -26,9 +27,10 @@
    dark ATP b-roll (night sessions, courts, stadium lights).
    ============================================================ */
 :root{
-  --bg:#000;--bg2:#0b0b0a;--ink:#f2f0e9;--white:#fff;--mut:#94928a;--faint:#605f58;
+  --bg:#000;--bg2:#0c0c0d;--ink:#ededee;--white:#fff;--mut:#8f9096;--faint:#5b5c60;
   --line:rgba(255,255,255,.12);--line-soft:rgba(255,255,255,.07);
-  --gold:#caa76b;--gold-dim:#a98b56;
+  /* platinum / silver accent (replaces champagne gold) */
+  --gold:#cdd2d8;--gold-dim:#9aa0a8;--silver-bright:#eef1f4;
   --sans:'General Sans','Inter',system-ui,sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);
 }
@@ -59,7 +61,8 @@ u.gold{text-decoration:none;border-bottom:3px solid var(--gold)}
 nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .3s var(--ease),border-color .3s var(--ease)}
 nav.solid{background:rgba(0,0,0,.7);backdrop-filter:blur(14px);border-bottom:1px solid var(--line-soft)}
 .nav-inner{display:flex;align-items:center;justify-content:space-between;height:74px;max-width:1280px;margin:0 auto;padding:0 28px}
-.brand{font-family:var(--sans);font-weight:700;font-size:20px;letter-spacing:-.01em;text-transform:uppercase}
+.brand{display:inline-flex;align-items:center;gap:9px;font-family:var(--sans);font-weight:700;font-size:20px;letter-spacing:-.01em;text-transform:uppercase}
+.brand .brand-logo{height:26px;width:auto;display:block;filter:drop-shadow(0 1px 6px rgba(255,255,255,.12))}
 .brand b{color:var(--gold);font-weight:700}
 .nav-mid{display:flex;align-items:center;gap:34px;font-size:14px;font-weight:500;color:var(--ink)}
 .nav-mid a{opacity:.85}.nav-mid a:hover{opacity:1}
@@ -146,7 +149,7 @@ nav.solid{background:rgba(0,0,0,.7);backdrop-filter:blur(14px);border-bottom:1px
 /* membership */
 .plans{margin-top:64px;display:grid;grid-template-columns:1fr 1fr;gap:20px}
 .plan{border:1px solid var(--line-soft);border-radius:24px;background:var(--bg2);padding:50px 44px}
-.plan.reco{border-color:rgba(202,167,107,.45)}
+.plan.reco{border-color:rgba(205,210,216,.5)}
 .plan .tier{font-size:12px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--mut)}
 .plan .tier .r{color:var(--gold)}
 .plan h3{font-size:28px;margin-top:14px;color:var(--white)}
@@ -244,7 +247,7 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
 
 <nav id="nav">
   <div class="nav-inner">
-    <a class="brand" href="#top">Wave<b>hub</b></a>
+    <a class="brand" href="#top"><img class="brand-logo" src="assets/logo.png" alt="WaveHub logo">Wave<b>hub</b></a>
     <div class="nav-mid">
       <a href="#system">The skill</a>
       <a href="#members">Members</a>
@@ -457,7 +460,7 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
 
 <footer>
   <div class="wrap foot">
-    <a class="brand" href="#top" style="font-size:16px">Wave<b>hub</b></a>
+    <a class="brand" href="#top" style="font-size:16px"><img class="brand-logo" src="assets/logo.png" alt="WaveHub logo" style="height:22px">Wave<b>hub</b></a>
     <div class="links">
       <a href="#membership">Membership</a>
       <a href="https://app.wavehubtennis.com/login">Members login</a>
