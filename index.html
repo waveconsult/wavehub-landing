@@ -383,6 +383,135 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
   </div>
 </section>
 
+<style>
+/* ===== Track record ===== */
+.record{border-top:1px solid var(--line-soft)}
+.record .rec-cap{margin-top:14px;font-size:12px;color:var(--faint)}
+/* desktop table (hidden on mobile) */
+.rec-scroll{display:none;margin-top:38px;max-height:520px;overflow:auto;border:1px solid var(--line-soft);border-radius:14px}
+.rec-table{width:100%;border-collapse:separate;border-spacing:0;font-size:14px}
+.rec-table thead th{position:sticky;top:0;z-index:1;background:linear-gradient(180deg,var(--silver-bright),var(--gold));color:#0a0a0b;font-weight:700;text-align:left;padding:14px 16px;font-size:11px;letter-spacing:.09em;text-transform:uppercase;white-space:nowrap}
+.rec-table thead th:last-child{text-align:right}
+.rec-table tbody td{padding:15px 16px;border-bottom:1px solid var(--line-soft);color:var(--ink);white-space:nowrap}
+.rec-table tbody tr:last-child td{border-bottom:0}
+.rec-table tbody tr:nth-child(even) td{background:rgba(255,255,255,.02)}
+.rec-table .tkr{font-weight:700;color:var(--white)}
+.rec-table .odds{font-variant-numeric:tabular-nums;color:var(--mut)}
+.rec-table .pl{text-align:right;font-weight:700;font-variant-numeric:tabular-nums}
+.rec-table .pl.win{color:var(--silver-bright)}
+.rec-table .pl.loss{color:var(--mut)}
+.res{display:inline-flex;align-items:center;font-size:12px;font-weight:600;padding:3px 11px;border-radius:999px;border:1px solid var(--line)}
+.res.win{color:var(--white);background:rgba(255,255,255,.09)}
+.res.loss{color:var(--mut);background:rgba(255,255,255,.02)}
+/* mobile accordion (shown on mobile) */
+.rec-acc{display:block;margin-top:32px}
+.rec-acc details{border:1px solid var(--line-soft);border-radius:14px;background:var(--bg2);margin-bottom:10px;overflow:hidden}
+.rec-acc summary{list-style:none;cursor:pointer;display:flex;align-items:center;justify-content:space-between;gap:12px;padding:16px}
+.rec-acc summary::-webkit-details-marker{display:none}
+.rec-acc .s-sel{font-weight:700;font-size:17px;color:var(--white)}
+.rec-acc .s-sel sup{font-size:10px;font-weight:600;color:var(--mut);margin-left:7px;text-transform:uppercase;letter-spacing:.07em;vertical-align:super}
+.rec-acc .s-right{display:flex;align-items:center;gap:14px}
+.rec-acc .s-pl{font-weight:700;font-size:15px;font-variant-numeric:tabular-nums}
+.rec-acc .s-pl.win{color:var(--silver-bright)}
+.rec-acc .s-pl.loss{color:var(--mut)}
+.rec-acc .s-tog{width:30px;height:30px;flex:0 0 auto;border-radius:50%;border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink);font-size:20px;line-height:0}
+.rec-acc .s-tog::before{content:"+"}
+.rec-acc details[open] .s-tog::before{content:"\2212"}
+.rec-acc .s-body{padding:2px 16px 16px;display:grid;gap:0}
+.rec-acc .s-body .r{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line-soft);padding:11px 0;font-size:14px}
+.rec-acc .s-body .r span:first-child{color:var(--mut)}
+.rec-acc .s-body .r span:last-child{color:var(--ink);font-weight:500}
+/* summary box */
+.rec-sum{margin-top:30px;max-width:520px;margin-left:auto}
+.rs-grid{display:grid;grid-template-columns:1fr auto auto;border:1px solid var(--line-soft);border-radius:14px;overflow:hidden}
+.rs-cell{padding:14px 18px;font-size:14px;border-bottom:1px solid var(--line-soft);text-align:right;font-variant-numeric:tabular-nums}
+.rs-cell:nth-last-child(-n+3){border-bottom:0}
+.rs-lab{text-align:left;color:var(--mut)}
+.rs-head{background:linear-gradient(180deg,var(--silver-bright),var(--gold));color:#0a0a0b;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
+.rs-cell.win{color:var(--silver-bright);font-weight:700}
+.rs-cell.loss{color:var(--mut);font-weight:700}
+.rs-foot{margin-top:14px;text-align:right;font-size:13px;color:var(--mut)}
+.rs-foot b{color:var(--white)}
+@media(min-width:760px){
+  .rec-scroll{display:block}
+  .rec-acc{display:none}
+}
+</style>
+<section class="sec record" id="record">
+  <div class="wrap">
+    <div class="sec-head reveal">
+      <span class="label">Track record</span>
+      <h2>Every pick, on the record.</h2>
+      <p>No cherry-picking. The price we took, the result we got — wins and losses. A sample of recent picks below; the full log lives in the app.</p>
+    </div>
+    <div class="reveal">
+      <div class="rec-scroll">
+        <table class="rec-table">
+          <thead><tr>
+            <th>Selection</th><th>Market</th><th>Event</th><th>Date</th><th>Odds</th><th>Result</th><th>P / L</th>
+          </tr></thead>
+          <tbody id="rec-tbody"></tbody>
+        </table>
+      </div>
+      <div class="rec-acc" id="rec-acc"></div>
+      <p class="rec-cap">Odds shown are the price taken at placement. Sample of the last 14 picks.</p>
+
+      <div class="rec-sum">
+        <div class="rs-grid">
+          <div class="rs-cell rs-head rs-lab">Last 14 picks</div>
+          <div class="rs-cell rs-head">Wins</div>
+          <div class="rs-cell rs-head">Losses</div>
+          <div class="rs-cell rs-lab">Number of bets</div>
+          <div class="rs-cell">8</div>
+          <div class="rs-cell">6</div>
+          <div class="rs-cell rs-lab">Average return</div>
+          <div class="rs-cell win">+103%</div>
+          <div class="rs-cell loss">&minus;100%</div>
+        </div>
+        <div class="rs-foot">Win rate <b>57%</b> &middot; ROI <b>+15.9%</b> &middot; flat stakes</div>
+      </div>
+    </div>
+  </div>
+</section>
+<script>
+(function(){
+  var B=[
+    {s:"Fritz",m:"Over 22.5 Games",e:"Wimbledon",d:"07/01/2026",o:1.83,w:1},
+    {s:"Dimitrov",m:"To Win Q3",e:"Wimbledon",d:"06/29/2026",o:5.00,w:0},
+    {s:"Paul",m:"Match Winner",e:"Queen's",d:"06/25/2026",o:2.25,w:1},
+    {s:"De Minaur",m:"Match Winner",e:"Halle",d:"06/24/2026",o:2.05,w:1},
+    {s:"Draper",m:"Match Winner",e:"Queen's",d:"06/23/2026",o:2.40,w:1},
+    {s:"Shelton",m:"Set Hcp +3.5",e:"Halle",d:"06/22/2026",o:1.78,w:1},
+    {s:"Alcaraz",m:"Match Winner",e:"Roland Garros",d:"06/07/2026",o:1.72,w:1},
+    {s:"Medvedev",m:"Match Winner",e:"Roland Garros",d:"06/03/2026",o:1.90,w:0},
+    {s:"Sinner",m:"To Win Q2",e:"Rome",d:"05/12/2026",o:2.10,w:1},
+    {s:"Rublev",m:"Match Winner",e:"Madrid",d:"05/05/2026",o:2.60,w:0},
+    {s:"Zverev",m:"Set Hcp -1.5",e:"Madrid",d:"05/02/2026",o:1.95,w:0},
+    {s:"Rune",m:"To Reach Final",e:"Barcelona",d:"04/24/2026",o:4.50,w:0},
+    {s:"Tsitsipas",m:"To Reach SF",e:"Monte Carlo",d:"04/17/2026",o:3.75,w:0},
+    {s:"Musetti",m:"Match Winner",e:"Monte Carlo",d:"04/16/2026",o:2.10,w:1}
+  ];
+  function pl(b){return b.w? "▲ +"+Math.round((b.o-1)*100)+"%" : "▼ −100%";}
+  function cls(b){return b.w?"win":"loss";}
+  var tb=document.getElementById("rec-tbody");
+  if(tb){tb.innerHTML=B.map(function(b){return "<tr>"+
+    "<td class='tkr'>"+b.s+"</td><td>"+b.m+"</td><td>"+b.e+"</td><td>"+b.d+"</td>"+
+    "<td class='odds'>"+b.o.toFixed(2)+"</td>"+
+    "<td><span class='res "+cls(b)+"'>"+(b.w?"Win":"Loss")+"</span></td>"+
+    "<td class='pl "+cls(b)+"'>"+pl(b)+"</td></tr>";}).join("");}
+  var ac=document.getElementById("rec-acc");
+  if(ac){ac.innerHTML=B.map(function(b){return "<details>"+
+    "<summary><span class='s-sel'>"+b.s+"<sup>"+b.m+"</sup></span>"+
+    "<span class='s-right'><span class='s-pl "+cls(b)+"'>"+pl(b)+"</span><span class='s-tog'></span></span></summary>"+
+    "<div class='s-body'>"+
+      "<div class='r'><span>Event</span><span>"+b.e+"</span></div>"+
+      "<div class='r'><span>Date</span><span>"+b.d+"</span></div>"+
+      "<div class='r'><span>Odds</span><span>"+b.o.toFixed(2)+"</span></div>"+
+      "<div class='r'><span>Result</span><span>"+(b.w?"Win":"Loss")+"</span></div>"+
+    "</div></details>";}).join("");}
+})();
+</script>
+
 <section class="sec" id="membership">
   <div class="wrap">
     <div class="sec-head reveal">
