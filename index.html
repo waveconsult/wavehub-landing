@@ -421,17 +421,11 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
 .rec-acc .s-body .r{display:flex;justify-content:space-between;gap:16px;border-top:1px solid var(--line-soft);padding:11px 0;font-size:14px}
 .rec-acc .s-body .r span:first-child{color:var(--mut)}
 .rec-acc .s-body .r span:last-child{color:var(--ink);font-weight:500}
-/* summary box */
-.rec-sum{margin-top:30px;max-width:520px;margin-left:auto}
-.rs-grid{display:grid;grid-template-columns:1fr auto auto;border:1px solid var(--line-soft);border-radius:14px;overflow:hidden}
-.rs-cell{padding:14px 18px;font-size:14px;border-bottom:1px solid var(--line-soft);text-align:right;font-variant-numeric:tabular-nums}
-.rs-cell:nth-last-child(-n+3){border-bottom:0}
-.rs-lab{text-align:left;color:var(--mut)}
-.rs-head{background:linear-gradient(180deg,var(--silver-bright),var(--gold));color:#0a0a0b;font-weight:700;font-size:12px;letter-spacing:.06em;text-transform:uppercase}
-.rs-cell.win{color:var(--silver-bright);font-weight:700}
-.rs-cell.loss{color:var(--mut);font-weight:700}
-.rs-foot{margin-top:14px;text-align:right;font-size:13px;color:var(--mut)}
-.rs-foot b{color:var(--white)}
+/* total return */
+.rec-total{margin-top:38px;display:flex;flex-direction:column;align-items:center;gap:8px;text-align:center}
+.rec-total .rt-num{font-size:clamp(46px,8vw,76px);font-weight:700;letter-spacing:-.02em;line-height:1;font-variant-numeric:tabular-nums;color:var(--silver-bright)}
+.rec-total .rt-num.neg{color:var(--mut)}
+.rec-total .rt-lab{font-size:12px;font-weight:600;letter-spacing:.14em;text-transform:uppercase;color:var(--mut)}
 @media(min-width:760px){
   .rec-scroll{display:block}
   .rec-acc{display:none}
@@ -456,20 +450,7 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
       <div class="rec-acc" id="rec-acc"></div>
       <p class="rec-cap">Odds shown are the price taken at placement. Sample of the last 14 picks.</p>
 
-      <div class="rec-sum">
-        <div class="rs-grid">
-          <div class="rs-cell rs-head rs-lab">Last 14 picks</div>
-          <div class="rs-cell rs-head">Wins</div>
-          <div class="rs-cell rs-head">Losses</div>
-          <div class="rs-cell rs-lab">Number of bets</div>
-          <div class="rs-cell">8</div>
-          <div class="rs-cell">6</div>
-          <div class="rs-cell rs-lab">Average return</div>
-          <div class="rs-cell win">+103%</div>
-          <div class="rs-cell loss">&minus;100%</div>
-        </div>
-        <div class="rs-foot">Win rate <b>57%</b> &middot; ROI <b>+15.9%</b> &middot; flat stakes</div>
-      </div>
+      <div class="rec-total"><span class="rt-num" id="rec-total">+0%</span><span class="rt-lab">Total return</span></div>
     </div>
   </div>
 </section>
@@ -509,6 +490,11 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
       "<div class='r'><span>Odds</span><span>"+b.o.toFixed(2)+"</span></div>"+
       "<div class='r'><span>Result</span><span>"+(b.w?"Win":"Loss")+"</span></div>"+
     "</div></details>";}).join("");}
+  var profit=0;
+  B.forEach(function(b){profit += b.w ? (b.o-1) : -1;});
+  var roi = profit / B.length * 100;
+  var tot=document.getElementById("rec-total");
+  if(tot){tot.textContent=(roi>=0?"+":"−")+Math.abs(roi).toFixed(1)+"%"; if(roi<0) tot.className="rt-num neg";}
 })();
 </script>
 
