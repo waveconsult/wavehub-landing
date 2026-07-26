@@ -1,0 +1,21 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "_comment": [
+    "These paths live on the app (app.wavehubtennis.com), not on this static",
+    "marketing site, so they used to 404 here. People type them anyway.",
+    "permanent is deliberately false (307, not a cached 308): a permanent",
+    "redirect would be pinned in visitors' browsers and could not be undone",
+    "if any of these ever becomes a real page on the marketing site."
+  ],
+  "redirects": [
+    { "source": "/plans", "destination": "https://app.wavehubtennis.com/plans", "permanent": false },
+    { "source": "/login", "destination": "https://app.wavehubtennis.com/login", "permanent": false },
+    { "source": "/signup", "destination": "https://app.wavehubtennis.com/signup", "permanent": false },
+    { "source": "/apply", "destination": "https://app.wavehubtennis.com/apply", "permanent": false },
+    { "source": "/bets", "destination": "https://app.wavehubtennis.com/bets", "permanent": false },
+    { "source": "/profile", "destination": "https://app.wavehubtennis.com/profile", "permanent": false },
+    { "source": "/tools", "destination": "https://app.wavehubtennis.com/tools", "permanent": false },
+    { "source": "/tournaments", "destination": "https://app.wavehubtennis.com/tournaments", "permanent": false },
+    { "source": "/quiz", "destination": "https://app.wavehubtennis.com/quiz", "permanent": false }
+  ]
+}
