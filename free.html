@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WaveHub: one free ATP pick, every week</title>
+<meta name="description" content="One ATP pick a week, free. The fair price our model makes it, the price we took, and the result — wins and losses.">
+<meta name="theme-color" content="#000000">
+<link rel="icon" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WaveHub: one free ATP pick, every week">
+<meta property="og:description" content="One ATP pick a week, free. Our model's fair price, the price we took, and the result.">
+<meta property="og:url" content="https://wavehubtennis.com/free">
+<!-- Squeeze page: no nav, no outbound links above the fold. The only action is
+     the email field. Everything here exists to earn that one submission. -->
+<meta name="robots" content="index,follow">
+<link rel="preconnect" href="https://api.fontshare.com" crossorigin>
+<link href="https://api.fontshare.com/v2/css?f[]=general-sans@400,500,600,700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#000;--bg2:#0c0c0d;--ink:#ededee;--white:#fff;--mut:#8f9096;--faint:#5b5c60;
+  --line:rgba(255,255,255,.12);--line-soft:rgba(255,255,255,.07);
+  --gold:#cdd2d8;--gold-dim:#9aa0a8;--silver-bright:#eef1f4;
+  --neg:#d98f8f;--pos:#8fd9a8;
+  --sans:'General Sans','Inter',system-ui,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+::selection{background:var(--gold);color:#0a0a09}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.6;-webkit-font-smoothing:antialiased;min-height:100dvh;display:flex;flex-direction:column}
+a{color:inherit}
+h1{font-weight:700;letter-spacing:-.03em;line-height:1.02;text-transform:uppercase}
+
+.top{display:flex;justify-content:center;padding:30px 24px 0}
+.brand{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:19px;letter-spacing:-.03em;text-decoration:none}
+.brand img{height:23px;width:auto;display:block}
+.brand b{color:var(--gold);font-weight:700}
+
+main{flex:1;width:100%;max-width:560px;margin:0 auto;padding:44px 24px 40px}
+.eyebrow{font-size:11.5px;font-weight:600;letter-spacing:2.5px;text-transform:uppercase;color:var(--gold);text-align:center}
+h1{margin-top:20px;font-size:clamp(34px,9vw,54px);text-align:center}
+.lede{margin:20px auto 0;max-width:27rem;text-align:center;font-size:15.5px;line-height:1.65;color:var(--mut)}
+
+.card{margin-top:34px;border:1px solid var(--line);border-radius:22px;padding:26px 22px;background:linear-gradient(170deg,rgba(205,210,216,.06),transparent 70%)}
+.gets{list-style:none;display:flex;flex-direction:column;gap:13px}
+.gets li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.5}
+.gets .tick{flex:none;width:19px;height:19px;margin-top:1px;border-radius:50%;background:rgba(205,210,216,.15);border:1px solid rgba(205,210,216,.4);color:var(--silver-bright);font-size:11px;display:grid;place-items:center}
+.gets b{color:var(--ink);font-weight:600}
+.gets span.t{color:var(--mut)}
+
+form{margin-top:22px}
+label{display:block;font-size:11px;font-weight:600;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+input[type=email]{width:100%;padding:15px 16px;border-radius:14px;border:1px solid var(--line);background:#101011;color:var(--ink);font-family:var(--sans);font-size:16px}
+input[type=email]::placeholder{color:var(--faint)}
+input[type=email]:focus{outline:none;border-color:rgba(205,210,216,.55)}
+button{margin-top:11px;width:100%;padding:16px 20px;border-radius:999px;border:1px solid var(--white);background:var(--white);color:#000;font-family:var(--sans);font-weight:600;font-size:15.5px;cursor:pointer;transition:background .2s var(--ease),color .2s var(--ease)}
+button:hover:not(:disabled){background:transparent;color:var(--white)}
+button:disabled{opacity:.6;cursor:default}
+.msg{margin-top:12px;font-size:13.5px;line-height:1.55;text-align:center;min-height:1.2em}
+.msg.err{color:var(--neg)}
+.msg.ok{color:var(--pos)}
+
+/* Success state — replaces the form once the email is in. */
+.done{display:none;text-align:center}
+.done.on{display:block}
+.done h2{font-size:22px;font-weight:700;letter-spacing:-.02em;text-transform:uppercase}
+.done p{margin-top:10px;font-size:14.5px;color:var(--mut)}
+.tg{margin-top:18px;display:inline-flex;width:100%;align-items:center;justify-content:center;gap:10px;padding:16px 20px;border-radius:999px;background:var(--white);color:#000;font-weight:600;font-size:15.5px;text-decoration:none}
+.tg.pending{background:transparent;color:var(--mut);border:1px solid var(--line);cursor:default}
+
+.fine{margin-top:26px;text-align:center;font-size:12px;line-height:1.6;color:var(--faint)}
+footer{border-top:1px solid var(--line-soft);padding:22px 24px 30px;text-align:center}
+footer .links{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;font-size:12.5px;color:var(--mut)}
+footer .links a{text-decoration:none}
+footer .links a:hover{color:var(--ink)}
+footer .tag{margin-top:14px;font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--faint)}
+</style>
+</head>
+<body>
+
+<div class="top">
+  <a class="brand" href="/">
+    <img src="assets/logo.png" alt="">
+    <span>Wave<b>Hub</b></span>
+  </a>
+</div>
+
+<main>
+  <p class="eyebrow">Free · ATP only</p>
+  <h1>One free pick.<br>Every week.</h1>
+  <p class="lede">
+    Every week we post one ATP pick in the free group — the fair price our model
+    makes it, the price we actually took, and what happened. No selling, no hype.
+  </p>
+
+  <div class="card">
+    <ul class="gets">
+      <li><span class="tick">✓</span><span class="t"><b>One pick a week</b>, posted before the price moves.</span></li>
+      <li><span class="tick">✓</span><span class="t"><b>The reasoning</b> — why our model rates it differently to the market.</span></li>
+      <li><span class="tick">✓</span><span class="t"><b>The result, either way.</b> Wins and losses both get posted.</span></li>
+      <li><span class="tick">✓</span><span class="t">Free to join, free to leave. No card, no catch.</span></li>
+    </ul>
+
+    <form id="f" novalidate>
+      <label for="email">Where should we send the invite?</label>
+      <input id="email" name="email" type="email" inputmode="email" autocomplete="email"
+             placeholder="you@example.com" required>
+      <button id="submit" type="submit">Get the free pick</button>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    </form>
+
+    <div class="done" id="done">
+      <h2>You're in.</h2>
+      <p id="doneText">Join the group below — that's where the weekly pick lands.</p>
+      <a class="tg" id="tg" href="#" rel="noopener">Open Telegram →</a>
+    </div>
+  </div>
+
+  <p class="fine">
+    18+. WaveHub publishes sports analysis — we are not a bookmaker, we take no
+    bets and hold no money. Nothing here is a promise of profit, and betting can
+    lose you money.
+  </p>
+</main>
+
+<footer>
+  <div class="links">
+    <a href="/">Home</a>
+    <a href="/imprint.html">Imprint</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
+  <p class="tag">Analysis, not a bookmaker · ATP only</p>
+</footer>
+
+<script>
+/* ══════════════════════════════════════════════════════════════════
+   CONFIG — fill these two in, nothing else needs touching.
+
+   1. TELEGRAM_INVITE
+      Telegram → your group → Invite Link. Looks like https://t.me/+AbC123
+      Leave empty and the page still collects emails; it just tells people
+      the invite is on its way instead of showing a broken button.
+
+   2. MAILCHIMP_POST_URL
+      Mailchimp → Audience → Signup forms → Embedded form. Copy the URL from
+      the form's action="…" attribute, then change /post? to /post-json?
+      Example:
+        https://wavehubtennis.us21.list-manage.com/subscribe/post-json?u=82993f59324a4177c9edcb4fb&id=AUDIENCE_ID
+      post-json is what lets us keep people on this page and send them
+      straight to Telegram; the plain /post endpoint navigates away.
+   ══════════════════════════════════════════════════════════════════ */
+var TELEGRAM_INVITE   = "";
+var MAILCHIMP_POST_URL = "";
+
+(function () {
+  var form = document.getElementById("f");
+  var input = document.getElementById("email");
+  var btn = document.getElementById("submit");
+  var msg = document.getElementById("msg");
+  var done = document.getElementById("done");
+  var doneText = document.getElementById("doneText");
+  var tg = document.getElementById("tg");
+
+  function say(text, kind) {
+    msg.textContent = text;
+    msg.className = "msg" + (kind ? " " + kind : "");
+  }
+
+  function succeed() {
+    form.style.display = "none";
+    done.classList.add("on");
+    if (TELEGRAM_INVITE) {
+      tg.href = TELEGRAM_INVITE;
+      // Straight through — they asked for it, do not make them click twice.
+      window.location.href = TELEGRAM_INVITE;
+    } else {
+      // No invite link configured yet: say so honestly rather than dead-ending.
+      tg.className = "tg pending";
+      tg.textContent = "Invite coming by email";
+      tg.removeAttribute("href");
+      doneText.textContent =
+        "We'll email you the group invite shortly. Check your inbox — and your spam folder, just in case.";
+    }
+  }
+
+  // Mailchimp has no CORS on its subscribe endpoint, so the long-standing way
+  // to submit without leaving the page is JSONP. Ugly, but it is what works on
+  // a static site with no backend.
+  function subscribe(email, onDone) {
+    if (!MAILCHIMP_POST_URL) {
+      // Not configured yet — do not pretend it worked.
+      onDone({ result: "error", msg: "NOT_CONFIGURED" });
+      return;
+    }
+    var cb = "mcb_" + Date.now();
+    var timer = setTimeout(function () {
+      cleanup();
+      onDone({ result: "error", msg: "TIMEOUT" });
+    }, 10000);
+
+    function cleanup() {
+      clearTimeout(timer);
+      try { delete window[cb]; } catch (e) { window[cb] = undefined; }
+      if (s && s.parentNode) s.parentNode.removeChild(s);
+    }
+
+    window[cb] = function (data) { cleanup(); onDone(data || {}); };
+
+    var s = document.createElement("script");
+    s.src = MAILCHIMP_POST_URL +
+      (MAILCHIMP_POST_URL.indexOf("?") === -1 ? "?" : "&") +
+      "EMAIL=" + encodeURIComponent(email) + "&c=" + cb;
+    s.onerror = function () { cleanup(); onDone({ result: "error", msg: "NETWORK" }); };
+    document.head.appendChild(s);
+  }
+
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var email = (input.value || "").trim();
+    if (!/^\S+@\S+\.\S+$/.test(email)) {
+      say("Please enter a valid email address.", "err");
+      input.focus();
+      return;
+    }
+
+    btn.disabled = true;
+    btn.textContent = "One moment…";
+    say("");
+
+    subscribe(email, function (data) {
+      var ok = data.result === "success";
+      // "Already subscribed" is a success from the visitor's point of view —
+      // they want the group, not a lecture about being on the list already.
+      var already = !ok && /already/i.test(data.msg || "");
+
+      if (ok || already) {
+        succeed();
+        return;
+      }
+
+      btn.disabled = false;
+      btn.textContent = "Get the free pick";
+      if (data.msg === "NOT_CONFIGURED") {
+        say("Signup isn't live yet — please try again shortly.", "err");
+      } else if (data.msg === "TIMEOUT" || data.msg === "NETWORK") {
+        say("Couldn't reach the server. Please try again.", "err");
+      } else {
+        // Mailchimp returns HTML in its messages; show text only.
+        var clean = String(data.msg || "").replace(/<[^>]*>/g, "");
+        say(clean || "Something went wrong. Please try again.", "err");
+      }
+    });
+  });
+})();
+</script>
+
+</body>
+</html>
