@@ -234,6 +234,7 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
 .pamt .amt{font-size:clamp(44px,9vw,66px);font-weight:700;letter-spacing:-.03em;color:var(--white);line-height:1}
 .pamt .per{font-size:15px;color:var(--mut);font-weight:500}
 .psub{margin-top:18px;font-size:15px;color:var(--mut);line-height:1.6}
+.prenew{margin-top:12px;text-align:center;font-size:13px;color:var(--mut);line-height:1.5}
 .pcard .papply{width:100%;margin-top:30px;padding:17px;font-size:15px}
 .unlock{margin-top:30px;border:1px solid var(--line-soft);border-radius:20px;background:#0c0c0b;padding:28px}
 .unlock h4{font-size:20px;color:var(--white);letter-spacing:-.01em;font-weight:700}
@@ -504,17 +505,21 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
       <p>Everything included. Enroll today and you have full access from day one.</p>
     </div>
     <div class="bill reveal">
-      <button class="bill-opt active" data-p="year" type="button">Yearly</button>
-      <button class="bill-opt" data-p="month" type="button">Monthly</button>
+      <button class="bill-opt" data-p="m3" type="button">3 months</button>
+      <button class="bill-opt active" data-p="m6" type="button">6 months</button>
+      <button class="bill-opt" data-p="m12" type="button">1 year</button>
     </div>
     <div class="pcard reveal">
       <div class="pcard-top">
         <h3>WaveHub Membership</h3>
-        <span class="save">You save €109</span>
+        <span class="save" data-m3="Save €50" data-m6="Save €75" data-m12="Save €150">Save €75</span>
       </div>
-      <div class="pamt"><span class="amt" data-year="€479" data-month="€49">€479</span><span class="per" data-year="/per year" data-month="/per month">/per year</span></div>
-      <p class="psub">12-month membership. Full access from day one.</p>
+      <div class="pamt"><span class="amt" data-m3="€99" data-m6="€224" data-m12="€449">€224</span><span class="per" data-m3="for your first 3 months" data-m6="for your first 6 months" data-m12="for your first year">for your first 6 months</span></div>
+      <p class="psub" data-m3="€33 / month to start, then €50 / month. Full access from day one." data-m6="€37 / month to start, then €50 / month. Full access from day one." data-m12="€37 / month to start, then €50 / month. Full access from day one.">€37 / month to start, then €50 / month. Full access from day one.</p>
       <a class="btn papply" href="https://app.wavehubtennis.com/signup">Enroll now</a>
+      <!-- Auto-renewal disclosure: must sit next to the button, not only in the
+           terms (EU consumer law, and it prevents chargebacks). -->
+      <p class="prenew" data-m3="Then €149 every 3 months. Cancel anytime." data-m6="Then €299 every 6 months. Cancel anytime." data-m12="Then €599 every year. Cancel anytime.">Then €299 every 6 months. Cancel anytime.</p>
       <div class="unlock">
         <h4>Unlock</h4>
         <ul>
@@ -555,7 +560,7 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
       </details>
       <details>
         <summary><span class="qn">06</span>How does payment work?<span class="pl">+</span></summary>
-        <p class="a">When you enroll, you go straight to a secure Stripe checkout. Memberships are yearly. No money moves inside the app itself.</p>
+        <p class="a">When you enroll, you go straight to a secure checkout handled by FastSpring, our payment provider. You choose 3 months, 6 months or a year, and your first term is discounted. After that it renews automatically at the standard price (€149 / €299 / €599) until you cancel — you can cancel any time from your account. No money moves inside the app itself.</p>
       </details>
     </div>
   </div>
@@ -646,18 +651,23 @@ footer{border-top:1px solid var(--line-soft);padding:40px 0;font-size:13px;color
   }, 2600);
 })();
 
-// billing toggle (Yearly / Monthly)
+// billing toggle (3 months / 6 months / 1 year)
+// Prices must stay identical to the FastSpring products and to lib/plans.ts in
+// the app repo — FastSpring will not activate a store whose prices differ from
+// the public website.
 (function(){
   var opts = document.querySelectorAll('.bill-opt'); if (!opts.length) return;
-  var amt = document.querySelector('.pamt .amt'), per = document.querySelector('.pamt .per'), save = document.querySelector('.save');
+  var swap = ['.pamt .amt', '.pamt .per', '.psub', '.prenew', '.save'].map(function(sel){
+    return document.querySelector(sel);
+  });
   opts.forEach(function(b){
     b.addEventListener('click', function(){
       opts.forEach(function(x){ x.classList.remove('active'); });
       b.classList.add('active');
       var p = b.getAttribute('data-p');
-      if (amt) amt.textContent = amt.getAttribute('data-' + p);
-      if (per) per.textContent = per.getAttribute('data-' + p);
-      if (save) save.style.display = (p === 'year') ? '' : 'none';
+      swap.forEach(function(el){
+        if (el && el.getAttribute('data-' + p)) el.textContent = el.getAttribute('data-' + p);
+      });
     });
   });
 })();
