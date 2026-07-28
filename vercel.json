@@ -1,16 +1,5 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
-  "_comment": [
-    "redirects: these paths live on the app (app.wavehubtennis.com), not on this",
-    "static marketing site, so they used to 404 here. People type them anyway.",
-    "permanent is deliberately false (307, not a cached 308): a permanent",
-    "redirect would be pinned in visitors' browsers and could not be undone if",
-    "any of these ever becomes a real page on the marketing site.",
-    "/apply no longer exists on the app either — the application funnel was",
-    "removed — so it points at signup rather than at a fresh 404.",
-    "rewrites: serve the free-group page at a clean /free without renaming the",
-    "file or turning on cleanUrls, which would also rewrite the legal pages."
-  ],
   "rewrites": [
     { "source": "/free", "destination": "/free.html" }
   ],
