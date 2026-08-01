@@ -9,13 +9,14 @@
 (function () {
   var CFG = {
     api:        "https://app.wavehubtennis.com/api/lead",
-    tournament: "guide",                                  // tag / slug
-    title:      "Ultimate High-Income Skill Betting Guide",
-    pdf:        "/assets/previews/canada.pdf",            // <- swap for the guide PDF
-    eyebrow:    "PDF · Free guide",
-    heading:    "Ultimate high-income skill betting guide",
-    sub:        "Want to learn and build a high-income skill with our starter guide? Drop your email and it lands in your inbox.",
-    cta:        "Get the guide",
+    tournament: "montreal",                               // tag / slug
+    // `title` also drives the email subject: "Your free <title> preview"
+    title:      "ATP Montreal",
+    pdf:        "/assets/previews/canada.pdf",
+    eyebrow:    "PDF · Free preview",
+    heading:    "ATP Montreal is here.",
+    sub:        "And we analysed all the potential plays — quarter by quarter, the prices worth taking and the ones to skip. Want to get it for free?",
+    cta:        "Get the free preview",
     dismiss:    "No, thanks",
     delayMs:    9000,       // show after this long on the page
     key:        "wh_popup_v1"

@@ -166,7 +166,6 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-s
           <h3 class="gate-h">Follow us on Instagram</h3>
           <p class="gate-p">That is the only thing we ask for it. Tap follow, come back, and the preview is yours.</p>
           <a class="btn ig" id="igBtn" target="_blank" rel="noopener">Follow on Instagram &rarr;</a>
-          <button type="button" class="skip" id="igDone">I already follow &mdash; continue</button>
         </div>
 
         <!-- STEP 2 — the form, locked until step 1 is done -->
@@ -233,7 +232,7 @@ var INSTAGRAM  = "wavehubtennis";          // <-- your IG handle, without the @
 
   /* ── step 1: the follow gate ─────────────────────────────────────── */
   var gate = document.getElementById("gate"), step2 = document.getElementById("step2"),
-      igBtn = document.getElementById("igBtn"), igDone = document.getElementById("igDone"),
+      igBtn = document.getElementById("igBtn"),
       followed = false, KEY = "wh_ig_followed";
 
   igBtn.href = "https://instagram.com/" + INSTAGRAM;
@@ -253,7 +252,6 @@ var INSTAGRAM  = "wavehubtennis";          // <-- your IG handle, without the @
 
   // Opening the profile unlocks on return (blur fires when the tab opens)
   igBtn.addEventListener("click", function () { setTimeout(function () { unlock(true); }, 900); });
-  igDone.addEventListener("click", function () { unlock(false); });
 
   f.addEventListener("submit", function (ev) {
     ev.preventDefault();
