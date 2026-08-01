@@ -75,6 +75,19 @@ nav.solid{background:rgba(0,0,0,.72);backdrop-filter:blur(14px);border-bottom:1p
 .gets li{display:flex;gap:12px;padding:9px 0;font-size:15px;color:var(--mut)}
 .gets .tick{color:var(--blue-2);font-weight:700}
 .gets b{color:var(--ink);font-weight:600}
+/* follow gate */
+.step{font-family:var(--sora);font-size:11px;font-weight:600;letter-spacing:2.4px;text-transform:uppercase;color:var(--blue-2);margin-bottom:10px}
+.gate{border:1px solid var(--line-2);border-radius:16px;background:#0d0d0d;padding:22px;margin-bottom:18px}
+.gate-h{font-size:21px;letter-spacing:-.02em}
+.gate-p{margin-top:8px;color:var(--mut);font-size:14.5px}
+.gate .ig{width:100%;margin-top:16px;background:linear-gradient(95deg,#7b3fe4,#d62976 55%,#fa7e1e);border-color:transparent;box-shadow:0 10px 30px -12px rgba(214,41,118,.8)}
+.gate .ig:hover{filter:brightness(1.08);background:linear-gradient(95deg,#7b3fe4,#d62976 55%,#fa7e1e)}
+.skip{display:block;width:100%;margin-top:11px;background:none;border:0;color:var(--faint);font-family:var(--inter);font-size:13px;cursor:pointer;text-decoration:underline;text-underline-offset:3px}
+.skip:hover{color:var(--mut)}
+.gate.ok{border-color:rgba(37,99,235,.5);background:rgba(37,99,235,.07)}
+.gate.ok .ig,.gate.ok .skip,.gate.ok .gate-p{display:none}
+.gate.ok .gate-h::after{content:" ✓";color:var(--blue-2)}
+#step2.locked{opacity:.32;pointer-events:none;filter:blur(1.5px);transition:opacity .35s var(--ease),filter .35s var(--ease)}
 label{display:block;font-family:var(--sora);font-size:12.5px;font-weight:600;letter-spacing:.4px;color:var(--mut);margin:14px 0 7px}
 input{width:100%;padding:15px 17px;border-radius:12px;border:1px solid var(--line-2);background:#0d0d0d;color:var(--ink);font-family:var(--inter);font-size:15.5px;outline:none;transition:border-color .2s}
 input:focus{border-color:var(--blue-2)}
@@ -147,6 +160,18 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-s
           <li><span class="tick">✓</span><span>Free. No card, no catch.</span></li>
         </ul>
 
+        <!-- STEP 1 — follow gate -->
+        <div class="gate" id="gate">
+          <p class="step">Step 1 of 2</p>
+          <h3 class="gate-h">Follow us on Instagram</h3>
+          <p class="gate-p">That is the only thing we ask for it. Tap follow, come back, and the preview is yours.</p>
+          <a class="btn ig" id="igBtn" target="_blank" rel="noopener">Follow on Instagram &rarr;</a>
+          <button type="button" class="skip" id="igDone">I already follow &mdash; continue</button>
+        </div>
+
+        <!-- STEP 2 — the form, locked until step 1 is done -->
+        <div id="step2" class="locked">
+        <p class="step">Step 2 of 2</p>
         <form id="f" novalidate>
           <label for="name">Your name</label>
           <input id="name" name="name" type="text" autocomplete="given-name" placeholder="Alex" required>
@@ -155,6 +180,8 @@ footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-s
           <button class="btn" id="submit" type="submit">Get the free PDF</button>
           <p class="msg" id="msg" role="status" aria-live="polite"></p>
         </form>
+
+        </div><!-- /step2 -->
 
         <div class="done" id="done">
           <h3>Check your inbox.</h3>
@@ -187,6 +214,9 @@ var TOURNAMENT = "canada";                 // slug: used for the tag + the PDF f
 var TITLE      = "ATP Canada Open";        // shown in the email subject/heading
 var PDF_PATH   = "/assets/previews/canada.pdf";
 var API        = "https://app.wavehubtennis.com/api/lead";
+var INSTAGRAM  = "wavehubtennis";          // <-- your IG handle, without the @
+/* Note: Instagram gives no way to verify a follow, so step 1 is honour-based:
+   we record that they clicked through to the profile, nothing more. */
 /* ═══════════════════════════════════════════════════════════════════ */
 
 (function () {
@@ -201,6 +231,30 @@ var API        = "https://app.wavehubtennis.com/api/lead";
   var f = document.getElementById("f"), msg = document.getElementById("msg"),
       btn = document.getElementById("submit"), done = document.getElementById("done");
 
+  /* ── step 1: the follow gate ─────────────────────────────────────── */
+  var gate = document.getElementById("gate"), step2 = document.getElementById("step2"),
+      igBtn = document.getElementById("igBtn"), igDone = document.getElementById("igDone"),
+      followed = false, KEY = "wh_ig_followed";
+
+  igBtn.href = "https://instagram.com/" + INSTAGRAM;
+  igBtn.textContent = "Follow @" + INSTAGRAM + " →";
+
+  function unlock(viaFollow) {
+    followed = viaFollow;
+    gate.classList.add("ok");
+    document.querySelector(".gate-h").textContent = "Thanks for the follow";
+    step2.classList.remove("locked");
+    try { localStorage.setItem(KEY, "1"); } catch (e) {}
+    document.getElementById("name").focus({ preventScroll: true });
+  }
+
+  // Coming back after they already went through it once
+  try { if (localStorage.getItem(KEY) === "1") unlock(true); } catch (e) {}
+
+  // Opening the profile unlocks on return (blur fires when the tab opens)
+  igBtn.addEventListener("click", function () { setTimeout(function () { unlock(true); }, 900); });
+  igDone.addEventListener("click", function () { unlock(false); });
+
   f.addEventListener("submit", function (ev) {
     ev.preventDefault();
     var name = document.getElementById("name").value.trim();
@@ -214,7 +268,8 @@ var API        = "https://app.wavehubtennis.com/api/lead";
     fetch(API, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: name, email: email, tournament: TOURNAMENT, title: TITLE, pdf: PDF_PATH })
+      body: JSON.stringify({ name: name, email: email, tournament: TOURNAMENT,
+                             title: TITLE, pdf: PDF_PATH, followed_ig: followed })
     })
     .then(function (r) { return r.json().catch(function () { return {}; }).then(function (j) { return { ok: r.ok, j: j }; }); })
     .then(function (res) {
