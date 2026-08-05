@@ -17,7 +17,6 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/82993f59324a4177c9edcb4fb/186b2ce64d1fba6dff2c22d4a.js");</script>
 <style>
 /* ==========================================================================
    WaveHub landing, built to match notion.com's marketing design language.
@@ -55,8 +54,17 @@
   }
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+/* scroll-padding keeps an anchored heading clear of the 62px sticky nav
+   instead of scrolling it behind the bar */
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:80px}
 ::selection{background:#cfe6fb;color:#000}
+
+/* keyboard focus: visible on every interactive element, and a ring that stays
+   readable on top of the blue button */
+:where(a,button,summary,[tabindex]):focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
+.btn-primary:focus-visible{outline-color:var(--ink)}
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:11px 16px;font-size:15px;font-weight:500}
+.skip:focus{left:12px;top:12px}
 body{background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
 img,video{display:block;max-width:100%}
@@ -83,8 +91,19 @@ nav.stuck{border-bottom-color:var(--line)}
 .nav-right{display:flex;align-items:center;gap:12px}
 .nav-right .login{font-size:15px;color:var(--ink-2)}
 .nav-right .login:hover{color:var(--ink)}
-@media(max-width:900px){.nav-mid{display:none}}
-@media(max-width:520px){.nav-right .login{display:none}}
+/* below 900px the inline links collapse into a disclosure menu rather than
+   disappearing. CSS-only, same <details> mechanic the FAQ already uses.
+   "Log in" is never hidden: a paying member must be able to reach their
+   account from a phone. */
+.menu{display:none;position:relative}
+.menu>summary{list-style:none;cursor:pointer;display:grid;place-items:center;width:38px;height:38px;border-radius:8px;border:1px solid var(--line);color:var(--ink-2)}
+.menu>summary::-webkit-details-marker{display:none}
+.menu[open]>summary{background:var(--paper-soft);color:var(--ink)}
+.menu-panel{position:absolute;right:0;top:46px;min-width:212px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lift);padding:8px;display:flex;flex-direction:column}
+.menu-panel a{padding:11px 12px;border-radius:8px;font-size:15.5px;color:var(--ink-2)}
+.menu-panel a:hover{background:var(--paper-soft);color:var(--ink)}
+@media(max-width:900px){.nav-mid{display:none}.menu{display:block}}
+@media(max-width:420px){.nav-right .login{font-size:14.5px}.nav-in{gap:10px}}
 
 /* hero */
 .hero{padding:72px 0 0;text-align:center}
@@ -134,7 +153,12 @@ nav.stuck{border-bottom-color:var(--line)}
 .row b{font-size:16.5px;font-weight:500}
 .row i{font-style:normal;font-size:15px;color:var(--ink-3);text-align:right}
 .row .go{color:var(--blue-text);font-size:16px;flex:none}
-@media(max-width:640px){.row i{display:none}}
+/* on a phone the descriptor stacks under the label instead of being deleted */
+@media(max-width:640px){
+  .row{align-items:flex-start;padding:16px 6px}
+  .row .rowtext{display:flex;flex-direction:column;gap:3px}
+  .row i{text-align:left;font-size:14px}
+}
 
 /* testimonials */
 .tst{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
@@ -195,13 +219,19 @@ footer{padding:40px 0 52px}
 .foot .fl a:hover{color:var(--ink)}
 .foot .note-s{font-size:13.5px;color:var(--ink-3)}
 
-/* entry motion */
-.rv{opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.row:hover{padding-left:6px}}
+/* entry motion. Content is visible by DEFAULT and only hidden once the inline
+   script in <head> has confirmed JS is running, so a script error or a blocked
+   bundle can never leave the page blank. */
+.js .rv{opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.js .rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}.row:hover{padding-left:6px}}
 </style>
+<script defer src="/_vercel/insights/script.js"></script>
+<script>document.documentElement.className+=" js"</script>
 </head>
 <body id="top">
+
+<a class="skip" href="#main">Skip to content</a>
 
 <nav id="nav">
   <div class="nav-in">
@@ -214,13 +244,24 @@ footer{padding:40px 0 52px}
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-right">
+      <details class="menu">
+        <summary aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+        <div class="menu-panel">
+          <a href="#how">How it works</a>
+          <a href="#inside">Inside</a>
+          <a href="#members">Members</a>
+          <a href="#pricing">Pricing</a>
+          <a href="#faq">FAQ</a>
+          <a href="/free">Free group</a>
+        </div>
+      </details>
       <a class="login" href="https://app.wavehubtennis.com/login">Log in</a>
       <a class="btn btn-primary btn-sm" href="#pricing">Join now</a>
     </div>
   </div>
 </nav>
 
-<header class="hero">
+<header class="hero" id="main">
   <div class="w-narrow">
     <h1>Find <span class="b">Mispriced</span> Tennis Odds Before the Market Corrects</h1>
     <p>A research-driven framework that shows how disciplined bettors analyze probability, risk, and market movement to make structured tennis betting decisions.</p>
@@ -228,7 +269,7 @@ footer{padding:40px 0 52px}
       <span class="tpoint"><span class="ck">✓</span>4+ years track record</span>
       <span class="tpoint"><span class="ck">✓</span>Single sport focus</span>
       <span class="tpoint"><span class="ck">✓</span>Selective bets only</span>
-      <span class="tpoint"><span class="ck">✓</span>ROI driven strategy</span>
+      <span class="tpoint"><span class="ck">✓</span>An honest no bet on quiet days</span>
     </div>
     <div class="cta">
       <a class="btn btn-primary btn-arrow" href="#pricing">View the programs <span class="badge">↗</span></a>
@@ -270,12 +311,12 @@ footer{padding:40px 0 52px}
   <div class="w">
     <h2 class="rv">What lands in the app.</h2>
     <div class="rows rv">
-      <a class="row" href="#pricing"><b>The daily ATP read</b><i>Win probability and fair price</i><span class="go">→</span></a>
-      <a class="row" href="#pricing"><b>Value calls, taken early</b><i>Before the market corrects</i><span class="go">→</span></a>
-      <a class="row" href="#pricing"><b>An honest no bet</b><i>On the days without an edge</i><span class="go">→</span></a>
-      <a class="row" href="#pricing"><b>Your staking plan</b><i>Every call sized to your bankroll</i><span class="go">→</span></a>
-      <a class="row" href="#pricing"><b>Tournament previews</b><i>Draw by draw, week by week</i><span class="go">→</span></a>
-      <a class="row" href="#pricing"><b>Results in the open</b><i>Tracked where members can see</i><span class="go">→</span></a>
+      <a class="row" href="#pricing"><span class="rowtext"><b>The daily ATP read</b><i>Win probability and fair price</i></span><span class="go">→</span></a>
+      <a class="row" href="#pricing"><span class="rowtext"><b>Value calls, taken early</b><i>Before the market corrects</i></span><span class="go">→</span></a>
+      <a class="row" href="#pricing"><span class="rowtext"><b>An honest no bet</b><i>On the days without an edge</i></span><span class="go">→</span></a>
+      <a class="row" href="#pricing"><span class="rowtext"><b>Your staking plan</b><i>Every call sized to your bankroll</i></span><span class="go">→</span></a>
+      <a class="row" href="#pricing"><span class="rowtext"><b>Tournament previews</b><i>Draw by draw, week by week</i></span><span class="go">→</span></a>
+      <a class="row" href="#pricing"><span class="rowtext"><b>Results in the open</b><i>Tracked where members can see</i></span><span class="go">→</span></a>
     </div>
   </div>
 </section>
@@ -305,37 +346,39 @@ footer{padding:40px 0 52px}
     <div class="plans">
       <article class="plan rv">
         <span class="tag">3 months</span>
-        <div class="amt">€69 <em>/ quarter</em></div>
-        <p class="per">Around €23 a month, billed quarterly</p>
+        <div class="amt">&euro;69 <em>/ quarter</em></div>
+        <p class="per">Around &euro;23 a month, billed quarterly</p>
         <ul>
-          <li><span class="tk">✓</span>Daily ATP reads and value</li>
-          <li><span class="tk">✓</span>Match insights and stats</li>
-          <li><span class="tk">✓</span>Staking calculator</li>
+          <li><span class="tk">&#10003;</span>Daily ATP reads and the value behind them</li>
+          <li><span class="tk">&#10003;</span>Match insights and stats</li>
+          <li><span class="tk">&#10003;</span>Premium tools and tournament previews</li>
+          <li><span class="tk">&#10003;</span>Private live-info chat</li>
         </ul>
         <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=3m">Join now</a>
       </article>
-      <article class="plan pick rv">
-        <span class="tag">6 months · best value</span>
-        <div class="amt">€119 <em>/ half year</em></div>
-        <p class="per">Around €20 a month, billed twice a year</p>
-        <ul>
-          <li><span class="tk">✓</span>Everything in the 3 month term</li>
-          <li><span class="tk">✓</span>Premium tools and tournament previews</li>
-          <li><span class="tk">✓</span>Private live-info chat</li>
-          <li><span class="tk">✓</span>Priority reasoning on every call</li>
-        </ul>
-        <a class="btn btn-primary" href="https://app.wavehubtennis.com/api/checkout?plan=6m">Join now</a>
-      </article>
       <article class="plan rv">
-        <span class="tag">12 months</span>
-        <div class="amt">€169 <em>/ year</em></div>
-        <p class="per">Around €14 a month, billed yearly</p>
+        <span class="tag">6 months</span>
+        <div class="amt">&euro;119 <em>/ half year</em></div>
+        <p class="per">Around &euro;20 a month, billed twice a year</p>
         <ul>
-          <li><span class="tk">✓</span>Everything in the 6 month term</li>
-          <li><span class="tk">✓</span>A full ATP season, start to finish</li>
-          <li><span class="tk">✓</span>The lowest monthly rate</li>
+          <li><span class="tk">&#10003;</span>Daily ATP reads and the value behind them</li>
+          <li><span class="tk">&#10003;</span>Match insights and stats</li>
+          <li><span class="tk">&#10003;</span>Premium tools and tournament previews</li>
+          <li><span class="tk">&#10003;</span>Private live-info chat</li>
         </ul>
-        <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=1y">Join now</a>
+        <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=6m">Join now</a>
+      </article>
+      <article class="plan pick rv">
+        <span class="tag">12 months &middot; best value</span>
+        <div class="amt">&euro;169 <em>/ year</em></div>
+        <p class="per">Around &euro;14 a month, billed yearly</p>
+        <ul>
+          <li><span class="tk">&#10003;</span>Daily ATP reads and the value behind them</li>
+          <li><span class="tk">&#10003;</span>Match insights and stats</li>
+          <li><span class="tk">&#10003;</span>Premium tools and tournament previews</li>
+          <li><span class="tk">&#10003;</span>Private live-info chat</li>
+        </ul>
+        <a class="btn btn-primary" href="https://app.wavehubtennis.com/api/checkout?plan=1y">Join now</a>
       </article>
     </div>
     <p class="note rv"><b>We do not promise profit, and nobody honest does.</b> WaveHub is analysis and consulting. You get the reads, the value and the discipline. How you manage risk stays with you.</p>
@@ -396,9 +439,19 @@ footer{padding:40px 0 52px}
 
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
   var items=document.querySelectorAll('.rv');
-  if(reduce||!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('in')});return;}
+  function revealAll(){items.forEach(function(el){el.classList.add('in')})}
+  if(reduce||!('IntersectionObserver' in window)){revealAll();return;}
   var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -8% 0px'});
   items.forEach(function(el){io.observe(el)});
+  // Safety net. Testing that IntersectionObserver EXISTS is not the same as
+  // testing that it FIRES, and adding .in is not the same as the transition
+  // actually advancing: in renderers that never composite, both can fail and
+  // leave every block at opacity:0 forever. So the fallback drops the `js`
+  // class instead, which removes the hiding rule altogether. Content then
+  // depends on no observer, no class and no animation.
+  setTimeout(function(){
+    if(!document.querySelector('.rv.in')) document.documentElement.classList.remove('js');
+  },900);
 })();
 </script>
 </body>
