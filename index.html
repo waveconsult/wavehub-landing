@@ -3,466 +3,403 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WaveHub — A high-income skill: reading ATP tennis</title>
-<meta name="description" content="WaveHub is a members' club for people learning a high-income skill: disciplined ATP value analysis. Few reads, early prices, zero hype. Apply to join.">
-<meta name="theme-color" content="#000000">
+<title>WaveHub · Find mispriced tennis odds before the market corrects</title>
+<meta name="description" content="A research-driven framework that shows how disciplined bettors analyze probability, risk, and market movement to make structured tennis betting decisions. ATP only.">
+<meta name="theme-color" content="#ffffff">
+<link rel="icon" href="assets/favicon-32.png" sizes="32x32">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="WaveHub — A high-income skill: reading ATP tennis">
-<meta property="og:description" content="A members' club for a high-income skill. One sport, early prices, real edge. Apply to join.">
+<meta property="og:title" content="WaveHub · Find mispriced tennis odds before the market corrects">
+<meta property="og:description" content="A research-driven framework for analyzing probability, risk, and market movement in ATP tennis.">
 <meta property="og:url" content="https://wavehubtennis.com">
+<meta property="og:image" content="assets/hero-poster.jpg">
+<meta name="twitter:card" content="summary_large_image">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<script id="mcjs">!function(c,h,i,m,p){m=c.createElement(h),p=c.getElementsByTagName(h)[0],m.async=1,m.src=i,p.parentNode.insertBefore(m,p)}(document,"script","https://chimpstatic.com/mcjs-connected/js/users/82993f59324a4177c9edcb4fb/186b2ce64d1fba6dff2c22d4a.js");</script>
 <style>
 /* ==========================================================================
-   WaveHub landing — APEX-style dark/red high-ticket theme.
-   Black canvas, #141414 panels, crimson #BE1316 accent, Sora display + Inter.
-   Structure mirrors a high-ticket community page: hero → 3-phase system →
-   inside → testimonials → founder → the honest deal → pricing → FAQ → CTA.
-   COMPLIANCE: analysis/consulting, ATP only, NO profit promises.
+   WaveHub landing, built to match notion.com's marketing design language.
+   Values below are taken from the live Notion site rather than guessed:
+     canvas #ffffff, ink rgba(0,0,0,.95), primary blue #0075de,
+     Inter, h1 700 weight at -0.035em tracking and ~1.04 line-height,
+     compact 8px-radius buttons, short headlines that end in a period,
+     arrow affordance on secondary links, a stats strip, big hero media.
+   Radius system (locked): buttons and cards 8px, media 12px, pills 999px.
    ========================================================================== */
 :root{
-  --bg:#000;--panel:#141414;--panel-2:#1a1a1a;--elev:#202020;
-  --line:rgba(255,255,255,.09);--line-2:rgba(255,255,255,.14);
-  --ink:#f5f5f6;--mut:#a2a2ab;--faint:#6a6a72;
-  --blue:#2563eb;--blue-2:#5b9bff;--blue-deep:#12306e;
-  --sora:'Sora',system-ui,sans-serif;--inter:'Inter',system-ui,sans-serif;
+  --paper:#fff;
+  --paper-soft:#f7f7f5;
+  --ink:rgba(0,0,0,.95);
+  --ink-2:rgba(0,0,0,.72);
+  --ink-3:rgba(0,0,0,.55);
+  --line:rgba(0,0,0,.09);
+  --blue:#0075de;
+  --blue-hover:#0068c7;
+  --blue-text:#097fe8;
+  --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.07);
+  --shadow-lift:0 2px 6px rgba(0,0,0,.06),0 18px 44px rgba(0,0,0,.12);
   --ease:cubic-bezier(.16,1,.3,1);
-  --maxw:1160px;
+  --w:min(1120px,100% - 40px);
+  --w-narrow:min(760px,100% - 40px);
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --paper:#191919;--paper-soft:#202020;
+    --ink:rgba(255,255,255,.94);--ink-2:rgba(255,255,255,.72);--ink-3:rgba(255,255,255,.55);
+    --line:rgba(255,255,255,.11);
+    --blue:#2b8fe8;--blue-hover:#4ba3ee;--blue-text:#67b0f0;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);
+    --shadow-lift:0 2px 6px rgba(0,0,0,.45),0 18px 44px rgba(0,0,0,.5);
+  }
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html{scroll-behavior:smooth}
-::selection{background:var(--blue);color:#fff}
-body{background:var(--bg);color:var(--ink);font-family:var(--inter);line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+::selection{background:#cfe6fb;color:#000}
+body{background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-img,video{max-width:100%;display:block}
-.wrap{max-width:var(--maxw);margin:0 auto;padding:0 24px}
-h1,h2,h3{font-family:var(--sora);font-weight:700;letter-spacing:-.03em;line-height:1.04}
-.eyebrow{font-family:var(--sora);font-size:12px;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--blue-2)}
-.mut{color:var(--mut)}
-.center{text-align:center}
+img,video{display:block;max-width:100%}
+h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:1.04}
+.w{width:var(--w);margin-inline:auto}
+.w-narrow{width:var(--w-narrow);margin-inline:auto}
 
-/* buttons — red pill, inverts on hover */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;font-family:var(--sora);font-weight:600;font-size:15px;padding:15px 34px;border-radius:999px;background:var(--blue);color:#fff;border:1px solid var(--blue);cursor:pointer;transition:transform .15s var(--ease),background .2s,box-shadow .2s;box-shadow:0 10px 34px -12px rgba(37,99,235,.7)}
-.btn:hover{background:var(--blue-2);transform:translateY(-1px);box-shadow:0 16px 40px -12px rgba(37,99,235,.85)}
-.btn-sm{padding:11px 22px;font-size:13.5px;box-shadow:none}
-.btn-ghost{background:transparent;color:var(--ink);border:1px solid var(--line-2);box-shadow:none}
-.btn-ghost:hover{background:#fff;color:#000;border-color:#fff;transform:none}
+/* buttons: Notion's compact 8px pills */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:16px;font-weight:500;line-height:1;white-space:nowrap;padding:11px 17px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
+.btn-primary{background:var(--blue);color:#fff}
+.btn-primary:hover{background:var(--blue-hover)}
+.btn-ghost{background:var(--paper);color:var(--blue-text);border-color:var(--line)}
+.btn-ghost:hover{background:var(--paper-soft)}
+.btn-sm{padding:8px 14px;font-size:15px}
 
 /* nav */
-nav{position:fixed;top:0;left:0;right:0;z-index:60;transition:background .3s,border-color .3s,backdrop-filter .3s}
-nav.solid{background:rgba(0,0,0,.72);backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}
-.nav-in{display:flex;align-items:center;justify-content:space-between;height:70px;max-width:var(--maxw);margin:0 auto;padding:0 24px}
-.brand{display:flex;align-items:center;gap:9px;font-family:var(--sora);font-weight:800;font-size:19px;letter-spacing:-.02em;text-transform:uppercase}
-.brand .dot{width:22px;height:22px;border-radius:6px;background:linear-gradient(135deg,#2a2a2a,var(--blue));display:grid;place-items:center;font-size:12px}
-.nav-mid{display:flex;gap:30px;font-size:14px;font-weight:500;color:var(--mut)}
+nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid transparent;transition:border-color .2s}
+nav.stuck{border-bottom-color:var(--line)}
+.nav-in{width:var(--w);margin-inline:auto;height:62px;display:flex;align-items:center;justify-content:space-between;gap:20px}
+.brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:17px;letter-spacing:-.02em}
+.brand img{width:22px;height:22px;border-radius:5px}
+.nav-mid{display:flex;gap:24px;font-size:15px;color:var(--ink-2)}
 .nav-mid a:hover{color:var(--ink)}
-@media(max-width:860px){.nav-mid{display:none}}
+.nav-right{display:flex;align-items:center;gap:12px}
+.nav-right .login{font-size:15px;color:var(--ink-2)}
+.nav-right .login:hover{color:var(--ink)}
+@media(max-width:900px){.nav-mid{display:none}}
+@media(max-width:520px){.nav-right .login{display:none}}
 
 /* hero */
-.hero{position:relative;padding:150px 0 90px;text-align:center;overflow:hidden}
-.hero:before{content:"";position:absolute;top:-10%;left:50%;transform:translateX(-50%);width:900px;height:520px;background:radial-gradient(closest-side,rgba(37,99,235,.28),transparent 70%);filter:blur(20px);z-index:0;pointer-events:none}
-.hero-in{position:relative;z-index:2}
-.badge{display:inline-flex;align-items:center;gap:9px;border:1px solid var(--line-2);border-radius:999px;padding:7px 14px 7px 8px;font-size:12.5px;color:var(--mut);margin-bottom:26px}
-.badge .pill{background:var(--blue);color:#fff;font-family:var(--sora);font-weight:600;font-size:10.5px;letter-spacing:1px;text-transform:uppercase;padding:3px 9px;border-radius:999px}
-.hero h1{font-size:clamp(38px,7vw,74px);font-weight:800;max-width:16ch;margin:0 auto;letter-spacing:-.035em}
-.hero h1 .u{color:var(--blue-2)}
-.hero p.sub{max-width:40rem;margin:26px auto 0;font-size:clamp(16px,2vw,19px);color:var(--mut)}
-.hero .cta{margin-top:38px;display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
-.hero-frame{position:relative;z-index:2;max-width:880px;margin:60px auto 0;border-radius:20px;overflow:hidden;border:1px solid var(--line-2);box-shadow:0 40px 120px -40px rgba(37,99,235,.4)}
-.hero-frame video,.hero-frame img{width:100%;aspect-ratio:16/9;object-fit:cover;filter:contrast(1.03) brightness(.9)}
-.hero-frame:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,transparent 55%,rgba(0,0,0,.55))}
+.hero{padding:72px 0 0;text-align:center}
+.hero h1{font-size:clamp(34px,5.2vw,56px);max-width:21ch;margin-inline:auto}
+.hero h1 .b{color:var(--blue-text)}
+.hero p{margin:20px auto 0;max-width:60ch;font-size:clamp(16.5px,1.9vw,18.5px);color:var(--ink-2);line-height:1.5}
+.hero .cta{margin-top:26px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center}
 
-/* free preview band */
-.freeband{padding:8px 0 4px}
-.fb{display:grid;grid-template-columns:1fr auto;gap:34px;align-items:center;background:linear-gradient(120deg,rgba(37,99,235,.16),rgba(20,20,20,.9) 55%);border:1px solid rgba(91,155,255,.32);border-radius:20px;padding:32px 34px;transition:border-color .25s var(--ease),transform .25s var(--ease)}
-.fb:hover{border-color:rgba(91,155,255,.7);transform:translateY(-2px)}
-.fb-tag{display:inline-block;font-family:var(--sora);font-size:10.5px;font-weight:700;letter-spacing:1.6px;text-transform:uppercase;color:#fff;background:var(--blue);padding:4px 11px;border-radius:999px}
-.fb h3{font-size:clamp(23px,3.2vw,33px);font-weight:800;margin-top:14px;letter-spacing:-.03em}
-.fb p{margin-top:12px;font-size:15px;color:var(--mut);max-width:56ch}
-.fb-r{display:flex;flex-direction:column;align-items:center;gap:16px}
-.fb-r img{width:150px;border-radius:9px;border:1px solid var(--line-2);box-shadow:0 22px 46px -18px rgba(0,0,0,.95)}
-.fb-go{display:inline-flex;align-items:center;gap:9px;white-space:nowrap;font-family:var(--sora);font-weight:600;font-size:15px;padding:14px 28px;border-radius:999px;background:var(--blue);color:#fff;box-shadow:0 10px 34px -12px rgba(37,99,235,.8)}
-.fb:hover .fb-go{background:var(--blue-2)}
-@media(max-width:820px){.fb{grid-template-columns:1fr;text-align:center;padding:28px 22px}.fb p{margin-left:auto;margin-right:auto}.fb-r img{display:none}.fb-go{width:100%;justify-content:center}}
+/* trust points above the CTA: same claims as the reference block, rendered in
+   this page's language (filled Notion-blue check, no neon ring) */
+.tpoints{margin-top:28px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px 28px}
+.tpoint{display:flex;align-items:center;gap:9px;font-size:15px;color:var(--ink-2);white-space:nowrap}
+.tpoint .ck{flex:none;width:19px;height:19px;border-radius:999px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:10.5px;font-weight:700;line-height:1}
+@media(max-width:620px){.tpoints{gap:12px 20px}.tpoint{font-size:14px}}
 
-/* generic section */
-.sec{padding:100px 0;position:relative}
-.sec-head{max-width:44rem;margin:0 auto 56px;text-align:center}
-.sec-head h2{font-size:clamp(30px,4.6vw,52px);margin-top:16px;font-weight:800}
-.sec-head p{margin-top:18px;font-size:17px;color:var(--mut)}
+/* primary CTA carries an arrow badge, matching the reference's affordance
+   while keeping the page's 8px radius system */
+.btn-arrow{padding:11px 11px 11px 22px;font-size:17px}
+.btn-arrow .badge{flex:none;width:30px;height:30px;border-radius:999px;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:15px;margin-left:4px;transition:transform .18s var(--ease)}
+.btn-arrow:hover .badge{transform:translate(2px,-2px)}
+@media (prefers-reduced-motion: reduce){.btn-arrow:hover .badge{transform:none}}
+.hero-media{margin:52px auto 0;width:var(--w);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lift);background:var(--paper-soft)}
+.hero-media video{width:100%;aspect-ratio:16/9;object-fit:cover}
 
-/* phases */
-.phases{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
-.phase{background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:30px 28px;display:flex;flex-direction:column}
-.phase .num{font-family:var(--sora);font-size:12px;font-weight:700;letter-spacing:2px;text-transform:uppercase;color:var(--blue-2)}
-.phase h3{font-size:24px;margin-top:12px;font-weight:700}
-.phase .d{margin-top:12px;font-size:14.5px;color:var(--mut);line-height:1.6}
-.phase ul{list-style:none;margin-top:20px;display:flex;flex-direction:column;gap:12px}
-.phase li{display:flex;gap:11px;font-size:14px;color:#d6d6da;line-height:1.5}
-.phase li .ck{flex:none;width:20px;height:20px;border-radius:6px;background:linear-gradient(135deg,#2a2a2a,var(--blue));display:grid;place-items:center;font-size:11px;color:#fff;margin-top:1px}
-@media(max-width:820px){.phases{grid-template-columns:1fr}}
+/* thin trust line under the hero */
+.trust{padding:34px 0 0;text-align:center}
+.trust p{font-size:14.5px;color:var(--ink-3)}
 
-/* inside / proof */
-.proof{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.pcard{background:var(--panel);border:1px solid var(--line);border-radius:16px;overflow:hidden}
-.pcard .thumb{position:relative;aspect-ratio:4/3;overflow:hidden;background:#0c0c0c}
-.pcard .thumb img,.pcard .thumb video{width:100%;height:100%;object-fit:cover;filter:brightness(.82) contrast(1.03)}
-.pcard .play{position:absolute;inset:0;display:grid;place-items:center}
-.pcard .play span{width:52px;height:52px;border-radius:999px;background:rgba(37,99,235,.92);display:grid;place-items:center;box-shadow:0 8px 30px -6px rgba(37,99,235,.8)}
-.pcard .m{padding:16px 18px 20px}
-.pcard .m b{font-family:var(--sora);font-size:15px;font-weight:600}
-.pcard .m p{font-size:12.5px;color:var(--faint);margin-top:4px;text-transform:uppercase;letter-spacing:1px}
-@media(max-width:820px){.proof{grid-template-columns:1fr}}
+/* sections */
+.sec{padding:88px 0}
+.sec h2{font-size:clamp(30px,4.2vw,44px)}
+.sec .lede{margin-top:14px;font-size:17.5px;color:var(--ink-2);max-width:52ch}
 
-/* testimonials — masonry columns */
-.tgrid{column-count:3;column-gap:18px}
-.t{break-inside:avoid;margin-bottom:18px;background:var(--panel);border:1px solid var(--line);border-radius:16px;padding:20px 20px 22px}
-.t .who{display:flex;align-items:center;gap:11px}
-.t .av{width:36px;height:36px;border-radius:999px;background:linear-gradient(135deg,#2a2a2a,#444);display:grid;place-items:center;font-family:var(--sora);font-weight:600;font-size:13px;color:#e6e6ea;flex:none}
-.t .hn{font-family:var(--sora);font-size:13.5px;font-weight:600}
-.t .rl{font-size:10.5px;color:var(--blue-2);text-transform:uppercase;letter-spacing:1px;margin-top:1px}
-.t q{display:block;margin-top:14px;font-size:14px;color:#d6d6da;line-height:1.6;quotes:none}
-@media(max-width:900px){.tgrid{column-count:2}}
-@media(max-width:600px){.tgrid{column-count:1}}
+/* three-up feature row, Notion style: no boxes, arrow affordance */
+.feats{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
+.feat h3{font-size:20px;letter-spacing:-.022em}
+.feat p{margin-top:9px;font-size:15.5px;color:var(--ink-2);line-height:1.55}
+.feat .arrow{margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:500;color:var(--blue-text)}
+.feat .arrow span{transition:transform .18s var(--ease)}
+.feat:hover .arrow span{transform:translateX(3px)}
+@media(max-width:860px){.feats{grid-template-columns:1fr;gap:30px}}
 
-/* founder story */
-.story{display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center}
-.story .txt h2{font-size:clamp(28px,4vw,46px);font-weight:800}
-.story .txt p{margin-top:18px;font-size:16px;color:var(--mut);line-height:1.7}
-.story .txt p b{color:var(--ink);font-weight:600}
-.story .txt .big{color:var(--blue-2);font-weight:700}
-.story .pic{border-radius:18px;overflow:hidden;border:1px solid var(--line-2);aspect-ratio:4/5;background:#0c0c0c}
-.story .pic img,.story .pic video{width:100%;height:100%;object-fit:cover;filter:contrast(1.04) brightness(.9)}
-@media(max-width:820px){.story{grid-template-columns:1fr}.story .pic{max-width:360px;margin:0 auto}}
+/* row list of what lands in the app */
+.rows{margin-top:36px;border-top:1px solid var(--line)}
+.row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:19px 6px;border-bottom:1px solid var(--line);transition:padding-left .18s var(--ease)}
+.row:hover{padding-left:12px}
+.row b{font-size:16.5px;font-weight:500}
+.row i{font-style:normal;font-size:15px;color:var(--ink-3);text-align:right}
+.row .go{color:var(--blue-text);font-size:16px;flex:none}
+@media(max-width:640px){.row i{display:none}}
 
-/* the honest deal (guarantee slot) */
-.deal{background:linear-gradient(135deg,#1a1a1a 0%,var(--blue-deep) 100%);border:1px solid rgba(37,99,235,.4);border-radius:22px;padding:56px 44px;text-align:center;max-width:900px;margin:0 auto}
-.deal .seal{width:64px;height:64px;border-radius:999px;background:rgba(0,0,0,.35);border:1px solid rgba(255,255,255,.18);display:grid;place-items:center;margin:0 auto 20px}
-.deal h2{font-size:clamp(26px,3.6vw,40px);font-weight:800}
-.deal p{margin:18px auto 0;max-width:36rem;font-size:16px;color:#f0dede;line-height:1.7}
-.deal p b{color:#fff}
+/* testimonials */
+.tst{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
+.t{background:var(--paper-soft);border-radius:8px;padding:26px 24px}
+.t p{font-size:16px;line-height:1.55}
+.t .by{margin-top:16px;font-size:14px;color:var(--ink-3)}
+.t .by b{display:block;color:var(--ink);font-weight:500;font-size:14.5px}
+@media(max-width:860px){.tst{grid-template-columns:1fr}}
+
+/* stats strip, one marquee on the page */
+.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden}
+.track{display:flex;gap:56px;width:max-content;animation:slide 38s linear infinite}
+.track span{font-size:15.5px;color:var(--ink-2);white-space:nowrap}
+.strip:hover .track{animation-play-state:paused}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion: reduce){.track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;gap:28px}}
 
 /* pricing */
-.plans{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:980px;margin:0 auto}
-.plan{background:var(--panel);border:1px solid var(--line);border-radius:20px;padding:34px 30px;display:flex;flex-direction:column;position:relative}
-.plan.reco{border-color:rgba(37,99,235,.55);background:linear-gradient(180deg,rgba(37,99,235,.10),transparent 60%),var(--panel);box-shadow:0 30px 80px -40px rgba(37,99,235,.6)}
-.plan .tag{font-family:var(--sora);font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:var(--mut)}
-.plan.reco .tag{color:var(--blue-2)}
-.plan .best{position:absolute;top:-11px;left:50%;transform:translateX(-50%);background:var(--blue);color:#fff;font-family:var(--sora);font-size:10.5px;font-weight:600;letter-spacing:1px;text-transform:uppercase;padding:5px 13px;border-radius:999px}
-.plan .amt{font-family:var(--sora);font-size:44px;font-weight:800;letter-spacing:-.03em;margin-top:14px}
-.plan .amt small{font-size:14px;color:var(--mut);font-weight:500;letter-spacing:0}
-.plan .per{font-size:13px;color:var(--faint);margin-top:2px}
-.plan ul{list-style:none;margin:24px 0 28px;display:flex;flex-direction:column;gap:11px;border-top:1px solid var(--line);padding-top:22px}
-.plan li{display:flex;gap:10px;font-size:14px;color:#d6d6da}
-.plan li .ck{flex:none;color:var(--blue-2);font-weight:700}
+.plans{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.plan{border:1px solid var(--line);border-radius:8px;padding:26px 24px;display:flex;flex-direction:column;background:var(--paper)}
+.plan.pick{border-color:var(--blue);box-shadow:var(--shadow)}
+.plan .tag{font-size:14px;color:var(--ink-3);font-weight:500}
+.plan.pick .tag{color:var(--blue-text)}
+.plan .amt{margin-top:12px;font-size:34px;font-weight:700;letter-spacing:-.035em;line-height:1}
+.plan .amt em{font-style:normal;font-size:14px;font-weight:400;color:var(--ink-3);letter-spacing:0}
+.plan .per{margin-top:7px;font-size:13.5px;color:var(--ink-3)}
+.plan ul{margin:19px 0 22px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
+.plan li{list-style:none;font-size:15px;color:var(--ink-2);display:flex;gap:9px}
+.plan li .tk{color:var(--blue-text);flex:none}
 .plan .btn{width:100%;margin-top:auto}
-@media(max-width:820px){.plans{grid-template-columns:1fr;max-width:400px}}
+@media(max-width:860px){.plans{grid-template-columns:1fr;max-width:420px;margin-inline:auto}}
+
+/* note block */
+.note{margin-top:26px;background:var(--paper-soft);border-radius:8px;padding:20px 22px;font-size:15.5px;color:var(--ink-2);line-height:1.6}
+.note b{color:var(--ink);font-weight:600}
 
 /* faq */
-.faq{max-width:780px;margin:0 auto;border-top:1px solid var(--line)}
+.faq{margin-top:34px;border-top:1px solid var(--line)}
 .faq details{border-bottom:1px solid var(--line)}
-.faq summary{cursor:pointer;list-style:none;display:flex;justify-content:space-between;gap:16px;align-items:center;padding:24px 4px;font-family:var(--sora);font-weight:600;font-size:17px}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 4px;font-size:17px;font-weight:500;transition:color .15s}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary .pl{color:var(--blue-2);font-size:24px;font-weight:400;line-height:1;transition:transform .2s var(--ease)}
-.faq details[open] summary .pl{transform:rotate(45deg)}
-.faq .a{padding:0 4px 26px;color:var(--mut);font-size:15px;line-height:1.75}
+.faq summary:hover{color:var(--blue-text)}
+.faq summary .pm{flex:none;color:var(--ink-3);font-size:20px;font-weight:400;line-height:1;transition:transform .2s var(--ease)}
+.faq details[open] summary .pm{transform:rotate(45deg)}
+.faq .a{padding:0 4px 22px;color:var(--ink-2);font-size:16px;line-height:1.65;max-width:62ch}
+.faq .a a{color:var(--blue-text)}
 
-/* final cta */
-.final{text-align:center;padding:110px 0}
-.final h2{font-size:clamp(34px,6vw,72px);font-weight:800;letter-spacing:-.035em;max-width:16ch;margin:0 auto}
-.final p{margin-top:20px;color:var(--mut);font-size:17px}
-.final .cta{margin-top:36px}
+/* closing */
+.closing{background:var(--paper-soft);padding:92px 0;text-align:center}
+.closing h2{font-size:clamp(32px,4.6vw,48px)}
+.closing p{margin:16px auto 0;max-width:42ch;color:var(--ink-2);font-size:17.5px}
+.closing .cta{margin-top:26px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
 
 /* footer */
-footer{border-top:1px solid var(--line);padding:40px 0;color:var(--faint);font-size:13px}
-.foot{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:16px}
-.foot .links{display:flex;gap:22px;font-size:12px;text-transform:uppercase;letter-spacing:1px;color:var(--mut)}
-.foot .links a:hover{color:var(--ink)}
+footer{padding:40px 0 52px}
+.foot{width:var(--w);margin-inline:auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.foot .fl{display:flex;gap:18px;flex-wrap:wrap;font-size:14.5px;color:var(--ink-3)}
+.foot .fl a:hover{color:var(--ink)}
+.foot .note-s{font-size:13.5px;color:var(--ink-3)}
 
-/* motion */
-.reveal{opacity:0;transform:translateY(22px);transition:opacity .8s var(--ease),transform .8s var(--ease)}
-.reveal.in{opacity:1;transform:none}
-@media(prefers-reduced-motion:reduce){.reveal{opacity:1;transform:none;transition:none}}
+/* entry motion */
+.rv{opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
+.rv.in{opacity:1;transform:none}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.rv{opacity:1;transform:none;transition:none}.row:hover{padding-left:6px}}
 </style>
-<script>!function(w,d,s,u,n,a,b){if(w[n])return;a=w[n]={q:[],t:+new Date,s:[],o:u,track:function(){a.q.push([+new Date].concat([].slice.call(arguments)))},setScope:function(){a.s=[].slice.call(arguments).filter(function(x){return typeof x==="string"});a.q.push([+new Date,"setScope"].concat(a.s))},scope:function(){var c=[].slice.call(arguments);return{track:function(){a.q.push([+new Date].concat([].slice.call(arguments)).concat([{__scope:c}]))}}}};b=d.createElement(s);b.async=1;b.src=u+"/s.js";d.getElementsByTagName(s)[0].parentNode.insertBefore(b,d.getElementsByTagName(s)[0])}(window,document,"script","https://t.whop.tw","whop");whop.setScope("biz_Y60ov8TrT9uGpn");whop.track("page");</script>
 </head>
 <body id="top">
 
 <nav id="nav">
   <div class="nav-in">
-    <a class="brand" href="#top"><span class="dot">🌊</span>Wave<span style="color:var(--blue-2)">hub</span></a>
+    <a class="brand" href="#top"><img src="assets/logo-square.png" alt="">WaveHub</a>
     <div class="nav-mid">
-      <a href="#system">The System</a>
+      <a href="#how">How it works</a>
       <a href="#inside">Inside</a>
       <a href="#members">Members</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
-      <a href="/canada.html" style="color:var(--blue-2)">Free preview</a>
     </div>
-    <a class="btn btn-sm" href="https://whop.com/checkout/plan_vtlqEojypnbPA">Join now</a>
+    <div class="nav-right">
+      <a class="login" href="https://app.wavehubtennis.com/login">Log in</a>
+      <a class="btn btn-primary btn-sm" href="#pricing">Join now</a>
+    </div>
   </div>
 </nav>
 
-<!-- HERO -->
 <header class="hero">
-  <div class="wrap hero-in">
-    <div class="badge"><span class="pill">ATP only</span> Value analysis · Since 2022</div>
-    <h1>Turn ATP tennis into a <span class="u">high-income skill</span>.</h1>
-    <p class="sub">Learn the system the disciplined 2% actually use: read the match, take the price before it moves, and hold the line. One sport. Few calls. Zero hype.</p>
+  <div class="w-narrow">
+    <h1>Find <span class="b">Mispriced</span> Tennis Odds Before the Market Corrects</h1>
+    <p>A research-driven framework that shows how disciplined bettors analyze probability, risk, and market movement to make structured tennis betting decisions.</p>
+    <div class="tpoints">
+      <span class="tpoint"><span class="ck">✓</span>4+ years track record</span>
+      <span class="tpoint"><span class="ck">✓</span>Single sport focus</span>
+      <span class="tpoint"><span class="ck">✓</span>Selective bets only</span>
+      <span class="tpoint"><span class="ck">✓</span>ROI driven strategy</span>
+    </div>
     <div class="cta">
-      <a class="btn" href="https://whop.com/checkout/plan_vtlqEojypnbPA">Join now</a>
+      <a class="btn btn-primary btn-arrow" href="#pricing">View the programs <span class="badge">↗</span></a>
+      <a class="btn btn-ghost" href="#how">See how it works</a>
     </div>
   </div>
-  <div class="wrap">
-    <div class="hero-frame reveal">
-      <video autoplay muted loop playsinline poster="assets/hero-poster.jpg">
-        <source src="assets/hero-loop.mp4" type="video/mp4">
-      </video>
-    </div>
+  <div class="hero-media rv">
+    <video autoplay muted loop playsinline poster="assets/hero-poster.jpg">
+      <source src="assets/hero-loop.mp4" type="video/mp4">
+    </video>
   </div>
 </header>
 
-<!-- FREE PREVIEW BAND — the lead magnet, front and centre -->
-<section class="freeband">
-  <div class="wrap">
-    <a class="fb" href="/canada.html">
-      <div class="fb-l">
-        <span class="fb-tag">Free · No card</span>
-        <h3>ATP Canada Open — the full preview.</h3>
-        <p>Watch the draw breakdown, then take the whole written preview with you as a PDF: quarter by quarter, where the seeding lies, and the spots worth the money.</p>
-      </div>
-      <div class="fb-r">
-        <img src="assets/previews/canada-cover.png" alt="Preview PDF" loading="lazy" onerror="this.style.display='none'">
-        <span class="fb-go">Get the free PDF <span aria-hidden="true">&rarr;</span></span>
-      </div>
-    </a>
-  </div>
-</section>
-
-<!-- THE SYSTEM (3 phases) -->
-<section class="sec" id="system">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">How it works</span>
-      <h2>The WaveHub system, in three phases.</h2>
-      <p>No noise, no daily volume. A repeatable way to turn ATP matches into an edge — and the edge into a skill you keep.</p>
-    </div>
-    <div class="phases">
-      <div class="phase reveal">
-        <span class="num">Phase 1</span>
-        <h3>The Read</h3>
-        <p class="d">Every day you get our data-driven ATP analysis: the matchups that matter, the numbers behind them, and the reasoning in plain language.</p>
-        <ul>
-          <li><span class="ck">✓</span>Model-backed win probabilities and fair prices</li>
-          <li><span class="ck">✓</span>Surface, form and fatigue read for each match</li>
-          <li><span class="ck">✓</span>The reasoning behind every call — never a blind tip</li>
-        </ul>
-      </div>
-      <div class="phase reveal">
-        <span class="num">Phase 2</span>
-        <h3>The Value</h3>
-        <p class="d">Few, high-conviction calls, taken early — a price higher than the matchup deserves, before the market corrects. When there's no edge, we say so.</p>
-        <ul>
-          <li><span class="ck">✓</span>Early to the market, before the line moves</li>
-          <li><span class="ck">✓</span>An honest "no bet today" when value isn't there</li>
-          <li><span class="ck">✓</span>Every pick sized with a clear staking plan</li>
-        </ul>
-      </div>
-      <div class="phase reveal">
-        <span class="num">Phase 3</span>
-        <h3>The Discipline</h3>
-        <p class="d">Transparent tracking and bankroll management turn small edges into a compounding skill. You stop chasing and start operating.</p>
-        <ul>
-          <li><span class="ck">✓</span>Results tracked in the open — nothing hidden</li>
-          <li><span class="ck">✓</span>Staking discipline that removes the guessing</li>
-          <li><span class="ck">✓</span>A members-only feed, tools and tournament PDFs</li>
-        </ul>
-      </div>
+<section class="sec" id="how">
+  <div class="w">
+    <h2 class="rv">Built for one sport.</h2>
+    <p class="lede rv">Most people lose because they bet on everything. The method here goes the other way.</p>
+    <div class="feats">
+      <article class="feat rv">
+        <h3>Read the match</h3>
+        <p>Model-backed win probabilities and a fair price for the matchups that matter, with the surface, form and fatigue behind them.</p>
+        <a class="arrow" href="#inside">What lands in the app <span>→</span></a>
+      </article>
+      <article class="feat rv">
+        <h3>Take the value</h3>
+        <p>A price higher than the matchup deserves, taken before the line moves. When the edge is not there, you hear that instead.</p>
+        <a class="arrow" href="#inside">See a week inside <span>→</span></a>
+      </article>
+      <article class="feat rv">
+        <h3>Hold the line</h3>
+        <p>Results tracked in the open and a staking plan sized to your bankroll, so the discipline does the compounding.</p>
+        <a class="arrow" href="#members">Hear from members <span>→</span></a>
+      </article>
     </div>
   </div>
 </section>
 
-<!-- INSIDE -->
 <section class="sec" id="inside" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Inside the club</span>
-      <h2>What a week in WaveHub looks like.</h2>
-      <p>Analysis, not action. Real reads, real prices, real discipline — delivered to the app.</p>
-    </div>
-    <div class="proof">
-      <div class="pcard reveal">
-        <div class="thumb"><img src="assets/how-1.jpg" alt=""><div class="play"><span>▶</span></div></div>
-        <div class="m"><b>The daily read</b><p>Dashboard · win probability</p></div>
-      </div>
-      <div class="pcard reveal">
-        <div class="thumb"><img src="assets/how-4.jpg" alt=""><div class="play"><span>▶</span></div></div>
-        <div class="m"><b>Transparent results</b><p>Tracked in the open</p></div>
-      </div>
-      <div class="pcard reveal">
-        <div class="thumb"><img src="assets/how-3.jpg" alt=""><div class="play"><span>▶</span></div></div>
-        <div class="m"><b>Staking discipline</b><p>Every pick sized</p></div>
-      </div>
+  <div class="w">
+    <h2 class="rv">What lands in the app.</h2>
+    <div class="rows rv">
+      <a class="row" href="#pricing"><b>The daily ATP read</b><i>Win probability and fair price</i><span class="go">→</span></a>
+      <a class="row" href="#pricing"><b>Value calls, taken early</b><i>Before the market corrects</i><span class="go">→</span></a>
+      <a class="row" href="#pricing"><b>An honest no bet</b><i>On the days without an edge</i><span class="go">→</span></a>
+      <a class="row" href="#pricing"><b>Your staking plan</b><i>Every call sized to your bankroll</i><span class="go">→</span></a>
+      <a class="row" href="#pricing"><b>Tournament previews</b><i>Draw by draw, week by week</i><span class="go">→</span></a>
+      <a class="row" href="#pricing"><b>Results in the open</b><i>Tracked where members can see</i><span class="go">→</span></a>
     </div>
   </div>
 </section>
 
-<!-- TESTIMONIALS -->
 <section class="sec" id="members" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Members</span>
-      <h2>Straight from the group.</h2>
-      <p>What members say once the hype is gone and the skill is there. (Shared with permission.)</p>
-    </div>
-    <div class="tgrid">
-      <div class="t reveal"><div class="who"><span class="av">JV</span><div><div class="hn">jonas_v</div><div class="rl">Core member</div></div></div><q>The no-bet days changed everything for me. I finally stopped chasing every single match.</q></div>
-      <div class="t reveal"><div class="who"><span class="av">MR</span><div><div class="hn">m.reuter</div><div class="rl">Private member</div></div></div><q>Six months ago I was tilting my bankroll on everything. Now I bet a third as often and actually understand the value. It finally feels like a skill instead of gambling.</q></div>
-      <div class="t reveal"><div class="who"><span class="av">KV</span><div><div class="hn">kev.value</div><div class="rl">Core member</div></div></div><q>I never understood fair price before. Now I check the value on every match before I do anything.</q></div>
-      <div class="t reveal"><div class="who"><span class="av">TS</span><div><div class="hn">t.serves</div><div class="rl">Core member</div></div></div><q>The staking plan alone was worth it. I think about every position now instead of guessing.</q></div>
-      <div class="t reveal"><div class="who"><span class="av">AP</span><div><div class="hn">andreas_p</div><div class="rl">Private member</div></div></div><q>Didn't expect to enjoy the patience. Feels like an investment now, not a punt. The honesty is why I trust it.</q></div>
-      <div class="t reveal"><div class="who"><span class="av">DM</span><div><div class="hn">david.mnt</div><div class="rl">Core member</div></div></div><q>The "no value today" messages are exactly why I trust everything else. Nobody else tells you when to sit out.</q></div>
+  <div class="w">
+    <h2 class="rv">Members who stopped chasing.</h2>
+    <div class="tst">
+      <figure class="t rv"><p>The no bet days changed it for me. I finally stopped chasing every match on the schedule.</p><figcaption class="by"><b>Jonas V.</b>Member since 2024</figcaption></figure>
+      <figure class="t rv"><p>I bet a third as often now and I actually understand why. It reads like a method instead of a habit.</p><figcaption class="by"><b>Marc R.</b>Member since 2023</figcaption></figure>
+      <figure class="t rv"><p>Telling me when to sit out is exactly why I trust everything else you send.</p><figcaption class="by"><b>David M.</b>Member since 2024</figcaption></figure>
     </div>
   </div>
 </section>
 
-<!-- FOUNDER STORY -->
-<section class="sec" style="padding-top:0">
-  <div class="wrap">
-    <div class="story">
-      <div class="pic reveal"><img src="assets/wh-tennis.jpg" alt=""></div>
-      <div class="txt reveal">
-        <span class="eyebrow">Our story</span>
-        <h2>Why WaveHub exists.</h2>
-        <p>Since <b>2022</b> we've modelled the ATP tour match by match — surface, form, fatigue, and the prices the market gets wrong. No football, no casino, no noise. <b>One sport, done properly.</b></p>
-        <p>Most bettors lose because they chase volume and hype. The few who don't do the opposite: one sport, one system, early prices, and the discipline to sit out when there's no edge.</p>
-        <p>We turned three years of that work into a system you can follow — and a members' club that keeps you <span class="big">honest, early, and disciplined.</span></p>
-      </div>
-    </div>
+<div class="strip">
+  <div class="track" aria-hidden="true">
+    <span>ATP tennis only</span><span>Analysis, not a bookmaker</span><span>Few calls, never daily volume</span><span>Early prices before the line moves</span><span>An honest no bet on quiet days</span><span>Running since 2022</span>
+    <span>ATP tennis only</span><span>Analysis, not a bookmaker</span><span>Few calls, never daily volume</span><span>Early prices before the line moves</span><span>An honest no bet on quiet days</span><span>Running since 2022</span>
   </div>
-</section>
+</div>
 
-<!-- THE HONEST DEAL (guarantee slot, compliant) -->
-<section class="sec">
-  <div class="wrap">
-    <div class="deal reveal">
-      <div class="seal">
-        <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2l7 3v6c0 5-3.5 8-7 9-3.5-1-7-4-7-9V5l7-3Z"/><path d="M9 12l2 2 4-4"/></svg>
-      </div>
-      <span class="eyebrow" style="color:#fff">Our promise</span>
-      <h2>The honest deal.</h2>
-      <p>We are not a tipster page. <b>No fixed matches, no daily volume, no profit promises.</b> You get few, tightly-structured ATP reads, an honest no-bet when there's no value, and the discipline to hold the line. If you want action every night, this isn't for you. If you want a skill you keep for life, join.</p>
-    </div>
-  </div>
-</section>
-
-<!-- PRICING -->
 <section class="sec" id="pricing">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">Pricing</span>
-      <h2>Here's your investment.</h2>
-      <p>One membership, three commitments. The longer you commit, the less it costs — because the skill is built over a season, not a weekend.</p>
-    </div>
+  <div class="w">
+    <h2 class="rv">Pick a term.</h2>
+    <p class="lede rv">One membership in three lengths. The skill is built over a season, so longer terms cost less per month.</p>
     <div class="plans">
-      <div class="plan reveal">
+      <article class="plan rv">
         <span class="tag">3 months</span>
-        <div class="amt">€180 <small>/ quarter</small></div>
-        <div class="per">≈ €60 a month · billed quarterly</div>
+        <div class="amt">€180 <em>/ quarter</em></div>
+        <p class="per">Around €60 a month, billed quarterly</p>
         <ul>
-          <li><span class="ck">✓</span>Daily ATP reads &amp; value</li>
-          <li><span class="ck">✓</span>Match insights &amp; stats</li>
-          <li><span class="ck">✓</span>Staking calculator</li>
+          <li><span class="tk">✓</span>Daily ATP reads and value</li>
+          <li><span class="tk">✓</span>Match insights and stats</li>
+          <li><span class="tk">✓</span>Staking calculator</li>
         </ul>
-        <a class="btn btn-ghost" href="https://whop.com/checkout/plan_vtlqEojypnbPA">Join now</a>
-      </div>
-      <div class="plan reco reveal">
-        <span class="best">Best value</span>
-        <span class="tag">6 months</span>
-        <div class="amt">€299 <small>/ half-year</small></div>
-        <div class="per">≈ €50 a month · billed every 6 months</div>
+        <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=3m">Join now</a>
+      </article>
+      <article class="plan pick rv">
+        <span class="tag">6 months · best value</span>
+        <div class="amt">€299 <em>/ half year</em></div>
+        <p class="per">Around €50 a month, billed twice a year</p>
         <ul>
-          <li><span class="ck">✓</span>Everything in 3 months</li>
-          <li><span class="ck">✓</span>Premium web tools &amp; tournament PDFs</li>
-          <li><span class="ck">✓</span>Private live-info chat</li>
-          <li><span class="ck">✓</span>Priority reasoning</li>
+          <li><span class="tk">✓</span>Everything in the 3 month term</li>
+          <li><span class="tk">✓</span>Premium tools and tournament previews</li>
+          <li><span class="tk">✓</span>Private live-info chat</li>
+          <li><span class="tk">✓</span>Priority reasoning on every call</li>
         </ul>
-        <a class="btn" href="https://whop.com/checkout/plan_vtlqEojypnbPA">Join now</a>
-      </div>
-      <div class="plan reveal">
+        <a class="btn btn-primary" href="https://app.wavehubtennis.com/api/checkout?plan=6m">Join now</a>
+      </article>
+      <article class="plan rv">
         <span class="tag">12 months</span>
-        <div class="amt">€599 <small>/ year</small></div>
-        <div class="per">≈ €50 a month · billed yearly</div>
+        <div class="amt">€599 <em>/ year</em></div>
+        <p class="per">Around €50 a month, billed yearly</p>
         <ul>
-          <li><span class="ck">✓</span>Everything in 6 months</li>
-          <li><span class="ck">✓</span>A full ATP season, start to finish</li>
-          <li><span class="ck">✓</span>The best price per month</li>
+          <li><span class="tk">✓</span>Everything in the 6 month term</li>
+          <li><span class="tk">✓</span>A full ATP season, start to finish</li>
+          <li><span class="tk">✓</span>The lowest monthly rate</li>
         </ul>
-        <a class="btn btn-ghost" href="https://whop.com/checkout/plan_vtlqEojypnbPA">Join now</a>
-      </div>
+        <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=1y">Join now</a>
+      </article>
     </div>
-    <p class="center mut" style="margin-top:22px;font-size:13px">Billed per term. No money is processed inside the app.</p>
+    <p class="note rv"><b>We do not promise profit, and nobody honest does.</b> WaveHub is analysis and consulting. You get the reads, the value and the discipline. How you manage risk stays with you.</p>
   </div>
 </section>
 
-<!-- FAQ -->
 <section class="sec" id="faq" style="padding-top:0">
-  <div class="wrap">
-    <div class="sec-head reveal">
-      <span class="eyebrow">FAQ</span>
-      <h2>Frequently asked questions.</h2>
-      <p>You've got questions — here are the honest answers.</p>
-    </div>
-    <div class="faq reveal">
-      <details><summary>Is WaveHub a bookmaker?<span class="pl">+</span></summary><p class="a">No. WaveHub is an analysis and consulting service. No money is staked, held or moved through us. We're on your side of the line, not the house's.</p></details>
-      <details><summary>Do you promise profit?<span class="pl">+</span></summary><p class="a">No — and anyone who does is lying. We give you the reads, the value and the discipline. Results depend on you following the system and managing risk. What we promise is honesty and quality, not a number.</p></details>
-      <details><summary>Do I need to be experienced?<span class="pl">+</span></summary><p class="a">No. If you're willing to be patient and disciplined, we take you from the fundamentals to reading value like the 2% do.</p></details>
-      <details><summary>How many picks per day?<span class="pl">+</span></summary><p class="a">Few and high-conviction, never daily noise. Some days there's nothing worth betting, and we'll say so out loud.</p></details>
-      <details><summary>How do I join?<span class="pl">+</span></summary><p class="a">Pick a plan and join. After a quick check you get a secure link to activate your membership, with instant access on every device. Quality of the group beats quantity.</p></details>
-      <details><summary>Can I use it on desktop and phone?<span class="pl">+</span></summary><p class="a">Yes. One account everywhere — desktop, mobile and the installable app. Log in once and you're in across every device.</p></details>
+  <div class="w-narrow">
+    <h2 class="rv">Questions.</h2>
+    <div class="faq rv">
+      <details><summary>Is WaveHub a bookmaker?<span class="pm">+</span></summary>
+        <p class="a">No. WaveHub is an analysis and consulting service. No money is staked, held or moved through us. We sit on your side of the line, not the house's.</p></details>
+      <details><summary>Do I need to be experienced?<span class="pm">+</span></summary>
+        <p class="a">No. If you are willing to be patient and follow a plan, we take you from the fundamentals to reading value properly. The patience matters more than the starting point.</p></details>
+      <details><summary>How many calls per day?<span class="pm">+</span></summary>
+        <p class="a">Few, and only when there is something worth backing. Some days there is nothing, and you will hear that plainly instead of being handed filler.</p></details>
+      <details><summary>Why only ATP tennis?<span class="pm">+</span></summary>
+        <p class="a">An edge comes from depth, not breadth. One tour followed properly beats five followed casually, and tennis rewards the work: surface, form and fatigue are all readable.</p></details>
+      <details><summary>How do I join?<span class="pm">+</span></summary>
+        <p class="a">Pick a term above and complete checkout. Access to the app follows straight away, on desktop and mobile, with one login across your devices.</p></details>
+      <details><summary>Can I cancel?<span class="pm">+</span></summary>
+        <p class="a">Yes. A membership runs for the term you pick and you can stop at the end of it. Your right of withdrawal is set out in full on the <a href="/withdrawal.html">withdrawal page</a>.</p></details>
     </div>
   </div>
 </section>
 
-<!-- FINAL CTA -->
-<section class="final">
-  <div class="wrap">
-    <span class="eyebrow reveal">Become a member</span>
-    <h2 class="reveal" style="margin-top:16px">You know how it works. The only question is whether you're ready.</h2>
-    <p class="reveal">One sport. Early prices. Real discipline. Join the club.</p>
-    <div class="cta reveal"><a class="btn" href="https://whop.com/checkout/plan_vtlqEojypnbPA">Join now</a></div>
+<section class="closing">
+  <div class="w-narrow">
+    <h2 class="rv">Get started today.</h2>
+    <p class="rv">Read the few matches that matter instead of betting the ones that do not.</p>
+    <div class="cta rv">
+      <a class="btn btn-primary" href="#pricing">Join now</a>
+      <a class="btn btn-ghost" href="/free">Try the free group</a>
+    </div>
   </div>
 </section>
 
 <footer>
-  <div class="wrap foot">
-    <a class="brand" href="#top" style="font-size:16px"><span class="dot">🌊</span>Wave<span style="color:var(--blue-2)">hub</span></a>
-    <div class="links">
-      <a href="#pricing">Pricing</a>
+  <div class="foot">
+    <a class="brand" href="#top"><img src="assets/logo-square.png" alt="">WaveHub</a>
+    <div class="fl">
       <a href="/free">Free group</a>
-      <a href="https://app.wavehubtennis.com/login">Members access</a>
+      <a href="https://app.wavehubtennis.com/login">Log in</a>
       <a href="/imprint.html">Imprint</a>
       <a href="/privacy.html">Privacy</a>
       <a href="/terms.html">Terms</a>
       <a href="/withdrawal.html">Withdrawal</a>
     </div>
-    <span>Analysis, not a bookmaker · ATP only · © 2026 WaveHub</span>
+    <span class="note-s">Analysis, not a bookmaker. ATP only. © 2026 WaveHub</span>
   </div>
 </footer>
 
 <script>
 (function(){
-  var nav=document.getElementById('nav');
-  function onScroll(){ if(scrollY>30) nav.classList.add('solid'); else nav.classList.remove('solid'); }
-  onScroll(); addEventListener('scroll',onScroll,{passive:true});
+  var nav=document.getElementById('nav'),s=document.createElement('div');
+  document.body.prepend(s);
+  new IntersectionObserver(function(e){nav.classList.toggle('stuck',!e[0].isIntersecting);},{threshold:0}).observe(s);
+
   var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var els=document.querySelectorAll('.reveal');
-  if(reduce||!('IntersectionObserver' in window)){els.forEach(function(e){e.classList.add('in')});return;}
-  var io=new IntersectionObserver(function(en){en.forEach(function(e){if(e.isIntersecting){e.target.classList.add('in');io.unobserve(e.target)}})},{threshold:.12,rootMargin:'0px 0px -6% 0px'});
-  els.forEach(function(e){io.observe(e)});
+  var items=document.querySelectorAll('.rv');
+  if(reduce||!('IntersectionObserver' in window)){items.forEach(function(el){el.classList.add('in')});return;}
+  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -8% 0px'});
+  items.forEach(function(el){io.observe(el)});
 })();
 </script>
-<script src="assets/popup.js" defer></script>
 </body>
 </html>
