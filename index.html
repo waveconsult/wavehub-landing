@@ -119,18 +119,30 @@ nav.stuck{border-bottom-color:var(--line)}
 .tpoint .ck{flex:none;width:19px;height:19px;border-radius:999px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:10.5px;font-weight:700;line-height:1}
 @media(max-width:620px){.tpoints{gap:12px 20px}.tpoint{font-size:14px}}
 
+/* Two-column hero from 900px up: the copy makes the claim, the odds graph
+   proves it inside the same viewport. The graph is already white-on-white so
+   it needs no frame. Below 900px it stacks, copy first, and everything falls
+   back to the centred layout. */
+.hero-grid{display:grid;gap:40px}
+.hero-art{margin:0}
+.hero-art img{width:100%;height:auto}
+.hero-art figcaption{margin-top:10px;font-size:14px;color:var(--ink-3);line-height:1.5;text-align:left}
+@media(min-width:900px){
+  .hero{text-align:left;padding:60px 0 0}
+  .hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;gap:52px}
+  .hero h1{margin-inline:0;max-width:16ch;font-size:clamp(36px,3.5vw,48px)}
+  .hero p{margin-inline:0;max-width:48ch}
+  .hero .tpoints,.hero .cta{justify-content:flex-start}
+  .hero .tpoints{gap:12px 22px}
+}
+
 /* primary CTA carries an arrow badge, matching the reference's affordance
    while keeping the page's 8px radius system */
 .btn-arrow{padding:11px 11px 11px 22px;font-size:17px}
 .btn-arrow .badge{flex:none;width:30px;height:30px;border-radius:999px;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:15px;margin-left:4px;transition:transform .18s var(--ease)}
 .btn-arrow:hover .badge{transform:translate(2px,-2px)}
 @media (prefers-reduced-motion: reduce){.btn-arrow:hover .badge{transform:none}}
-.hero-media{margin:52px auto 0;width:var(--w);border-radius:12px;overflow:hidden;box-shadow:var(--shadow-lift);background:var(--paper-soft)}
-.hero-media video{width:100%;aspect-ratio:16/9;object-fit:cover}
 
-/* thin trust line under the hero */
-.trust{padding:34px 0 0;text-align:center}
-.trust p{font-size:14.5px;color:var(--ink-3)}
 
 /* sections */
 .sec{padding:88px 0}
@@ -262,24 +274,25 @@ footer{padding:40px 0 52px}
 </nav>
 
 <header class="hero" id="main">
-  <div class="w-narrow">
-    <h1>Find <span class="b">Mispriced</span> Tennis Odds Before the Market Corrects</h1>
-    <p>A research-driven framework that shows how disciplined bettors analyze probability, risk, and market movement to make structured tennis betting decisions.</p>
-    <div class="tpoints">
-      <span class="tpoint"><span class="ck">✓</span>4+ years track record</span>
-      <span class="tpoint"><span class="ck">✓</span>Single sport focus</span>
-      <span class="tpoint"><span class="ck">✓</span>Selective bets only</span>
-      <span class="tpoint"><span class="ck">✓</span>An honest no bet on quiet days</span>
+  <div class="w hero-grid">
+    <div class="hero-copy">
+      <h1>Find <span class="b">Mispriced</span> Tennis Odds Before the Market Corrects</h1>
+      <p>A research-driven framework that shows how disciplined bettors analyze probability, risk, and market movement to make structured tennis betting decisions.</p>
+      <div class="tpoints">
+        <span class="tpoint"><span class="ck">&#10003;</span>4+ years track record</span>
+        <span class="tpoint"><span class="ck">&#10003;</span>Single sport focus</span>
+        <span class="tpoint"><span class="ck">&#10003;</span>Selective bets only</span>
+        <span class="tpoint"><span class="ck">&#10003;</span>An honest no bet on quiet days</span>
+      </div>
+      <div class="cta">
+        <a class="btn btn-primary btn-arrow" href="#pricing">View the programs <span class="badge">&#8599;</span></a>
+        <a class="btn btn-ghost" href="#how">See how it works</a>
+      </div>
     </div>
-    <div class="cta">
-      <a class="btn btn-primary btn-arrow" href="#pricing">View the programs <span class="badge">↗</span></a>
-      <a class="btn btn-ghost" href="#how">See how it works</a>
-    </div>
-  </div>
-  <div class="hero-media rv">
-    <video autoplay muted loop playsinline poster="assets/hero-poster.jpg">
-      <source src="assets/hero-loop.mp4" type="video/mp4">
-    </video>
+    <figure class="hero-art">
+      <img src="assets/odds-graph-light.png" width="1080" height="833" fetchpriority="high" alt="Odds movement for the ATP Washington outright winner across six rounds: the field drifts out from 6.2 to 3.35 while Fritz shortens from 2.6 to 2.29.">
+      <figcaption>One tournament, one market, six rounds. What you get depends on when you take it.</figcaption>
+    </figure>
   </div>
 </header>
 
