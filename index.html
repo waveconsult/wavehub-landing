@@ -89,8 +89,12 @@ nav.stuck{border-bottom-color:var(--line)}
 .nav-mid{display:flex;gap:24px;font-size:15px;color:var(--ink-2)}
 .nav-mid a:hover{color:var(--ink)}
 .nav-right{display:flex;align-items:center;gap:12px}
-.nav-right .login{font-size:15px;color:var(--ink-2)}
-.nav-right .login:hover{color:var(--ink)}
+/* Log in is a real button, not a quiet text link. For a paying member it is
+   the most important control on the page, and a 15px grey link sitting next to
+   a filled blue button reads as decoration rather than a way in. Same
+   treatment on desktop and phone. */
+.nav-right .login{font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:9px 15px}
+.nav-right .login:hover{background:var(--paper-soft);border-color:rgba(0,0,0,.16)}
 /* below 900px the inline links collapse into a disclosure menu rather than
    disappearing. CSS-only, same <details> mechanic the FAQ already uses.
    "Log in" is never hidden: a paying member must be able to reach their
@@ -103,7 +107,10 @@ nav.stuck{border-bottom-color:var(--line)}
 .menu-panel a{padding:11px 12px;border-radius:8px;font-size:15.5px;color:var(--ink-2)}
 .menu-panel a:hover{background:var(--paper-soft);color:var(--ink)}
 @media(max-width:900px){.nav-mid{display:none}.menu{display:block}}
-@media(max-width:420px){.nav-right .login{font-size:14.5px}.nav-in{gap:10px}}
+/* Below 480px the bar cannot hold brand + menu + two buttons without wrapping.
+   "Join now" is the one that goes: the hero CTA, the menu and the pricing
+   anchor all still reach checkout, whereas nothing else reaches the login. */
+@media(max-width:480px){.nav-in{gap:10px}.nav-right .btn-primary{display:none}.nav-right .login{padding:9px 13px}}
 
 /* hero */
 .hero{padding:72px 0 0;text-align:center}
