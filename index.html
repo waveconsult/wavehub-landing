@@ -189,7 +189,7 @@ nav.stuck{border-bottom-color:var(--line)}
 @media (prefers-reduced-motion: reduce){.track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;gap:28px}}
 
 /* pricing */
-.plans{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;align-items:start}
+.plans{margin-top:44px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:start;max-width:760px;margin-inline:auto}
 .plan{border:1px solid var(--line);border-radius:8px;padding:26px 24px;display:flex;flex-direction:column;background:var(--paper)}
 .plan.pick{border-color:var(--blue);box-shadow:var(--shadow)}
 .plan .tag{font-size:14px;color:var(--ink-3);font-weight:500}
@@ -355,44 +355,31 @@ footer{padding:40px 0 52px}
 
 <section class="sec" id="pricing">
   <div class="w">
-    <h2 class="rv">Pick a term.</h2>
-    <p class="lede rv">One membership in three lengths. The skill is built over a season, so longer terms cost less per month.</p>
+    <h2 class="rv">Two ways in.</h2>
+    <p class="lede rv">Both bill once a year. Gold adds the models and the education library for a one-off, then renews at the same price as Silver &mdash; because after the first year you are receiving the same thing.</p>
     <div class="plans">
       <article class="plan rv">
-        <span class="tag">3 months</span>
-        <div class="amt">&euro;69 <em>/ quarter</em></div>
-        <p class="per">Around &euro;23 a month, billed quarterly</p>
+        <span class="tag">Silver</span>
+        <div class="amt">&euro;399 <em>/ year</em></div>
+        <p class="per">Around &euro;33 a month, billed yearly</p>
         <ul>
-          <li><span class="tk">&#10003;</span>Daily ATP reads and the value behind them</li>
-          <li><span class="tk">&#10003;</span>Match insights and stats</li>
-          <li><span class="tk">&#10003;</span>Premium tools and tournament previews</li>
-          <li><span class="tk">&#10003;</span>Private live-info chat</li>
+          <li><span class="tk">&#10003;</span>Every pick, with the reasoning behind it</li>
+          <li><span class="tk">&#10003;</span>Live in-play calls as matches turn</li>
+          <li><span class="tk">&#10003;</span>Tournament previews, draw by draw</li>
         </ul>
-        <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=3m">Join now</a>
-      </article>
-      <article class="plan rv">
-        <span class="tag">6 months</span>
-        <div class="amt">&euro;119 <em>/ half year</em></div>
-        <p class="per">Around &euro;20 a month, billed twice a year</p>
-        <ul>
-          <li><span class="tk">&#10003;</span>Daily ATP reads and the value behind them</li>
-          <li><span class="tk">&#10003;</span>Match insights and stats</li>
-          <li><span class="tk">&#10003;</span>Premium tools and tournament previews</li>
-          <li><span class="tk">&#10003;</span>Private live-info chat</li>
-        </ul>
-        <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=6m">Join now</a>
+        <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=silver">Join now</a>
       </article>
       <article class="plan pick rv">
-        <span class="tag">12 months &middot; best value</span>
-        <div class="amt">&euro;169 <em>/ year</em></div>
-        <p class="per">Around &euro;14 a month, billed yearly</p>
+        <span class="tag">Gold &middot; most complete</span>
+        <div class="amt">&euro;599 <em>/ first year</em></div>
+        <p class="per">&euro;399 for the year plus a one-off &euro;200. Renews at &euro;399.</p>
         <ul>
-          <li><span class="tk">&#10003;</span>Daily ATP reads and the value behind them</li>
-          <li><span class="tk">&#10003;</span>Match insights and stats</li>
-          <li><span class="tk">&#10003;</span>Premium tools and tournament previews</li>
-          <li><span class="tk">&#10003;</span>Private live-info chat</li>
+          <li><span class="tk">&#10003;</span>Everything in Silver</li>
+          <li><span class="tk">&#10003;</span>The models the calls are built on</li>
+          <li><span class="tk">&#10003;</span>The full education library</li>
+          <li><span class="tk">&#10003;</span>Paid once &mdash; renewals cost the same as Silver</li>
         </ul>
-        <a class="btn btn-primary" href="https://app.wavehubtennis.com/api/checkout?plan=1y">Join now</a>
+        <a class="btn btn-primary" href="https://app.wavehubtennis.com/api/checkout?plan=gold">Join now</a>
       </article>
     </div>
     <p class="note rv"><b>We do not promise profit, and nobody honest does.</b> WaveHub is analysis and consulting. You get the reads, the value and the discipline. How you manage risk stays with you.</p>
@@ -412,7 +399,7 @@ footer{padding:40px 0 52px}
       <details><summary>Why only ATP tennis?<span class="pm">+</span></summary>
         <p class="a">An edge comes from depth, not breadth. One tour followed properly beats five followed casually, and tennis rewards the work: surface, form and fatigue are all readable.</p></details>
       <details><summary>How do I join?<span class="pm">+</span></summary>
-        <p class="a">Pick a term above and complete checkout. You then get your access to the members' group on Telegram, where every read is posted. There is nothing to install and no extra account to keep track of, on any device you already use.</p></details>
+        <p class="a">Pick Silver or Gold above and complete checkout. You then get your access to the members' group on Telegram, where every read is posted. There is nothing to install and no extra account to keep track of, on any device you already use.</p></details>
       <details><summary>Can I cancel?<span class="pm">+</span></summary>
         <p class="a">Yes. A membership runs for the term you pick and you can stop at the end of it. Your right of withdrawal is set out in full on the <a href="/withdrawal.html">withdrawal page</a>.</p></details>
     </div>
