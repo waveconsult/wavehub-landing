@@ -5,7 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WaveHub · Find mispriced tennis odds before the market corrects</title>
 <meta name="description" content="A research-driven framework that shows how disciplined bettors analyze probability, risk, and market movement to make structured tennis betting decisions. ATP only.">
-<meta name="theme-color" content="#ffffff">
+<meta name="theme-color" content="#fbfbfa" media="(prefers-color-scheme: light)">
+<meta name="theme-color" content="#0b0d0f" media="(prefers-color-scheme: dark)">
 <link rel="icon" href="assets/favicon-32.png" sizes="32x32">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
@@ -14,400 +15,618 @@
 <meta property="og:url" content="https://wavehubtennis.com">
 <meta property="og:image" content="assets/hero-poster.jpg">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<!-- Adobe Fonts kit amv8grb. Included in every Creative Cloud plan, unlimited
+     pageviews, commercial use cleared. The only font request the site makes —
+     there is no Google Fonts call anywhere. -->
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="preconnect" href="https://p.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/amv8grb.css">
 <style>
 /* ==========================================================================
-   WaveHub landing, built to match notion.com's marketing design language.
-   Values below are taken from the live Notion site rather than guessed:
-     canvas #ffffff, ink rgba(0,0,0,.95), primary blue #0075de,
-     Inter, h1 700 weight at -0.035em tracking and ~1.04 line-height,
-     compact 8px-radius buttons, short headlines that end in a period,
-     arrow affordance on secondary links, a stats strip, big hero media.
-   Radius system (locked): buttons and cards 8px, media 12px, pills 999px.
+   WaveHub landing — "the price desk".
+
+   The page is the instrument, not a brochure about one. Graphite paper,
+   hairline rules, and one saturated blue that only ever means two things:
+   this is the value, or this is the action. Nothing decorative is blue.
+
+   Recurring device: the ledger row (.led) — label left, tabular figure right,
+   hairline under. It is the hero board and the plan features.
+
+   Type, two families out of the kit:
+     dunbar-low  — the headliner, always. Geometric with a very low x-height,
+                   so it wants size and air: line-height near 1.0 and only
+                   light negative tracking. 400 and 700 only, never 500/600.
+     geologica-variable — the worker. Body, labels, controls, nav. 100-900,
+                   no italic in the kit, so never ask it for one.
+
+   Radius: controls 8px, panels 14px, "Apple button" cards 22px, pills 999px.
    ========================================================================== */
 :root{
-  --paper:#fff;
-  --paper-soft:#f7f7f5;
-  --ink:rgba(0,0,0,.95);
-  --ink-2:rgba(0,0,0,.72);
-  --ink-3:rgba(0,0,0,.55);
-  --line:rgba(0,0,0,.09);
-  --blue:#0075de;
-  --blue-hover:#0068c7;
-  --blue-text:#097fe8;
-  --shadow:0 1px 2px rgba(0,0,0,.05),0 6px 20px rgba(0,0,0,.07);
-  --shadow-lift:0 2px 6px rgba(0,0,0,.06),0 18px 44px rgba(0,0,0,.12);
-  --ease:cubic-bezier(.16,1,.3,1);
-  --w:min(1120px,100% - 40px);
-  --w-narrow:min(760px,100% - 40px);
+  --paper:#fbfbfa;
+  --surface:#f3f3f1;
+  --sunken:#ececea;
+  --ink:#0d0f11;
+  --ink-2:#454c54;
+  --ink-3:#656d75;
+  --rule:#e3e3e0;
+  --rule-2:#cdcec9;
+
+  /* One blue, three jobs: fill, hover, and readable-on-paper text. */
+  --blue:#0b5fff;
+  --blue-h:#0a4cd9;
+  --blue-ink:#0b5fff;      /* 5.06:1 on --paper */
+  --blue-wash:rgba(11,95,255,.06);
+  --blue-line:rgba(11,95,255,.22);
+  --on-blue:#fff;
+
+  --shadow:0 1px 2px rgba(13,15,17,.04),0 10px 30px -12px rgba(13,15,17,.14);
+  --shadow-card:0 1px 1px rgba(13,15,17,.04),0 2px 4px rgba(13,15,17,.03),0 12px 28px -14px rgba(13,15,17,.18);
+  --ease:cubic-bezier(.2,.7,.3,1);
+  --w:min(1140px,100% - 44px);
+  --w-narrow:min(760px,100% - 44px);
+  --sec:104px;
+  --font:'geologica-variable',-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;
+  --display:'dunbar-low',var(--font);
 }
-@media (prefers-color-scheme: dark){
+@media(max-width:760px){:root{--sec:68px;--w:min(1140px,100% - 36px);--w-narrow:min(760px,100% - 36px)}}
+@media (prefers-color-scheme:dark){
   :root{
-    --paper:#191919;--paper-soft:#202020;
-    --ink:rgba(255,255,255,.94);--ink-2:rgba(255,255,255,.72);--ink-3:rgba(255,255,255,.55);
-    --line:rgba(255,255,255,.11);
-    --blue:#2b8fe8;--blue-hover:#4ba3ee;--blue-text:#67b0f0;
-    --shadow:0 1px 2px rgba(0,0,0,.4),0 6px 20px rgba(0,0,0,.35);
-    --shadow-lift:0 2px 6px rgba(0,0,0,.45),0 18px 44px rgba(0,0,0,.5);
+    --paper:#0b0d0f;
+    --surface:#131619;
+    --sunken:#181c20;
+    --ink:#f3f5f6;
+    --ink-2:#a9b0b8;
+    --ink-3:#7c848d;
+    --rule:#222629;
+    --rule-2:#333a3f;
+    --blue:#3d7dff;
+    --blue-h:#5c93ff;
+    --blue-ink:#7aa9ff;    /* 6.0:1 on --paper */
+    --blue-wash:rgba(61,125,255,.10);
+    --blue-line:rgba(61,125,255,.32);
+    --shadow:0 1px 2px rgba(0,0,0,.5),0 12px 34px -12px rgba(0,0,0,.7);
+    --shadow-card:0 1px 2px rgba(0,0,0,.5),0 14px 32px -16px rgba(0,0,0,.8);
   }
 }
-*{box-sizing:border-box;margin:0;padding:0}
-/* scroll-padding keeps an anchored heading clear of the 62px sticky nav
-   instead of scrolling it behind the bar */
-html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:80px}
-::selection{background:#cfe6fb;color:#000}
 
-/* keyboard focus: visible on every interactive element, and a ring that stays
-   readable on top of the blue button */
-:where(a,button,summary,[tabindex]):focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:6px}
-.btn-primary:focus-visible{outline-color:var(--ink)}
-.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--paper);color:var(--ink);border:1px solid var(--line);border-radius:8px;padding:11px 16px;font-size:15px;font-weight:500}
-.skip:focus{left:12px;top:12px}
-body{background:var(--paper);color:var(--ink);font-family:Inter,-apple-system,BlinkMacSystemFont,'Segoe UI',Helvetica,Arial,sans-serif;font-size:16px;line-height:1.5;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+*{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;scroll-behavior:smooth;scroll-padding-top:96px}
+body{background:var(--paper);color:var(--ink);font-family:var(--font);font-size:17px;line-height:1.6;-webkit-font-smoothing:antialiased;overflow-x:hidden}
 a{color:inherit;text-decoration:none}
-img,video{display:block;max-width:100%}
-h1,h2,h3{font-weight:700;letter-spacing:-.035em;line-height:1.04}
+img,svg,video{display:block;max-width:100%}
+::selection{background:var(--blue);color:var(--on-blue)}
+
+:where(a,button,summary,[tabindex]):focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:5px}
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--paper);color:var(--ink);border:1px solid var(--rule-2);border-radius:8px;padding:11px 16px;font-size:15px;font-weight:500}
+.skip:focus{left:14px;top:14px}
+.vh{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+
+h1,h2,h3{font-family:var(--display);font-weight:700;letter-spacing:-.018em;line-height:1.04}
 .w{width:var(--w);margin-inline:auto}
 .w-narrow{width:var(--w-narrow);margin-inline:auto}
 
-/* buttons: Notion's compact 8px pills */
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;font-size:16px;font-weight:500;line-height:1;white-space:nowrap;padding:11px 17px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:background .15s,border-color .15s,color .15s}
-.btn-primary{background:var(--blue);color:#fff}
-.btn-primary:hover{background:var(--blue-hover)}
-.btn-ghost{background:var(--paper);color:var(--blue-text);border-color:var(--line)}
-.btn-ghost:hover{background:var(--paper-soft)}
-.btn-sm{padding:8px 14px;font-size:15px}
+.lbl{font-family:var(--font);font-size:11px;font-weight:600;line-height:1;letter-spacing:.15em;text-transform:uppercase;color:var(--ink-3)}
+.lbl--blue{color:var(--blue-ink)}
+.num{font-family:var(--display);font-variant-numeric:tabular-nums lining-nums;font-feature-settings:'tnum','lnum';letter-spacing:-.01em}
 
-/* nav */
-nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 90%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid transparent;transition:border-color .2s}
-nav.stuck{border-bottom-color:var(--line)}
-.nav-in{width:var(--w);margin-inline:auto;height:62px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.brand{display:flex;align-items:center;gap:8px;font-weight:600;font-size:17px;letter-spacing:-.02em}
-.brand img{width:22px;height:22px;border-radius:5px}
-.nav-mid{display:flex;gap:24px;font-size:15px;color:var(--ink-2)}
-.nav-mid a:hover{color:var(--ink)}
-.nav-right{display:flex;align-items:center;gap:12px}
-/* Log in is a real button, not a quiet text link. For a paying member it is
-   the most important control on the page, and a 15px grey link sitting next to
-   a filled blue button reads as decoration rather than a way in. Same
-   treatment on desktop and phone. */
-.nav-right .login{font-size:15px;font-weight:500;line-height:1;white-space:nowrap;color:var(--ink);background:var(--paper);border:1px solid var(--line);border-radius:8px;padding:9px 15px}
-.nav-right .login:hover{background:var(--paper-soft);border-color:rgba(0,0,0,.16)}
-/* below 900px the inline links collapse into a disclosure menu rather than
-   disappearing. CSS-only, same <details> mechanic the FAQ already uses.
-   "Log in" is never hidden: a paying member must be able to reach their
-   account from a phone. */
+/* --- controls ------------------------------------------------------------ */
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:9px;font-family:var(--font);font-size:16px;font-weight:600;letter-spacing:-.006em;line-height:1;white-space:nowrap;padding:15px 22px;border-radius:8px;border:1px solid transparent;cursor:pointer;transition:background .16s var(--ease),border-color .16s var(--ease),color .16s var(--ease),transform .16s var(--ease)}
+.btn--fill{background:var(--blue);color:var(--on-blue)}
+.btn--fill:hover{background:var(--blue-h)}
+.btn--line{background:transparent;color:var(--ink);border-color:var(--rule-2)}
+.btn--line:hover{background:var(--surface);border-color:var(--ink-3)}
+.btn--sm{padding:11px 16px;font-size:15px}
+.btn .tick{display:inline-block;transition:transform .2s var(--ease)}
+.btn:hover .tick{transform:translateX(3px)}
+
+/* --- nav ----------------------------------------------------------------- */
+.nav{position:sticky;top:0;z-index:50;background:color-mix(in srgb,var(--paper) 88%,transparent);backdrop-filter:saturate(1.4) blur(10px);border-bottom:1px solid transparent;transition:border-color .2s var(--ease)}
+.nav.is-stuck{border-bottom-color:var(--rule)}
+.nav__in{width:var(--w);margin-inline:auto;height:70px;display:flex;align-items:center;justify-content:space-between;gap:22px}
+.mark{display:flex;align-items:center;gap:10px;font-family:var(--display);font-size:21px;font-weight:700;letter-spacing:-.01em}
+.mark img{width:26px;height:26px;object-fit:contain}
+.nav__links{display:flex;gap:26px;font-size:15px;color:var(--ink-2)}
+.nav__links a{padding-block:4px}
+.nav__links a:hover{color:var(--ink)}
+.nav__right{display:flex;align-items:center;gap:10px}
+.nav__login{font-size:15px;font-weight:600;line-height:1;white-space:nowrap;padding:11px 16px;border-radius:8px;border:1px solid var(--rule-2)}
+.nav__login:hover{background:var(--surface)}
 .menu{display:none;position:relative}
-.menu>summary{list-style:none;cursor:pointer;display:grid;place-items:center;width:38px;height:38px;border-radius:8px;border:1px solid var(--line);color:var(--ink-2)}
+.menu>summary{list-style:none;cursor:pointer;display:grid;place-items:center;width:44px;height:44px;border-radius:8px;border:1px solid var(--rule-2);color:var(--ink-2)}
 .menu>summary::-webkit-details-marker{display:none}
-.menu[open]>summary{background:var(--paper-soft);color:var(--ink)}
-.menu-panel{position:absolute;right:0;top:46px;min-width:212px;background:var(--paper);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow-lift);padding:8px;display:flex;flex-direction:column}
-.menu-panel a{padding:11px 12px;border-radius:8px;font-size:15.5px;color:var(--ink-2)}
-.menu-panel a:hover{background:var(--paper-soft);color:var(--ink)}
-@media(max-width:900px){.nav-mid{display:none}.menu{display:block}}
-/* Below 480px the bar cannot hold brand + menu + two buttons without wrapping.
-   "Join now" is the one that goes: the hero CTA, the menu and the pricing
-   anchor all still reach checkout, whereas nothing else reaches the login. */
-@media(max-width:480px){.nav-in{gap:10px}.nav-right .btn-primary{display:none}.nav-right .login{padding:9px 13px}}
+.menu[open]>summary{background:var(--surface);color:var(--ink)}
+.menu__panel{position:absolute;right:0;top:52px;min-width:220px;background:var(--paper);border:1px solid var(--rule);border-radius:14px;box-shadow:var(--shadow);padding:7px;display:flex;flex-direction:column}
+.menu__panel a{padding:12px;border-radius:8px;font-size:15px;color:var(--ink-2)}
+.menu__panel a:hover{background:var(--surface);color:var(--ink)}
+@media(max-width:940px){.nav__links{display:none}.menu{display:block}}
+@media(max-width:480px){.nav__in{gap:10px;height:64px}.nav__right .btn{display:none}}
 
-/* hero */
-.hero{padding:72px 0 0;text-align:center}
-.hero h1{font-size:clamp(34px,5.2vw,56px);max-width:21ch;margin-inline:auto}
-.hero h1 .b{color:var(--blue-text)}
-.hero p{margin:20px auto 0;max-width:60ch;font-size:clamp(16.5px,1.9vw,18.5px);color:var(--ink-2);line-height:1.5}
-.hero .cta{margin-top:26px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap;align-items:center}
-
-/* trust points above the CTA: same claims as the reference block, rendered in
-   this page's language (filled Notion-blue check, no neon ring) */
-.tpoints{margin-top:28px;display:flex;justify-content:center;flex-wrap:wrap;gap:14px 28px}
-.tpoint{display:flex;align-items:center;gap:9px;font-size:15px;color:var(--ink-2);white-space:nowrap}
-.tpoint .ck{flex:none;width:19px;height:19px;border-radius:999px;background:var(--blue);color:#fff;display:grid;place-items:center;font-size:10.5px;font-weight:700;line-height:1}
-@media(max-width:620px){.tpoints{gap:12px 20px}.tpoint{font-size:14px}}
-
-/* Two-column hero from 900px up: the copy makes the claim, the odds graph
-   proves it inside the same viewport. The graph is already white-on-white so
-   it needs no frame. Below 900px it stacks, copy first, and everything falls
-   back to the centred layout. */
-.hero-grid{display:grid;gap:40px}
-.hero-art{margin:0}
-.hero-art img{width:100%;height:auto}
-.hero-art figcaption{margin-top:10px;font-size:14px;color:var(--ink-3);line-height:1.5;text-align:left}
-@media(min-width:900px){
-  .hero{text-align:left;padding:60px 0 0}
-  .hero-grid{grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);align-items:center;gap:52px}
-  .hero h1{margin-inline:0;max-width:16ch;font-size:clamp(36px,3.5vw,48px)}
-  .hero p{margin-inline:0;max-width:48ch}
-  .hero .tpoints,.hero .cta{justify-content:flex-start}
-  .hero .tpoints{gap:12px 22px}
+/* --- opening -------------------------------------------------------------
+   The film is the first thing on the page, so the statement above it has to
+   carry the whole entrance: centred, and as large as Dunbar Low will take
+   before the line count starts working against it. */
+.hero{padding:88px 0 var(--sec);text-align:center}
+.hero .lbl{display:block;margin-bottom:26px}
+.hero h1{font-size:clamp(46px,7.4vw,104px);font-weight:700;letter-spacing:-.026em;line-height:.98;max-width:17ch;margin-inline:auto;text-wrap:balance}
+.hero h1 em{font-style:normal;color:var(--blue-ink)}
+.hero__lede{margin:30px auto 0;max-width:58ch;font-size:19.5px;line-height:1.55;color:var(--ink-2)}
+.hero__cta{margin-top:36px;display:flex;gap:12px;flex-wrap:wrap;align-items:center;justify-content:center}
+.hero__mini{margin-top:18px;font-size:14px;color:var(--ink-3)}
+.hero__film{margin-top:56px}
+@media(max-width:600px){
+  .hero{padding-top:52px}
+  .hero__lede{font-size:17.5px}
+  .hero__cta .btn{flex:1 1 100%}
+  .hero__film{margin-top:38px}
 }
 
-/* primary CTA carries an arrow badge, matching the reference's affordance
-   while keeping the page's 8px radius system */
-.btn-arrow{padding:11px 11px 11px 22px;font-size:17px}
-.btn-arrow .badge{flex:none;width:30px;height:30px;border-radius:999px;background:#fff;color:var(--blue);display:grid;place-items:center;font-size:15px;margin-left:4px;transition:transform .18s var(--ease)}
-.btn-arrow:hover .badge{transform:translate(2px,-2px)}
-@media (prefers-reduced-motion: reduce){.btn-arrow:hover .badge{transform:none}}
-
-
-/* sections */
-.sec{padding:88px 0}
-.sec h2{font-size:clamp(30px,4.2vw,44px)}
-.sec .lede{margin-top:14px;font-size:17.5px;color:var(--ink-2);max-width:52ch}
-
-/* three-up feature row, Notion style: no boxes, arrow affordance */
-.feats{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:40px}
-.feat h3{font-size:20px;letter-spacing:-.022em}
-.feat p{margin-top:9px;font-size:15.5px;color:var(--ink-2);line-height:1.55}
-.feat .arrow{margin-top:14px;display:inline-flex;align-items:center;gap:6px;font-size:15px;font-weight:500;color:var(--blue-text)}
-.feat .arrow span{transition:transform .18s var(--ease)}
-.feat:hover .arrow span{transform:translateX(3px)}
-@media(max-width:860px){.feats{grid-template-columns:1fr;gap:30px}}
-
-/* row list of what lands in the members' Telegram group */
-.rows{margin-top:36px;border-top:1px solid var(--line)}
-.row{display:flex;align-items:center;justify-content:space-between;gap:20px;padding:19px 6px;border-bottom:1px solid var(--line);transition:padding-left .18s var(--ease)}
-.row:hover{padding-left:12px}
-.row b{font-size:16.5px;font-weight:500}
-.row i{font-style:normal;font-size:15px;color:var(--ink-3);text-align:right}
-.row .go{color:var(--blue-text);font-size:16px;flex:none}
-/* on a phone the descriptor stacks under the label instead of being deleted */
-@media(max-width:640px){
-  .row{align-items:flex-start;padding:16px 6px}
-  .row .rowtext{display:flex;flex-direction:column;gap:3px}
-  .row i{text-align:left;font-size:14px}
+/* --- the board, now its own section -------------------------------------- */
+.desk__grid{display:grid;gap:44px;align-items:start;margin-top:52px}
+@media(min-width:1000px){
+  .desk__grid{grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:72px;align-items:center;margin-top:0}
+  .desk__head{padding-right:20px}
 }
 
-/* testimonials */
-.tst{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:26px}
-.t{background:var(--paper-soft);border-radius:8px;padding:26px 24px}
-.t p{font-size:16px;line-height:1.55}
-.t .by{margin-top:16px;font-size:14px;color:var(--ink-3)}
-.t .by b{display:block;color:var(--ink);font-weight:500;font-size:14.5px}
-@media(max-width:860px){.tst{grid-template-columns:1fr}}
+.claims{border-top:1px solid var(--rule);margin-top:56px;display:grid;grid-template-columns:repeat(4,1fr)}
+.claims div{padding:24px 20px 0 0;border-right:1px solid var(--rule)}
+.claims div:last-child{border-right:0}
+.claims dt{font-family:var(--display);font-variant-numeric:tabular-nums lining-nums;font-size:30px;font-weight:700;letter-spacing:-.018em;line-height:1}
+.claims dd{margin-top:11px;font-size:14.5px;line-height:1.45;color:var(--ink-3);max-width:22ch}
+@media(max-width:820px){
+  .claims{grid-template-columns:repeat(2,1fr)}
+  .claims div{padding:20px 16px 20px 0;border-bottom:1px solid var(--rule)}
+  .claims div:nth-child(2n){border-right:0;padding-right:0}
+  .claims div:nth-last-child(-n+2){border-bottom:0}
+}
 
-/* stats strip, one marquee on the page */
-.strip{border-top:1px solid var(--line);border-bottom:1px solid var(--line);padding:22px 0;overflow:hidden}
-.track{display:flex;gap:56px;width:max-content;animation:slide 38s linear infinite}
-.track span{font-size:15.5px;color:var(--ink-2);white-space:nowrap}
-.strip:hover .track{animation-play-state:paused}
-@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
-@media (prefers-reduced-motion: reduce){.track{animation:none;flex-wrap:wrap;width:auto;justify-content:center;gap:28px}}
+/* --- the board ----------------------------------------------------------- */
+.board{border:1px solid var(--rule-2);border-radius:14px;background:var(--surface);padding:26px 26px 22px;box-shadow:var(--shadow)}
+.board__head{display:flex;justify-content:space-between;align-items:baseline;gap:14px;padding-bottom:18px;border-bottom:1px solid var(--rule-2)}
+.led{display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:15px 0;border-bottom:1px solid var(--rule)}
+.led:last-of-type{border-bottom:0}
+.led__k{font-size:11.5px;font-weight:600;letter-spacing:.13em;text-transform:uppercase;color:var(--ink-3)}
+.led__v{font-family:var(--display);font-variant-numeric:tabular-nums lining-nums;font-size:31px;font-weight:700;letter-spacing:-.018em;line-height:1}
+.led--total{border-top:1px solid var(--rule-2);margin-top:2px;padding-top:17px}
+.led--total .led__k{color:var(--blue-ink);font-weight:700}
+.led--total .led__v{color:var(--blue-ink);font-size:34px}
+.board__plot{margin-top:20px;padding-top:18px;border-top:1px solid var(--rule-2)}
+.plot{width:100%;height:auto}
+.plot .grid{stroke:var(--rule-2);stroke-width:1}
+.plot .fair{stroke:var(--ink-3);stroke-width:1;stroke-dasharray:3 4}
+.plot .line{fill:none;stroke:var(--blue);stroke-width:2.4;stroke-linejoin:round;stroke-linecap:round}
+.plot .dot{fill:var(--paper);stroke:var(--blue);stroke-width:2.4}
+.plot .tag{font-family:var(--font);font-size:9.5px;font-weight:600;letter-spacing:.1em;fill:var(--ink-3)}
+.board__axis{margin-top:9px;display:flex;justify-content:space-between}
+.board__axis span{font-size:10.5px;font-weight:600;letter-spacing:.12em;color:var(--ink-3)}
+.board__note{margin-top:16px;font-size:13.5px;line-height:1.5;color:var(--ink-3)}
 
-/* pricing */
-.plans{margin-top:44px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px;align-items:start;max-width:760px;margin-inline:auto}
-.plan{border:1px solid var(--line);border-radius:8px;padding:26px 24px;display:flex;flex-direction:column;background:var(--paper)}
-.plan.pick{border-color:var(--blue);box-shadow:var(--shadow)}
-.plan .tag{font-size:14px;color:var(--ink-3);font-weight:500}
-.plan.pick .tag{color:var(--blue-text)}
-.plan .amt{margin-top:12px;font-size:34px;font-weight:700;letter-spacing:-.035em;line-height:1}
-.plan .amt em{font-style:normal;font-size:14px;font-weight:400;color:var(--ink-3);letter-spacing:0}
-.plan .per{margin-top:7px;font-size:13.5px;color:var(--ink-3)}
-.plan ul{margin:19px 0 22px;padding-top:18px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:9px}
-.plan li{list-style:none;font-size:15px;color:var(--ink-2);display:flex;gap:9px}
-.plan li .tk{color:var(--blue-text);flex:none}
+/* --- sections ------------------------------------------------------------ */
+.sec{padding-block:var(--sec);border-top:1px solid var(--rule)}
+.sec--plain{border-top:0}
+.sec__head{max-width:56ch}
+.sec__head .lbl{display:block;margin-bottom:20px}
+.sec h2{font-size:clamp(32px,4vw,48px);letter-spacing:-.02em}
+.sec__lede{margin-top:18px;font-size:18.5px;line-height:1.55;color:var(--ink-2);max-width:54ch}
+
+/* --- the player ---------------------------------------------------------- */
+.player{position:relative;border-radius:14px;overflow:hidden;background:#000;border:1px solid var(--rule-2);box-shadow:var(--shadow)}
+.player video{width:100%;height:auto;aspect-ratio:16/9;object-fit:cover;background:#000}
+/* Captions are rendered from the <track> cues into this layer so they carry the
+   page's own type instead of the browser's default caption styling. */
+.player__cc{position:absolute;left:0;right:0;bottom:64px;display:flex;justify-content:center;padding:0 24px;pointer-events:none}
+.player__cc span{background:rgba(6,8,10,.76);backdrop-filter:blur(6px);color:#fff;font-size:clamp(14px,1.5vw,18px);font-weight:500;line-height:1.35;letter-spacing:-.005em;padding:9px 14px;border-radius:8px;max-width:34ch;text-align:center;text-wrap:balance}
+.player__cc:empty{display:none}
+.player__bar{position:absolute;left:0;right:0;bottom:0;display:flex;align-items:center;gap:12px;padding:14px 16px;background:linear-gradient(to top,rgba(6,8,10,.82),transparent)}
+.player__btn{flex:none;width:44px;height:44px;display:grid;place-items:center;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:rgba(255,255,255,.12);color:#fff;cursor:pointer;transition:background .16s var(--ease)}
+.player__btn:hover{background:rgba(255,255,255,.24)}
+.player__time{font-size:12px;font-weight:600;letter-spacing:.04em;color:rgba(255,255,255,.82);font-variant-numeric:tabular-nums}
+/* A 20 minute session needs a real scrub bar, not just a progress readout.
+   Padded vertically so the hit area clears 44px without a fat-looking rail. */
+.player__track{flex:1;height:22px;display:flex;align-items:center;cursor:pointer;background:none;border:0;padding:0}
+.player__track>*{pointer-events:none}
+.player__rail{width:100%;height:4px;border-radius:999px;background:rgba(255,255,255,.24);overflow:hidden}
+.player__fill{height:100%;width:0;background:#fff}
+.player__track:focus-visible{outline:2px solid #fff;outline-offset:4px;border-radius:4px}
+.player__poster{position:absolute;inset:0;display:grid;place-items:center;background:rgba(6,8,10,.32);border:0;cursor:pointer;transition:background .2s var(--ease)}
+.player__poster:hover{background:rgba(6,8,10,.18)}
+.player__poster span{display:grid;place-items:center;width:76px;height:76px;border-radius:999px;background:var(--blue);color:#fff;box-shadow:0 12px 40px -8px rgba(11,95,255,.7)}
+.player.is-playing .player__poster{display:none}
+.film__cap{margin-top:16px;font-size:13.5px;line-height:1.5;color:var(--ink-3);max-width:60ch}
+
+/* --- our assets ---------------------------------------------------------- */
+.assets{border-top:1px solid var(--rule);padding-block:64px}
+.assets p{text-align:center;margin-bottom:34px}
+.assets__row{display:flex;flex-wrap:wrap;align-items:center;justify-content:center;gap:20px 56px}
+/* Drop real logo files in as <img src="assets/books/<name>.svg" alt="Bet365">
+   and the text wordmark below is simply replaced. Sizing is handled here so a
+   swapped-in SVG lands at the same optical weight as the text it replaces. */
+.assets__row img{height:26px;width:auto;opacity:.55;filter:grayscale(1)}
+.assets__row b{font-family:var(--display);font-size:23px;font-weight:700;letter-spacing:-.01em;color:var(--ink-3);opacity:.8}
+@media(max-width:640px){.assets__row{gap:16px 32px}.assets__row b{font-size:19px}}
+
+/* --- what you get: Apple-button cards ------------------------------------ */
+.gets{margin-top:56px;display:grid;grid-template-columns:repeat(2,1fr);gap:20px}
+.get{position:relative;border-radius:22px;padding:30px 30px 32px;background:var(--paper);border:1px solid var(--rule);box-shadow:var(--shadow-card);
+     transition:transform .22s var(--ease),box-shadow .22s var(--ease),border-color .22s var(--ease)}
+.get::before{content:"";position:absolute;inset:0 0 auto;height:50%;border-radius:22px 22px 0 0;background:linear-gradient(to bottom,rgba(255,255,255,.7),transparent);pointer-events:none}
+@media (prefers-color-scheme:dark){.get::before{background:linear-gradient(to bottom,rgba(255,255,255,.05),transparent)}}
+.get:hover{transform:translateY(-3px);box-shadow:0 2px 4px rgba(13,15,17,.05),0 20px 44px -18px rgba(13,15,17,.3);border-color:var(--rule-2)}
+.get--wide{grid-column:1 / -1;background:var(--blue-wash);border-color:var(--blue-line)}
+.get__ico{position:relative;width:44px;height:44px;display:grid;place-items:center;border-radius:13px;background:var(--blue);color:#fff;margin-bottom:22px}
+.get h3{position:relative;font-size:23px;letter-spacing:-.014em;line-height:1.15}
+.get p{position:relative;margin-top:11px;font-size:16px;line-height:1.6;color:var(--ink-2);max-width:46ch}
+@media(max-width:820px){
+  .gets{grid-template-columns:1fr;gap:16px}
+  .get{padding:26px 24px 28px;border-radius:20px}
+}
+
+/* --- members ------------------------------------------------------------- */
+.quotes{margin-top:52px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule)}
+.quotes figure{padding:30px 34px 0 0;border-right:1px solid var(--rule)}
+.quotes figure:last-child{border-right:0;padding-right:0}
+.quotes p{font-size:18.5px;line-height:1.5;letter-spacing:-.008em}
+.quotes figcaption{margin-top:20px;font-size:11px;font-weight:500;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3)}
+.quotes figcaption b{display:block;margin-bottom:5px;color:var(--ink);font-weight:600;letter-spacing:.07em}
+@media(max-width:900px){
+  .quotes{grid-template-columns:1fr}
+  .quotes figure{padding:26px 0;border-right:0;border-bottom:1px solid var(--rule)}
+  .quotes figure:last-child{border-bottom:0;padding-bottom:0}
+}
+
+/* --- method -------------------------------------------------------------- */
+.method{margin-top:60px;display:grid;grid-template-columns:repeat(3,1fr);gap:0;border-top:1px solid var(--rule)}
+.method__i{padding:30px 34px 0 0;border-right:1px solid var(--rule)}
+.method__i:last-child{border-right:0;padding-right:0}
+.method__i .lbl{display:block;margin-bottom:16px}
+.method__i h3{font-size:23px;letter-spacing:-.014em}
+.method__i p{margin-top:12px;font-size:16px;line-height:1.6;color:var(--ink-2)}
+@media(max-width:900px){
+  .method{grid-template-columns:1fr;margin-top:44px}
+  .method__i{padding:26px 0;border-right:0;border-bottom:1px solid var(--rule)}
+  .method__i:last-child{border-bottom:0;padding-bottom:0}
+}
+
+/* --- pricing ------------------------------------------------------------- */
+.plans{margin-top:56px;display:grid;grid-template-columns:repeat(2,1fr);gap:22px;align-items:stretch;max-width:860px}
+.plan{border:1px solid var(--rule-2);border-radius:22px;padding:30px 28px;display:flex;flex-direction:column;background:var(--paper)}
+.plan--pick{border-color:var(--blue);box-shadow:var(--shadow-card)}
+.plan__top{display:flex;justify-content:space-between;align-items:baseline;gap:12px}
+.plan--pick .plan__top .lbl:last-child{color:var(--blue-ink)}
+.plan__amt{margin-top:22px;font-family:var(--display);font-variant-numeric:tabular-nums lining-nums;font-size:46px;font-weight:700;letter-spacing:-.022em;line-height:1}
+.plan__amt span{font-family:var(--font);font-size:15px;font-weight:400;letter-spacing:0;color:var(--ink-3)}
+.plan__per{margin-top:10px;font-size:14px;color:var(--ink-3)}
+.plan ul{margin:24px 0 26px;padding-top:22px;border-top:1px solid var(--rule);display:flex;flex-direction:column;gap:12px}
+.plan li{list-style:none;font-size:15.5px;line-height:1.5;color:var(--ink-2);display:flex;gap:11px}
+.plan li svg{flex:none;margin-top:3px;color:var(--blue-ink)}
 .plan .btn{width:100%;margin-top:auto}
-@media(max-width:860px){.plans{grid-template-columns:1fr;max-width:420px;margin-inline:auto}}
+@media(max-width:820px){.plans{grid-template-columns:1fr;max-width:440px}}
 
-/* note block */
-.note{margin-top:26px;background:var(--paper-soft);border-radius:8px;padding:20px 22px;font-size:15.5px;color:var(--ink-2);line-height:1.6}
-.note b{color:var(--ink);font-weight:600}
+.disclaimer{margin-top:30px;max-width:860px;border-left:2px solid var(--blue-line);padding:4px 0 4px 20px;font-size:15.5px;line-height:1.65;color:var(--ink-2)}
+.disclaimer b{color:var(--ink);font-weight:600}
 
-/* faq */
-.faq{margin-top:34px;border-top:1px solid var(--line)}
-.faq details{border-bottom:1px solid var(--line)}
-.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:18px;padding:20px 4px;font-size:17px;font-weight:500;transition:color .15s}
+/* --- faq ----------------------------------------------------------------- */
+.faq{margin-top:44px;border-top:1px solid var(--rule)}
+.faq details{border-bottom:1px solid var(--rule)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:20px;padding:24px 0;font-size:19px;font-weight:600;letter-spacing:-.01em;transition:color .15s}
 .faq summary::-webkit-details-marker{display:none}
-.faq summary:hover{color:var(--blue-text)}
-.faq summary .pm{flex:none;color:var(--ink-3);font-size:20px;font-weight:400;line-height:1;transition:transform .2s var(--ease)}
-.faq details[open] summary .pm{transform:rotate(45deg)}
-.faq .a{padding:0 4px 22px;color:var(--ink-2);font-size:16px;line-height:1.65;max-width:62ch}
-.faq .a a{color:var(--blue-text)}
+.faq summary:hover{color:var(--blue-ink)}
+.faq summary .pm{flex:none;font-size:19px;font-weight:400;line-height:1;color:var(--ink-3);transition:transform .22s var(--ease)}
+.faq details[open] summary .pm{transform:rotate(45deg);color:var(--blue-ink)}
+.faq .a{padding:0 0 26px;max-width:64ch;font-size:16.5px;line-height:1.65;color:var(--ink-2)}
+.faq .a a{color:var(--blue-ink);border-bottom:1px solid var(--blue-line)}
+.faq .a a:hover{border-bottom-color:var(--blue)}
 
-/* closing */
-.closing{background:var(--paper-soft);padding:92px 0;text-align:center}
-.closing h2{font-size:clamp(32px,4.6vw,48px)}
-.closing p{margin:16px auto 0;max-width:42ch;color:var(--ink-2);font-size:17.5px}
-.closing .cta{margin-top:26px;display:flex;gap:10px;justify-content:center;flex-wrap:wrap}
+/* --- closing ------------------------------------------------------------- */
+.closing{border-top:1px solid var(--rule);background:var(--surface);padding-block:calc(var(--sec) + 8px);text-align:center}
+.closing h2{font-size:clamp(36px,5vw,58px);letter-spacing:-.024em}
+.closing p{margin:20px auto 0;max-width:44ch;font-size:18.5px;color:var(--ink-2)}
+.closing .row{margin-top:34px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap}
 
-/* footer */
-footer{padding:40px 0 52px}
-.foot{width:var(--w);margin-inline:auto;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
-.foot .fl{display:flex;gap:18px;flex-wrap:wrap;font-size:14.5px;color:var(--ink-3)}
-.foot .fl a:hover{color:var(--ink)}
-.foot .note-s{font-size:13.5px;color:var(--ink-3)}
+/* --- footer -------------------------------------------------------------- */
+.foot{border-top:1px solid var(--rule);padding:44px 0 60px}
+.foot__in{width:var(--w);margin-inline:auto;display:flex;justify-content:space-between;align-items:flex-start;gap:32px;flex-wrap:wrap}
+.foot__links{display:flex;gap:20px;flex-wrap:wrap;font-size:14.5px;color:var(--ink-3)}
+.foot__links a:hover{color:var(--ink)}
+.foot__meta{font-size:11px;font-weight:500;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3);line-height:2;text-align:right}
+@media(max-width:680px){.foot__meta{text-align:left}}
 
-/* entry motion. Content is visible by DEFAULT and only hidden once the inline
-   script in <head> has confirmed JS is running, so a script error or a blocked
-   bundle can never leave the page blank. */
-.js .rv{opacity:0;transform:translateY(12px);transition:opacity .5s var(--ease),transform .5s var(--ease)}
-.js .rv.in{opacity:1;transform:none}
-@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}.js .rv{opacity:1;transform:none;transition:none}.row:hover{padding-left:6px}}
+/* --- motion --------------------------------------------------------------
+   Content is visible BY DEFAULT and only hidden once the inline script has
+   confirmed JS runs, so a blocked bundle can never leave the page blank. */
+.js .rv{opacity:0;transform:translateY(10px);transition:opacity .55s var(--ease),transform .55s var(--ease)}
+.js .rv.is-in{opacity:1;transform:none}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .js .rv{opacity:1;transform:none;transition:none}
+  .btn:hover .tick{transform:none}
+  .get:hover{transform:none}
+}
 </style>
-<script defer src="/_vercel/insights/script.js"></script>
 <script>document.documentElement.className+=" js"</script>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body id="top">
 
 <a class="skip" href="#main">Skip to content</a>
 
-<nav id="nav">
-  <div class="nav-in">
-    <a class="brand" href="#top"><img src="assets/logo-square.png" alt="">WaveHub</a>
-    <div class="nav-mid">
+<nav class="nav" id="nav">
+  <div class="nav__in">
+    <a class="mark" href="#top"><img src="assets/logo.png" alt="" width="26" height="26">WaveHub</a>
+    <div class="nav__links">
       <a href="#how">How it works</a>
-      <a href="#inside">Inside</a>
+      <a href="#inside">What you get</a>
       <a href="#members">Members</a>
       <a href="#pricing">Pricing</a>
       <a href="#faq">FAQ</a>
     </div>
-    <div class="nav-right">
+    <div class="nav__right">
       <details class="menu">
-        <summary aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
-        <div class="menu-panel">
+        <summary aria-label="Menu"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" aria-hidden="true"><path d="M4 7h16M4 12h16M4 17h16"/></svg></summary>
+        <div class="menu__panel">
           <a href="#how">How it works</a>
-          <a href="#inside">Inside</a>
+          <a href="#inside">What you get</a>
           <a href="#members">Members</a>
           <a href="#pricing">Pricing</a>
           <a href="#faq">FAQ</a>
           <a href="/free">Free group</a>
         </div>
       </details>
-      <a class="login" href="https://app.wavehubtennis.com/login">Log in</a>
-      <a class="btn btn-primary btn-sm" href="#pricing">Join now</a>
+      <a class="nav__login" href="https://app.wavehubtennis.com/login">Log in</a>
+      <a class="btn btn--fill btn--sm" href="#pricing">Join now</a>
     </div>
   </div>
 </nav>
 
 <header class="hero" id="main">
-  <div class="w hero-grid">
-    <div class="hero-copy">
-      <h1>Find <span class="b">Mispriced</span> Tennis Odds Before the Market Corrects</h1>
-      <p>A research-driven framework that shows how disciplined bettors analyze probability, risk, and market movement to make structured tennis betting decisions.</p>
-      <div class="tpoints">
-        <span class="tpoint"><span class="ck">&#10003;</span>4+ years track record</span>
-        <span class="tpoint"><span class="ck">&#10003;</span>Single sport focus</span>
-        <span class="tpoint"><span class="ck">&#10003;</span>Selective bets only</span>
-        <span class="tpoint"><span class="ck">&#10003;</span>An honest no bet on quiet days</span>
-      </div>
-      <div class="cta">
-        <a class="btn btn-primary btn-arrow" href="#pricing">View the programs <span class="badge">&#8599;</span></a>
-        <a class="btn btn-ghost" href="#how">See how it works</a>
-      </div>
+  <div class="w">
+    <span class="lbl">ATP only · Analysis, not a bookmaker</span>
+    <h1>Find mispriced odds before the <em>bookmakers</em> can react</h1>
+    <p class="hero__lede">Watch a full session, start to finish: the bot picks up the odds the moment they are released, the model has already priced the match, and what is left is deciding whether the gap is worth taking.</p>
+    <div class="hero__cta">
+      <a class="btn btn--fill" href="#pricing">View the programs <span class="tick" aria-hidden="true">→</span></a>
+      <a class="btn btn--line" href="#desk">See how a price is read</a>
     </div>
-    <figure class="hero-art">
-      <img src="assets/odds-graph-light.png" width="1080" height="833" fetchpriority="high" alt="Odds movement for the ATP Washington outright winner across six rounds: the field drifts out from 6.2 to 3.35 while Fritz shortens from 2.6 to 2.29.">
-      <figcaption>One tournament, one market, six rounds. What you get depends on when you take it.</figcaption>
-    </figure>
+    <p class="hero__mini">Two yearly programs. Cancel at the end of the term.</p>
+
+    <div class="hero__film" id="film">
+      <div class="player" id="player">
+        <video id="film-video" playsinline preload="metadata" poster="assets/analysis-poster.jpg" width="1280" height="720">
+          <source src="assets/analysis-full.mp4" type="video/mp4">
+          <track kind="captions" srclang="en" label="English" src="assets/analysis-full.vtt" default>
+        </video>
+        <div class="player__cc" id="cc" aria-live="polite"></div>
+        <button class="player__poster" id="poster-btn" type="button" aria-label="Play the analysis session">
+          <span><svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12z"/></svg></span>
+        </button>
+        <div class="player__bar">
+          <button class="player__btn" id="play-btn" type="button" aria-label="Play">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5.14v13.72L19 12z"/></svg>
+          </button>
+          <span class="player__time" id="time">0:00</span>
+          <div class="player__track" id="track" role="slider" tabindex="0" aria-label="Seek" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0"><div class="player__rail"><div class="player__fill" id="fill"></div></div></div>
+          <span class="player__time" id="dur">--:--</span>
+          <button class="player__btn" id="mute-btn" type="button" aria-label="Mute">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4z"/></svg>
+          </button>
+        </div>
+      </div>
+      <p class="film__cap">Jódar against Lehecka, Montreal. The full session, uncut — captions are on by default.</p>
+    </div>
   </div>
 </header>
 
+<!-- ===== the price desk ================================================= -->
+<section class="sec" id="desk">
+  <div class="w">
+    <div class="desk__grid">
+      <div class="desk__head">
+        <span class="lbl lbl--blue rv">The read</span>
+        <h2 class="rv">What a mispriced price looks like.</h2>
+        <p class="sec__lede rv">One market followed across a tournament: what the model said it was worth, what was actually taken, and where the market ended up.</p>
+      </div>
+
+      <div class="board rv">
+        <div class="board__head">
+          <span class="lbl">ATP Washington · Fritz to win</span>
+          <span class="lbl">R1 → now</span>
+        </div>
+        <div class="led">
+          <span class="led__k">Model fair price</span>
+          <span class="led__v num">2.04</span>
+        </div>
+        <div class="led">
+          <span class="led__k">Price taken, R1</span>
+          <span class="led__v num" data-count="2.60" data-from="2.04" data-dp="2">2.60</span>
+        </div>
+        <div class="led">
+          <span class="led__k">Market now</span>
+          <span class="led__v num">2.29</span>
+        </div>
+        <div class="led led--total">
+          <span class="led__k">Edge at entry</span>
+          <span class="led__v num" data-count="27.5" data-from="0" data-dp="1" data-prefix="+" data-suffix="%">+27.5%</span>
+        </div>
+
+        <div class="board__plot">
+          <svg class="plot" viewBox="0 0 320 92" role="img" aria-label="Fritz's price across the tournament: 2.60 at round one, dipping to 2.00 at the quarter-final — below the model's fair price of 2.04, so no bet — then settling at 2.29.">
+            <line class="grid" x1="0" y1="91" x2="320" y2="91"/>
+            <line class="fair" x1="0" y1="69.4" x2="320" y2="69.4"/>
+            <text class="tag" x="0" y="65">FAIR 2.04</text>
+            <polyline class="line" points="10,16.7 37.3,23.3 64.5,29.9 91.8,39.3 119.1,48.7 146.4,60.1 173.6,69.4 200.9,73.3 228.2,67.6 255.5,60.1 282.7,52.5 310,45.9"/>
+            <circle class="dot" cx="10" cy="16.7" r="3.8"/>
+            <circle class="dot" cx="310" cy="45.9" r="3.8"/>
+          </svg>
+          <div class="board__axis"><span>R1</span><span>R2</span><span>R3</span><span>QF</span><span>SF</span><span>NOW</span></div>
+        </div>
+        <p class="board__note">One market, six rounds. The dip under the fair line is a day with no bet on it. Illustrative example — what you get depends on when you take it.</p>
+      </div>
+    </div>
+
+    <dl class="claims">
+      <div><dt class="num">4+</dt><dd>Years of track record</dd></div>
+      <div><dt class="num">1</dt><dd>Tour followed, ATP only</dd></div>
+      <div><dt class="num">2022</dt><dd>Running since</dd></div>
+      <div><dt>No bet</dt><dd>Said plainly on quiet days</dd></div>
+    </dl>
+  </div>
+</section>
+
+<!-- ===== our assets ===================================================== -->
+<section class="assets">
+  <div class="w">
+    <p class="lbl rv">Our assets</p>
+    <!-- Text wordmarks stand in until the logo files land. Drop an SVG per book
+         into assets/books/ and replace the <b> with:
+         <img src="assets/books/bet365.svg" alt="Bet365"> — sizing is handled. -->
+    <div class="assets__row rv">
+      <b>Bet365</b>
+      <b>Pinnacle</b>
+      <b>Betfair</b>
+      <b>bwin</b>
+      <b>Unibet</b>
+      <b>Marathonbet</b>
+    </div>
+  </div>
+</section>
+
+<!-- ===== method ========================================================= -->
 <section class="sec" id="how">
   <div class="w">
-    <h2 class="rv">Built for one sport.</h2>
-    <p class="lede rv">Most people lose because they bet on everything. The method here goes the other way.</p>
-    <div class="feats">
-      <article class="feat rv">
+    <div class="sec__head">
+      <span class="lbl rv">Method</span>
+      <h2 class="rv">Built for one sport.</h2>
+      <p class="sec__lede rv">Most people lose because they bet on everything. The method here goes the other way.</p>
+    </div>
+    <div class="method">
+      <article class="method__i rv">
+        <span class="lbl lbl--blue">Read</span>
         <h3>Read the match</h3>
         <p>Model-backed win probabilities and a fair price for the matchups that matter, with the surface, form and fatigue behind them.</p>
-        <a class="arrow" href="#inside">What lands in your Telegram <span>→</span></a>
       </article>
-      <article class="feat rv">
+      <article class="method__i rv">
+        <span class="lbl lbl--blue">Price</span>
         <h3>Take the value</h3>
         <p>A price higher than the matchup deserves, taken before the line moves. When the edge is not there, you hear that instead.</p>
-        <a class="arrow" href="#inside">See a week inside <span>→</span></a>
       </article>
-      <article class="feat rv">
+      <article class="method__i rv">
+        <span class="lbl lbl--blue">Stake</span>
         <h3>Hold the line</h3>
         <p>Results tracked in the open and a staking plan sized to your bankroll, so the discipline does the compounding.</p>
-        <a class="arrow" href="#members">Hear from members <span>→</span></a>
       </article>
     </div>
   </div>
 </section>
 
-<section class="sec" id="inside" style="padding-top:0">
+<!-- ===== what you will get ============================================== -->
+<section class="sec" id="inside">
   <div class="w">
-    <h2 class="rv">What lands in your Telegram.</h2>
-      <p class="lede rv">No app to install. The reads arrive where you already are, and you can act on one in the time it takes to read it.</p>
-    <div class="rows rv">
-      <a class="row" href="#pricing"><span class="rowtext"><b>The daily ATP read</b><i>Win probability and fair price</i></span><span class="go">→</span></a>
-      <a class="row" href="#pricing"><span class="rowtext"><b>Value calls, taken early</b><i>Before the market corrects</i></span><span class="go">→</span></a>
-      <a class="row" href="#pricing"><span class="rowtext"><b>An honest no bet</b><i>On the days without an edge</i></span><span class="go">→</span></a>
-      <a class="row" href="#pricing"><span class="rowtext"><b>Your staking plan</b><i>Every call sized to your bankroll</i></span><span class="go">→</span></a>
-      <a class="row" href="#pricing"><span class="rowtext"><b>Tournament previews</b><i>Draw by draw, week by week</i></span><span class="go">→</span></a>
-      <a class="row" href="#pricing"><span class="rowtext"><b>Results in the open</b><i>Tracked where members can see</i></span><span class="go">→</span></a>
+    <div class="sec__head">
+      <span class="lbl rv">Membership</span>
+      <h2 class="rv">What you will get.</h2>
+      <p class="sec__lede rv">Not a feed of tips. The picks, the models they came from, and the plan for staking them.</p>
+    </div>
+    <div class="gets">
+      <article class="get get--wide rv">
+        <div class="get__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 17l6-6 4 4 8-8"/><path d="M21 3h-6M21 3v6"/></svg></div>
+        <h3>Full access to my picks and the models behind them</h3>
+        <p>Every call I make, with the win probability and the fair price it came from. You see the reasoning, not just the selection — which is the part you can actually learn from.</p>
+      </article>
+      <article class="get rv">
+        <div class="get__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21.5 4.5l-3 15-6.5-4.5-3 3v-4.5l9-7.5-11 6.5-4.5-2z"/></svg></div>
+        <h3>An automated Telegram bot</h3>
+        <p>It tells you the moment the odds come out, so you are not the one refreshing a screen waiting for a market to open.</p>
+      </article>
+      <article class="get rv">
+        <div class="get__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M3 15h18M9 3v18"/></svg></div>
+        <h3>The models as a spreadsheet</h3>
+        <p>The actual working file, not a screenshot of one. Change an input, watch the fair price move, and see how the number is built.</p>
+      </article>
+      <article class="get rv">
+        <div class="get__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l2.4 6.1L21 10.5l-4.8 4.2 1.5 6.3L12 17.8 6.3 21l1.5-6.3L3 10.5l6.6-1.4z"/></svg></div>
+        <h3>Exclusive insights</h3>
+        <p>The reads that do not fit in a pick: draw shape, scheduling, fatigue, and where the market is habitually slow to adjust.</p>
+      </article>
+      <article class="get rv">
+        <div class="get__ico"><svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg></div>
+        <h3>A ready-made bankroll plan</h3>
+        <p>Staking sized to what you actually have, set up before the first bet rather than improvised after a losing week.</p>
+      </article>
     </div>
   </div>
 </section>
 
-<section class="sec" id="members" style="padding-top:0">
+<!-- ===== members ======================================================== -->
+<section class="sec" id="members">
   <div class="w">
-    <h2 class="rv">Members who stopped chasing.</h2>
-    <div class="tst">
-      <figure class="t rv"><p>The no bet days changed it for me. I finally stopped chasing every match on the schedule.</p><figcaption class="by"><b>Jonas V.</b>Member since 2024</figcaption></figure>
-      <figure class="t rv"><p>I bet a third as often now and I actually understand why. It reads like a method instead of a habit.</p><figcaption class="by"><b>Marc R.</b>Member since 2023</figcaption></figure>
-      <figure class="t rv"><p>Telling me when to sit out is exactly why I trust everything else you send.</p><figcaption class="by"><b>David M.</b>Member since 2024</figcaption></figure>
+    <div class="sec__head">
+      <span class="lbl rv">Members</span>
+      <h2 class="rv">Members who stopped chasing.</h2>
+    </div>
+    <div class="quotes">
+      <figure class="rv"><p>The no bet days changed it for me. I finally stopped chasing every match on the schedule.</p><figcaption><b>Jonas V.</b>Member since 2024</figcaption></figure>
+      <figure class="rv"><p>I bet a third as often now and I actually understand why. It reads like a method instead of a habit.</p><figcaption><b>Marc R.</b>Member since 2023</figcaption></figure>
+      <figure class="rv"><p>Telling me when to sit out is exactly why I trust everything else you send.</p><figcaption><b>David M.</b>Member since 2024</figcaption></figure>
     </div>
   </div>
 </section>
 
-<div class="strip">
-  <div class="track" aria-hidden="true">
-    <span>ATP tennis only</span><span>Analysis, not a bookmaker</span><span>Few calls, never daily volume</span><span>Early prices before the line moves</span><span>An honest no bet on quiet days</span><span>Running since 2022</span>
-    <span>ATP tennis only</span><span>Analysis, not a bookmaker</span><span>Few calls, never daily volume</span><span>Early prices before the line moves</span><span>An honest no bet on quiet days</span><span>Running since 2022</span>
-  </div>
-</div>
-
+<!-- ===== pricing ======================================================== -->
 <section class="sec" id="pricing">
   <div class="w">
-    <h2 class="rv">Two ways in.</h2>
-    <p class="lede rv">Both bill once a year. Silver is the calls. Gold adds the models behind them, the courses and the insights.</p>
+    <div class="sec__head">
+      <span class="lbl rv">Pricing</span>
+      <h2 class="rv">Two ways in.</h2>
+      <p class="sec__lede rv">Both bill once a year. Silver is the calls. Gold adds the models behind them, the courses and the insights.</p>
+    </div>
     <div class="plans">
       <article class="plan rv">
-        <span class="tag">Silver</span>
-        <div class="amt">&euro;399 <em>/ year</em></div>
-        <p class="per">Around &euro;33 a month, billed yearly</p>
+        <div class="plan__top"><span class="lbl">Silver</span></div>
+        <div class="plan__amt num">&euro;399 <span>/ year</span></div>
+        <p class="plan__per">Around &euro;33 a month, billed yearly</p>
         <ul>
-          <li><span class="tk">&#10003;</span>Every pick, with the reasoning behind it</li>
-          <li><span class="tk">&#10003;</span>Live in-play calls as matches turn</li>
-          <li><span class="tk">&#10003;</span>Tournament previews, draw by draw</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Every pick, with the reasoning behind it</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Live in-play calls as matches turn</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Tournament previews, draw by draw</li>
         </ul>
-        <a class="btn btn-ghost" href="https://app.wavehubtennis.com/api/checkout?plan=silver">Join now</a>
+        <a class="btn btn--line" href="https://app.wavehubtennis.com/api/checkout?plan=silver">Join Silver</a>
       </article>
-      <article class="plan pick rv">
-        <span class="tag">Gold &middot; most complete</span>
-        <div class="amt">&euro;599 <em>/ year</em></div>
-        <p class="per">Around &euro;50 a month, billed yearly</p>
+      <article class="plan plan--pick rv">
+        <div class="plan__top"><span class="lbl">Gold</span><span class="lbl">Most complete</span></div>
+        <div class="plan__amt num">&euro;599 <span>/ year</span></div>
+        <p class="plan__per">Around &euro;50 a month, billed yearly</p>
         <ul>
-          <li><span class="tk">&#10003;</span>Everything in Silver</li>
-          <li><span class="tk">&#10003;</span>The models the calls are built on</li>
-          <li><span class="tk">&#10003;</span>The full course library</li>
-          <li><span class="tk">&#10003;</span>Insights as they&rsquo;re written</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Everything in Silver</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>The models the calls are built on</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>The full course library</li>
+          <li><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 6L9 17l-5-5"/></svg>Insights as they&rsquo;re written</li>
         </ul>
-        <a class="btn btn-primary" href="https://app.wavehubtennis.com/api/checkout?plan=gold">Join now</a>
+        <a class="btn btn--fill" href="https://app.wavehubtennis.com/api/checkout?plan=gold">Join Gold</a>
       </article>
     </div>
-    <p class="note rv"><b>We do not promise profit, and nobody honest does.</b> WaveHub is analysis and consulting. You get the reads, the value and the discipline. How you manage risk stays with you.</p>
+    <p class="disclaimer rv"><b>We do not promise profit, and nobody honest does.</b> WaveHub is analysis and consulting. You get the reads, the value and the discipline. How you manage risk stays with you.</p>
   </div>
 </section>
 
-<section class="sec" id="faq" style="padding-top:0">
+<!-- ===== faq ============================================================ -->
+<section class="sec" id="faq">
   <div class="w-narrow">
-    <h2 class="rv">Questions.</h2>
+    <div class="sec__head">
+      <span class="lbl rv">Questions</span>
+      <h2 class="rv">Questions.</h2>
+    </div>
     <div class="faq rv">
-      <details><summary>Is WaveHub a bookmaker?<span class="pm">+</span></summary>
-        <p class="a">No. WaveHub is an analysis and consulting service. No money is staked, held or moved through us. We sit on your side of the line, not the house's.</p></details>
-      <details><summary>Do I need to be experienced?<span class="pm">+</span></summary>
+      <details><summary>Is WaveHub a bookmaker?<span class="pm" aria-hidden="true">+</span></summary>
+        <p class="a">No. WaveHub is an analysis and consulting service. No money is staked, held or moved through us. We sit on your side of the line, not the house&rsquo;s.</p></details>
+      <details><summary>Do I need to be experienced?<span class="pm" aria-hidden="true">+</span></summary>
         <p class="a">No. If you are willing to be patient and follow a plan, we take you from the fundamentals to reading value properly. The patience matters more than the starting point.</p></details>
-      <details><summary>How many calls per day?<span class="pm">+</span></summary>
+      <details><summary>How many calls per day?<span class="pm" aria-hidden="true">+</span></summary>
         <p class="a">Few, and only when there is something worth backing. Some days there is nothing, and you will hear that plainly instead of being handed filler.</p></details>
-      <details><summary>Why only ATP tennis?<span class="pm">+</span></summary>
+      <details><summary>Why only ATP tennis?<span class="pm" aria-hidden="true">+</span></summary>
         <p class="a">An edge comes from depth, not breadth. One tour followed properly beats five followed casually, and tennis rewards the work: surface, form and fatigue are all readable.</p></details>
-      <details><summary>How do I join?<span class="pm">+</span></summary>
-        <p class="a">Pick Silver or Gold above and complete checkout. You then get two things. First an invite to the members&#39; group on Telegram, where every read is posted. Second a website account, which you claim by registering with <strong>the same email address you paid with</strong>. Registering with a different address creates a free account instead, so use the one from your receipt.</p></details>
-      <details><summary>Can I cancel?<span class="pm">+</span></summary>
+      <details><summary>How do I join?<span class="pm" aria-hidden="true">+</span></summary>
+        <p class="a">Pick Silver or Gold above and complete checkout. You then get two things. First an invite to the members&rsquo; group on Telegram, where every read is posted. Second a website account, which you claim by registering with <strong>the same email address you paid with</strong>. Registering with a different address creates a free account instead, so use the one from your receipt.</p></details>
+      <details><summary>Can I cancel?<span class="pm" aria-hidden="true">+</span></summary>
         <p class="a">Yes. A membership runs for the term you pick and you can stop at the end of it. Your right of withdrawal is set out in full on the <a href="/withdrawal.html">withdrawal page</a>.</p></details>
     </div>
   </div>
@@ -417,17 +636,17 @@ footer{padding:40px 0 52px}
   <div class="w-narrow">
     <h2 class="rv">Get started today.</h2>
     <p class="rv">Read the few matches that matter instead of betting the ones that do not.</p>
-    <div class="cta rv">
-      <a class="btn btn-primary btn-arrow" href="#pricing">View the programs <span class="badge">↗</span></a>
-      <a class="btn btn-ghost" href="/free">Try the free group</a>
+    <div class="row rv">
+      <a class="btn btn--fill" href="#pricing">View the programs <span class="tick" aria-hidden="true">→</span></a>
+      <a class="btn btn--line" href="/free">Try the free group</a>
     </div>
   </div>
 </section>
 
-<footer>
-  <div class="foot">
-    <a class="brand" href="#top"><img src="assets/logo-square.png" alt="">WaveHub</a>
-    <div class="fl">
+<footer class="foot">
+  <div class="foot__in">
+    <a class="mark" href="#top"><img src="assets/logo.png" alt="" width="26" height="26">WaveHub</a>
+    <div class="foot__links">
       <a href="/free">Free group</a>
       <a href="https://app.wavehubtennis.com/login">Log in</a>
       <a href="/imprint.html">Imprint</a>
@@ -435,31 +654,151 @@ footer{padding:40px 0 52px}
       <a href="/terms.html">Terms</a>
       <a href="/withdrawal.html">Withdrawal</a>
     </div>
-    <span class="note-s">Analysis, not a bookmaker. ATP only. © 2026 WaveHub</span>
+    <p class="foot__meta">Analysis, not a bookmaker<br>ATP only &middot; &copy; 2026 WaveHub</p>
   </div>
 </footer>
 
 <script>
 (function(){
-  var nav=document.getElementById('nav'),s=document.createElement('div');
-  document.body.prepend(s);
-  new IntersectionObserver(function(e){nav.classList.toggle('stuck',!e[0].isIntersecting);},{threshold:0}).observe(s);
+  var reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-  var reduce=matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var items=document.querySelectorAll('.rv');
-  function revealAll(){items.forEach(function(el){el.classList.add('in')})}
-  if(reduce||!('IntersectionObserver' in window)){revealAll();return;}
-  var io=new IntersectionObserver(function(en){en.forEach(function(x){if(x.isIntersecting){x.target.classList.add('in');io.unobserve(x.target)}})},{threshold:.1,rootMargin:'0px 0px -8% 0px'});
-  items.forEach(function(el){io.observe(el)});
-  // Safety net. Testing that IntersectionObserver EXISTS is not the same as
-  // testing that it FIRES, and adding .in is not the same as the transition
-  // actually advancing: in renderers that never composite, both can fail and
-  // leave every block at opacity:0 forever. So the fallback drops the `js`
-  // class instead, which removes the hiding rule altogether. Content then
-  // depends on no observer, no class and no animation.
-  setTimeout(function(){
-    if(!document.querySelector('.rv.in')) document.documentElement.classList.remove('js');
-  },900);
+  /* hairline under the nav, only once the page has actually scrolled */
+  var nav = document.getElementById('nav'), sentinel = document.createElement('div');
+  document.body.prepend(sentinel);
+  if ('IntersectionObserver' in window) {
+    new IntersectionObserver(function(e){ nav.classList.toggle('is-stuck', !e[0].isIntersecting); }, {threshold:0}).observe(sentinel);
+  }
+
+  /* scroll reveals */
+  var items = document.querySelectorAll('.rv');
+  if (reduce || !('IntersectionObserver' in window)) {
+    items.forEach(function(el){ el.classList.add('is-in'); });
+  } else {
+    var io = new IntersectionObserver(function(entries){
+      entries.forEach(function(x){ if (x.isIntersecting) { x.target.classList.add('is-in'); io.unobserve(x.target); } });
+    }, {threshold:.1, rootMargin:'0px 0px -8% 0px'});
+    items.forEach(function(el){ io.observe(el); });
+    /* Safety net: IntersectionObserver existing is not the same as it firing.
+       If nothing revealed shortly after load, drop the `js` class so the
+       hiding rule disappears altogether. */
+    setTimeout(function(){
+      if (!document.querySelector('.rv.is-in')) document.documentElement.classList.remove('js');
+    }, 900);
+  }
+
+  /* the board counts its figures in once. Final values are already in the HTML,
+     so with JS off or motion reduced the numbers are simply correct. */
+  if (!reduce) {
+    document.querySelectorAll('[data-count]').forEach(function(el){
+      var to = parseFloat(el.dataset.count), from = parseFloat(el.dataset.from);
+      var dp = parseInt(el.dataset.dp, 10) || 0;
+      var pre = el.dataset.prefix || '', suf = el.dataset.suffix || '';
+      var start = null, dur = 900;
+      function frame(t){
+        if (start === null) start = t;
+        var p = Math.min((t - start) / dur, 1);
+        el.textContent = pre + (from + (to - from) * (1 - Math.pow(1 - p, 3))).toFixed(dp) + suf;
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      el.textContent = pre + from.toFixed(dp) + suf;
+      requestAnimationFrame(frame);
+    });
+  }
+
+  /* ---- the analysis player ---------------------------------------------
+     Click to play rather than autoplay: the clip carries speech, and a muted
+     autoplay loop would burn bandwidth on a visitor who never watches it.
+     Captions are drawn from the <track> cues into our own layer so they use
+     the page's type instead of the browser's default caption styling. */
+  var v = document.getElementById('film-video');
+  if (v) {
+    var wrap = document.getElementById('player'), cc = document.getElementById('cc');
+    var playBtn = document.getElementById('play-btn'), posterBtn = document.getElementById('poster-btn');
+    var muteBtn = document.getElementById('mute-btn'), fill = document.getElementById('fill'), time = document.getElementById('time');
+    var ICON_PLAY = '<path d="M8 5.14v13.72L19 12z"/>', ICON_PAUSE = '<path d="M6 5h4v14H6zM14 5h4v14h-4z"/>';
+    var ICON_ON = '<path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3a4.5 4.5 0 00-2.5-4v8a4.5 4.5 0 002.5-4z"/>';
+    var ICON_OFF = '<path d="M3 9v6h4l5 5V4L7 9H3z"/><path d="M16 9l5 6M21 9l-5 6" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>';
+
+    function toggle(){ v.paused ? v.play() : v.pause(); }
+    playBtn.addEventListener('click', toggle);
+    posterBtn.addEventListener('click', toggle);
+    v.addEventListener('click', toggle);
+
+    v.addEventListener('play', function(){
+      wrap.classList.add('is-playing');
+      playBtn.querySelector('svg').innerHTML = ICON_PAUSE;
+      playBtn.setAttribute('aria-label', 'Pause');
+    });
+    v.addEventListener('pause', function(){
+      playBtn.querySelector('svg').innerHTML = ICON_PLAY;
+      playBtn.setAttribute('aria-label', 'Play');
+    });
+
+    muteBtn.addEventListener('click', function(){
+      v.muted = !v.muted;
+      muteBtn.querySelector('svg').innerHTML = v.muted ? ICON_OFF : ICON_ON;
+      muteBtn.setAttribute('aria-label', v.muted ? 'Unmute' : 'Mute');
+    });
+
+    function clock(x){
+      var s = Math.max(0, Math.floor(x || 0));
+      return Math.floor(s / 60) + ':' + String(s % 60).padStart(2, '0');
+    }
+    var track = document.getElementById('track'), dur = document.getElementById('dur');
+
+    v.addEventListener('loadedmetadata', function(){ dur.textContent = clock(v.duration); });
+    v.addEventListener('timeupdate', function(){
+      if (!v.duration) return;
+      var pct = v.currentTime / v.duration * 100;
+      fill.style.width = pct + '%';
+      time.textContent = clock(v.currentTime);
+      track.setAttribute('aria-valuenow', Math.round(pct));
+    });
+
+    function seekTo(clientX){
+      if (!v.duration) return;
+      var r = track.getBoundingClientRect();
+      v.currentTime = Math.min(Math.max((clientX - r.left) / r.width, 0), 1) * v.duration;
+    }
+    track.addEventListener('pointerdown', function(e){
+      seekTo(e.clientX);
+      track.setPointerCapture(e.pointerId);
+      var move = function(ev){ seekTo(ev.clientX); };
+      track.addEventListener('pointermove', move);
+      track.addEventListener('pointerup', function up(){
+        track.removeEventListener('pointermove', move);
+        track.removeEventListener('pointerup', up);
+      });
+    });
+    track.addEventListener('keydown', function(e){
+      if (!v.duration) return;
+      var step = e.shiftKey ? 60 : 10;
+      if (e.key === 'ArrowRight') { v.currentTime = Math.min(v.currentTime + step, v.duration); e.preventDefault(); }
+      if (e.key === 'ArrowLeft')  { v.currentTime = Math.max(v.currentTime - step, 0); e.preventDefault(); }
+      if (e.key === 'Home') { v.currentTime = 0; e.preventDefault(); }
+    });
+
+    /* Stop the audio once the player is fully out of sight. Threshold 0 on
+       purpose: anything higher pauses a player that is merely half scrolled
+       past, which on a 20 minute session is maddening. */
+    if ('IntersectionObserver' in window) {
+      new IntersectionObserver(function(e){
+        if (!e[0].isIntersecting && !v.paused) v.pause();
+      }, {threshold:0}).observe(wrap);
+    }
+
+    /* Render the native cues ourselves. mode 'hidden' keeps the track parsed
+       and exposed to assistive tech while suppressing the browser's own box. */
+    v.addEventListener('loadedmetadata', function(){
+      var t = v.textTracks && v.textTracks[0];
+      if (!t) return;
+      t.mode = 'hidden';
+      t.addEventListener('cuechange', function(){
+        var active = t.activeCues && t.activeCues[0];
+        cc.innerHTML = active ? '<span>' + active.text.replace(/</g, '&lt;') + '</span>' : '';
+      });
+    });
+  }
 })();
 </script>
 </body>
