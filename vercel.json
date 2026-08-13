@@ -1,17 +1,60 @@
 {
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
-    { "source": "/free", "destination": "/free.html" }
+    {
+      "source": "/free",
+      "destination": "/free.html"
+    },
+    {
+      "source": "/cincinnati",
+      "destination": "/cincinnati.html"
+    }
   ],
   "redirects": [
-    { "source": "/plans", "destination": "https://app.wavehubtennis.com/plans", "permanent": false },
-    { "source": "/login", "destination": "https://app.wavehubtennis.com/login", "permanent": false },
-    { "source": "/signup", "destination": "https://app.wavehubtennis.com/signup", "permanent": false },
-    { "source": "/apply", "destination": "https://app.wavehubtennis.com/signup", "permanent": false },
-    { "source": "/bets", "destination": "https://app.wavehubtennis.com/bets", "permanent": false },
-    { "source": "/profile", "destination": "https://app.wavehubtennis.com/profile", "permanent": false },
-    { "source": "/tools", "destination": "https://app.wavehubtennis.com/tools", "permanent": false },
-    { "source": "/tournaments", "destination": "https://app.wavehubtennis.com/tournaments", "permanent": false },
-    { "source": "/quiz", "destination": "https://app.wavehubtennis.com/quiz", "permanent": false }
+    {
+      "source": "/plans",
+      "destination": "https://app.wavehubtennis.com/plans",
+      "permanent": false
+    },
+    {
+      "source": "/login",
+      "destination": "https://app.wavehubtennis.com/login",
+      "permanent": false
+    },
+    {
+      "source": "/signup",
+      "destination": "https://app.wavehubtennis.com/signup",
+      "permanent": false
+    },
+    {
+      "source": "/apply",
+      "destination": "https://app.wavehubtennis.com/signup",
+      "permanent": false
+    },
+    {
+      "source": "/bets",
+      "destination": "https://app.wavehubtennis.com/bets",
+      "permanent": false
+    },
+    {
+      "source": "/profile",
+      "destination": "https://app.wavehubtennis.com/profile",
+      "permanent": false
+    },
+    {
+      "source": "/tools",
+      "destination": "https://app.wavehubtennis.com/tools",
+      "permanent": false
+    },
+    {
+      "source": "/tournaments",
+      "destination": "https://app.wavehubtennis.com/tournaments",
+      "permanent": false
+    },
+    {
+      "source": "/quiz",
+      "destination": "https://app.wavehubtennis.com/quiz",
+      "permanent": false
+    }
   ]
 }
