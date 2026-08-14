@@ -6,8 +6,8 @@
       "destination": "/free.html"
     },
     {
-      "source": "/cincinnati",
-      "destination": "/cincinnati.html"
+      "source": "/preview",
+      "destination": "/preview.html"
     },
     {
       "source": "/start",
@@ -15,6 +15,11 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/cincinnati",
+      "destination": "/preview",
+      "permanent": false
+    },
     {
       "source": "/plans",
       "destination": "https://app.wavehubtennis.com/plans",
