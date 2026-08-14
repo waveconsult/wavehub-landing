@@ -11,9 +11,8 @@
 <meta property="og:title" content="Copy my 100k betting framework">
 <meta property="og:description" content="How to structure sports betting into an income stream. Four questions, under a minute. ATP only.">
 <link rel="icon" href="assets/favicon-32.png">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+<link rel="preconnect" href="https://use.typekit.net" crossorigin>
+<link rel="stylesheet" href="https://use.typekit.net/amv8grb.css">
 <style>
 /* ==========================================================================
    WaveHub — /start
@@ -28,8 +27,15 @@
   --line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.20);
   --ink:#FFFFFF;--mut:#9B9BAB;--faint:#61616E;
   --blue:#3D7BFF;--blue-2:#1D5CFF;
-  --sans:'Instrument Sans',system-ui,-apple-system,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  /* Two faces, both from the Adobe kit, and they have fixed jobs.
+     Dunbar Low is the headliner: geometric, low x-height, gorgeous large and
+     unreadable small. It gets headlines, the big figures and the buttons.
+     Geologica does everything else. Nothing else gets to be a third font. */
+  --display:"dunbar-low","Futura","Century Gothic",sans-serif;
+  --sans:"geologica-variable",system-ui,-apple-system,sans-serif;
+  /* Figures line up in columns without a monospace face: Geologica carries
+     tabular figures, so €30,800 and €308 keep the same digit width. */
+  --mono:"geologica-variable",system-ui,sans-serif;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
@@ -60,7 +66,7 @@ body::before{
 .top{padding:22px 0 0;display:flex;align-items:center;justify-content:space-between;gap:14px}
 .brand{display:flex;align-items:center;gap:9px}
 .brand img{width:24px;height:24px;object-fit:contain;display:block}
-.brand span{font-weight:700;font-size:15px;letter-spacing:-.02em}
+.brand span{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.015em}
 .brand em{font-style:normal;color:var(--blue)}
 .back{
   border:0;background:transparent;color:var(--faint);cursor:pointer;
@@ -94,18 +100,22 @@ body::before{
 }
 
 .kicker{
-  font-family:var(--mono);font-size:11px;font-weight:500;letter-spacing:2.4px;
+  font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:2.4px;
   text-transform:uppercase;color:var(--blue);margin-bottom:14px;
 }
+/* Dunbar Low sets its own rhythm. Its x-height is low and the letters are
+   already snug, so the tight tracking a grotesk needs would jam it shut. */
 h1{
-  font-size:clamp(29px,7.6vw,42px);font-weight:700;letter-spacing:-.035em;
-  line-height:1.08;margin-bottom:14px;
+  font-family:var(--display);
+  font-size:clamp(30px,7.8vw,44px);font-weight:700;letter-spacing:-.012em;
+  line-height:1.06;margin-bottom:14px;
 }
 h1 .dim{color:var(--mut)}
 .sub{color:var(--mut);font-size:15.5px;max-width:44ch}
 .q{
-  font-size:clamp(24px,6.2vw,33px);font-weight:700;letter-spacing:-.03em;
-  line-height:1.14;margin-bottom:8px;
+  font-family:var(--display);
+  font-size:clamp(25px,6.4vw,34px);font-weight:700;letter-spacing:-.01em;
+  line-height:1.12;margin-bottom:8px;
 }
 .qs{color:var(--mut);font-size:14.5px;margin-bottom:24px}
 
@@ -142,7 +152,8 @@ input:focus{border-color:var(--line-2);background:#1B1B25}
 
 .cta{
   width:100%;height:60px;margin-top:4px;border:0;border-radius:999px;cursor:pointer;
-  background:#F5F5F5;color:#0A0A12;font-size:16px;font-weight:700;letter-spacing:.4px;
+  background:#F5F5F5;color:#0A0A12;font-family:var(--display);
+  font-size:16px;font-weight:700;letter-spacing:.6px;
   text-transform:uppercase;transition:transform .16s var(--ease),opacity .18s;
 }
 .cta:hover{transform:translateY(-1px)}
@@ -164,14 +175,17 @@ input:focus{border-color:var(--line-2);background:#1B1B25}
   padding:13px 0;border-bottom:1px solid var(--line);
 }
 .row:last-child{border-bottom:0;padding-bottom:0}
-.row span{color:var(--mut);font-size:14px}
-.row b{font-family:var(--mono);font-size:17px;font-weight:600;letter-spacing:-.02em;white-space:nowrap}
+/* Geologica's figures build wider than a monospace face at the same size, so
+   the label loses the room it had and wraps. Both come down a notch. */
+.row span{color:var(--mut);font-size:13.5px}
+.row b{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
 /* The method is a phrase, not a figure. In mono at figure size it eats the
    whole row and shoves the label onto two lines. */
 .row b.word{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:-.01em}
 .hero-num{
-  font-family:var(--mono);font-size:clamp(38px,11vw,56px);font-weight:600;
-  letter-spacing:-.045em;color:var(--blue);line-height:1;margin:2px 0 8px;
+  font-family:var(--display);font-variant-numeric:tabular-nums;
+  font-size:clamp(40px,11.5vw,60px);font-weight:700;
+  letter-spacing:-.02em;color:var(--blue);line-height:1;margin:2px 0 8px;
 }
 .note{color:var(--mut);font-size:14.5px;margin-top:18px}
 .note b{color:var(--ink);font-weight:600}
@@ -327,7 +341,7 @@ footer a:hover{color:var(--mut)}
       <div class="qs" id="rSub">Four steps. The same four every position goes through.</div>
 
       <div class="card">
-        <div class="row"><span>Through your account in a season</span><b id="rTurn">&euro;0</b></div>
+        <div class="row"><span>Season turnover</span><b id="rTurn">&euro;0</b></div>
         <div class="row"><span>One percent of that</span><b id="rPoint">&euro;0</b></div>
         <div class="row"><span>How you price a match now</span><b class="word" id="rMethod">&mdash;</b></div>
       </div>
@@ -398,7 +412,7 @@ footer a:hover{color:var(--mut)}
 
 <script>
 /* ══ CONFIG ═══════════════════════════════════════════════════════════════ */
-var API    = "https://app.wavehubtennis.com/api/lead";
+var API    = "/api/lead";
 var WEEKS  = 44;          // the ATP season, January to the Finals
 var SPREAD = 3.5;         // percentage points between the first price you see
                           // and the best price on the same ATP match
@@ -572,10 +586,11 @@ var SMALL  = 500;         // below this the figure is too small to lead with
            + "what you are missing is <b>coverage</b>, not method. Nobody watches sixty tournaments a "
            + "year on their own.";
     } else if (r.gap < SMALL) {
-      document.getElementById("rGapLabel").textContent = "Where that leaves you today";
-      note = "At this size the figure is not the reason to bother. The four steps below cost nothing to "
-           + "run at " + euro(answer.stake) + " a bet, and they are the same four steps at ten times that. "
-           + "<b>Getting the structure right is cheap now and expensive later.</b>";
+      document.getElementById("rGapLabel").textContent = "What it is worth at your size";
+      note = "That is money you are handing over for nothing, at the size you play now. The four steps "
+           + "below cost the same to run at " + euro(answer.stake) + " a bet as they do at ten times that, "
+           + "which is the whole reason to put them in before the stakes go up rather than after. "
+           + "<b>Structure first, size second. It does not work in the other order.</b>";
     } else {
       note = "On the same ATP match, the first price you see and the best price available are routinely "
            + SPREAD + " percent apart. Against how you pick now, about <b>" + r.openPoints.toFixed(1)

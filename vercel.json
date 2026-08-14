@@ -10,6 +10,10 @@
       "destination": "/preview.html"
     },
     {
+      "source": "/api/lead",
+      "destination": "https://app.wavehubtennis.com/api/lead"
+    },
+    {
       "source": "/start",
       "destination": "/start.html"
     }
