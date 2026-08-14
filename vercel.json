@@ -8,6 +8,10 @@
     {
       "source": "/cincinnati",
       "destination": "/cincinnati.html"
+    },
+    {
+      "source": "/start",
+      "destination": "/start.html"
     }
   ],
   "redirects": [
