@@ -129,6 +129,8 @@ button:disabled{opacity:.55;cursor:default;box-shadow:none}
   accent-color:var(--blue);cursor:pointer;
 }
 .consent:focus-within{outline:2px solid var(--blue-lift);outline-offset:4px;border-radius:6px}
+.consent[data-invalid="1"]{color:var(--neg)}
+.consent[data-invalid="1"] input{outline:2px solid var(--neg);outline-offset:2px;border-radius:4px}
 .msg{margin-top:11px;font-size:13.5px;text-align:center;min-height:1.2em;color:var(--mut)}
 .msg.err{color:var(--neg)}
 
@@ -194,7 +196,7 @@ button:disabled{opacity:.55;cursor:default;box-shadow:none}
         <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
       </div>
       <label class="consent">
-        <input type="checkbox" id="news" name="news">
+        <input type="checkbox" id="news" name="news" required>
         <span>Yes, I agree to receive the group link by email and occasional
               insights on ATP matches.</span>
       </label>
@@ -223,7 +225,6 @@ button:disabled{opacity:.55;cursor:default;box-shadow:none}
   </p>
 
   <div class="foot">
-    <a href="/">Home</a>
     <a href="/imprint.html">Imprint</a>
     <a href="/privacy.html">Privacy</a>
     <a href="/terms.html">Terms</a>
@@ -240,6 +241,7 @@ var LEAD_ENDPOINT = "/api/lead";
   var form  = document.getElementById("f");
   var name  = document.getElementById("name");
   var email = document.getElementById("email");
+  var news  = document.getElementById("news");
   var btn   = document.getElementById("submit");
   var msg   = document.getElementById("msg");
   var done  = document.getElementById("done");
@@ -259,9 +261,18 @@ var LEAD_ENDPOINT = "/api/lead";
     var n = (name.value || "").trim();
     var m = (email.value || "").trim();
     invalid(name, false); invalid(email, false);
+    news.closest("label").removeAttribute("data-invalid");
 
     if (n.length < 2) { invalid(name, true); say("Please enter your name.", "err"); name.focus(); return; }
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) { invalid(email, true); say("Please enter a valid email address.", "err"); email.focus(); return; }
+    // Required: the link is sent by email, so the box has to be ticked before
+    // we have anything to act on.
+    if (!news.checked) {
+      news.closest("label").setAttribute("data-invalid", "1");
+      say("Please tick the box so we can send you the link.", "err");
+      news.focus();
+      return;
+    }
 
     btn.disabled = true; btn.textContent = "One moment…"; say("");
 
