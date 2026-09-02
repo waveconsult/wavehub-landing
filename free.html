@@ -120,6 +120,15 @@ button{
 }
 button:active:not(:disabled){background:var(--blue-lift);transform:translateY(1px)}
 button:disabled{opacity:.55;cursor:default;box-shadow:none}
+.consent{
+  margin-top:15px;display:flex;gap:11px;align-items:flex-start;
+  font-size:13.5px;line-height:1.5;color:var(--mut);cursor:pointer;
+}
+.consent input{
+  flex:none;width:20px;height:20px;margin-top:1px;min-height:0;
+  accent-color:var(--blue);cursor:pointer;
+}
+.consent:focus-within{outline:2px solid var(--blue-lift);outline-offset:4px;border-radius:6px}
 .msg{margin-top:11px;font-size:13.5px;text-align:center;min-height:1.2em;color:var(--mut)}
 .msg.err{color:var(--neg)}
 
@@ -185,6 +194,13 @@ button:disabled{opacity:.55;cursor:default;box-shadow:none}
         <label for="email">Your email</label>
         <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
       </div>
+      <label class="consent">
+        <input type="checkbox" id="news" name="news">
+        <span>Also send me the WaveHub emails: how we price a match, the week
+              in the ledger, the occasional product note. One a week at most,
+              unsubscribe any time.</span>
+      </label>
+
       <button id="submit" type="submit">Email me the link</button>
       <p class="msg" id="msg" role="status" aria-live="polite"></p>
     </form>
@@ -252,7 +268,11 @@ var LEAD_ENDPOINT = "/api/lead";
     fetch(LEAD_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ name: n, email: m, kind: "free", tournament: "free-telegram", title: "Free weekly pick" })
+      body: JSON.stringify({
+        name: n, email: m, kind: "free",
+        tournament: "free-telegram", title: "Free daily analysis",
+        newsletter: document.getElementById("news").checked
+      })
     })
       .then(function (r) {
         if (r.ok) return r.json().catch(function () { return {}; });
