@@ -3,157 +3,196 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>WaveHub: one free ATP pick, every week</title>
-<meta name="description" content="One ATP pick a week, free, in our Telegram group. The fair price our model makes it, the price we took, and the result — wins and losses.">
-<meta name="theme-color" content="#EAF2FE">
+<title>WaveHub Free Members — one free ATP pick, every week</title>
+<meta name="description" content="One ATP pick a week, free, in the WaveHub Telegram group. The fair price our model makes it, the price we took, and the result.">
+<meta name="theme-color" content="#05070D">
 <link rel="icon" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
 <meta property="og:type" content="website">
-<meta property="og:title" content="WaveHub: one free ATP pick, every week">
-<meta property="og:description" content="One ATP pick a week, free, in our Telegram group. Our model's fair price, the price we took, and the result.">
+<meta property="og:title" content="WaveHub Free Members">
+<meta property="og:description" content="One free ATP pick a week, in the group. No card, no catch.">
 <meta property="og:url" content="https://www.wavehubtennis.com/free">
+<meta property="og:image" content="https://www.wavehubtennis.com/assets/logo-square.png">
 <meta name="robots" content="index,follow">
 
-<!-- Squeeze page. No nav, no outbound links above the fold. The only action on
-     this page is the form, and the only thing behind the form is the free
-     Telegram group. Everything else was deliberately left off. -->
+<!-- Link-in-bio layout: dark, single column, one action. Everyone arrives from
+     a phone, so it is built at 420px and simply centred on anything wider.
+     The gradient below is CSS in the WaveHub palette — swap the two radial
+     stops (or drop in a background-image) once the artwork is ready. -->
 
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
 :root{
-  /* Same palette as the landing page, so the two do not read as two sites. */
-  --bg:#EAF2FE;
-  --card:#FFFFFF;
-  --navy:#0B1B33;
-  --blue:#1D5CFF;
-  --mint:#4DE39B;
-  --mint-soft:#E4F7EC;
-  --mut:#5A6B84;
-  --mut-2:#41526B;
-  --faint:#8496AF;
-  --line:#CBD8EC;
-  --neg:#B3261E;
+  --ink:#F3F6FB; --mut:#9AA7BD; --faint:#6B7A93;
+  --blue:#1D5CFF; --blue-lift:#3D77FF;
+  --card:rgba(255,255,255,.055); --card-line:rgba(255,255,255,.11);
+  --field:rgba(255,255,255,.05);
+  --neg:#FF8A80; --ok:#4DE39B;
   --sans:'Instrument Sans',system-ui,-apple-system,Segoe UI,sans-serif;
-  --mono:'IBM Plex Mono',ui-monospace,SFMono-Regular,monospace;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 ::selection{background:var(--blue);color:#fff}
 body{
-  background:var(--bg);color:var(--navy);font-family:var(--sans);
-  line-height:1.6;-webkit-font-smoothing:antialiased;
-  min-height:100dvh;display:flex;flex-direction:column;
+  min-height:100dvh;
+  background:#0A1E3C;
+  /* Markus's gradient artwork. The image is dark throughout (luma 18–96), so
+     only a light scrim is needed to keep white text crisp over the brighter
+     lower band. Fixed so the backdrop stays put while the card scrolls. */
+  background-image:
+    linear-gradient(180deg, rgba(5,10,22,.34) 0%, rgba(5,10,22,.12) 42%, rgba(5,10,22,.42) 100%),
+    url("assets/gradient.jpg");
+  background-size:cover, cover;
+  background-position:center, center;
+  background-repeat:no-repeat, no-repeat;
+  background-attachment:fixed, fixed;
+  color:var(--ink);font-family:var(--sans);line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 20px 40px;
 }
-a{color:inherit}
+a{color:inherit;text-decoration:none}
+img{max-width:100%;display:block}
+.col{width:100%;max-width:420px}
 
-.top{display:flex;justify-content:center;padding:30px 24px 0}
-.brand{display:inline-flex;align-items:center;gap:9px;font-weight:700;font-size:19px;letter-spacing:-.03em;text-decoration:none;color:var(--navy)}
-.brand img{height:23px;width:auto;display:block}
-.brand b{color:var(--blue);font-weight:700}
+/* ── identity ─────────────────────────────────────────── */
+.avatar{
+  width:104px;height:104px;margin:38px auto 0;border-radius:50%;
+  background:#0A0D14;border:1px solid rgba(255,255,255,.14);
+  display:grid;place-items:center;overflow:hidden;
+  box-shadow:0 12px 44px rgba(0,0,0,.55), 0 0 0 6px rgba(29,92,255,.10);
+}
+.avatar img{width:70%;height:auto}
+h1{
+  margin-top:20px;text-align:center;font-size:clamp(23px,6.4vw,28px);
+  font-weight:700;letter-spacing:-.01em;text-transform:uppercase;line-height:1.15;
+}
+.intro{margin-top:12px;text-align:center;font-size:15px;color:var(--mut)}
 
-main{flex:1;width:100%;max-width:560px;margin:0 auto;padding:44px 24px 40px}
-.eyebrow{font-family:var(--mono);font-size:11.5px;font-weight:500;letter-spacing:2.4px;text-transform:uppercase;color:var(--blue);text-align:center}
-h1{margin-top:18px;font-size:clamp(34px,9vw,54px);font-weight:700;letter-spacing:-.035em;line-height:1.03;text-align:center}
-.lede{margin:20px auto 0;max-width:27rem;text-align:center;font-size:15.5px;line-height:1.65;color:var(--mut)}
+.socials{margin-top:20px;display:flex;justify-content:center;gap:12px}
+.socials a{
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:var(--card);border:1px solid var(--card-line);
+  transition:background .18s var(--ease),border-color .18s var(--ease);
+}
+.socials a:active{background:rgba(255,255,255,.12)}
+.socials svg{width:20px;height:20px;fill:var(--ink)}
 
+.label{
+  margin-top:32px;text-align:center;font-family:var(--mono);font-size:10.5px;
+  font-weight:500;letter-spacing:2.6px;text-transform:uppercase;color:var(--faint);
+}
+
+/* ── the join card ────────────────────────────────────── */
 .card{
-  margin-top:34px;background:var(--card);border:1px solid var(--line);
-  border-radius:22px;padding:26px 22px;
-  box-shadow:0 1px 2px rgba(11,27,51,.04),0 12px 32px rgba(11,27,51,.07);
+  margin-top:14px;background:var(--card);border:1px solid var(--card-line);
+  border-radius:20px;padding:18px;backdrop-filter:blur(10px);
 }
-.gets{list-style:none;display:flex;flex-direction:column;gap:13px}
-.gets li{display:flex;gap:12px;align-items:flex-start;font-size:14.5px;line-height:1.5;color:var(--mut-2)}
-.gets .tick{flex:none;width:19px;height:19px;margin-top:2px;border-radius:50%;background:var(--mint-soft);color:#0E8A52;font-size:11px;font-weight:700;display:grid;place-items:center}
-.gets b{color:var(--navy);font-weight:600}
+.shot{border-radius:14px;overflow:hidden;background:#F2F2F2}
+.shot img{width:100%;height:auto}
 
-form{margin-top:24px;border-top:1px solid var(--line);padding-top:22px}
-.field + .field{margin-top:14px}
-label{display:block;font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-bottom:7px}
+.gets{margin-top:18px;list-style:none;display:flex;flex-direction:column;gap:11px}
+.gets li{display:flex;gap:11px;font-size:14.5px;color:var(--mut)}
+.gets b{color:var(--ink);font-weight:600}
+.tick{flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;background:rgba(77,227,155,.16);color:var(--ok);font-size:10px;font-weight:700;display:grid;place-items:center}
+
+form{margin-top:18px;border-top:1px solid var(--card-line);padding-top:18px}
+label{display:block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.field+.field{margin-top:13px}
 input{
-  width:100%;padding:15px 16px;border-radius:14px;border:1px solid var(--line);
-  background:#F7FAFF;color:var(--navy);font-family:var(--sans);font-size:16px;
+  width:100%;min-height:52px;padding:14px 16px;border-radius:14px;
+  border:1px solid var(--card-line);background:var(--field);color:var(--ink);
+  font-family:var(--sans);font-size:16px;
   transition:border-color .18s var(--ease),background .18s var(--ease);
 }
 input::placeholder{color:var(--faint)}
-input:focus{outline:none;border-color:var(--blue);background:#fff;box-shadow:0 0 0 3px rgba(29,92,255,.14)}
+input:focus{outline:none;border-color:var(--blue-lift);background:rgba(255,255,255,.08);box-shadow:0 0 0 3px rgba(29,92,255,.22)}
 input[aria-invalid="true"]{border-color:var(--neg)}
 button{
-  margin-top:18px;width:100%;padding:16px 20px;border-radius:999px;
-  border:1px solid var(--blue);background:var(--blue);color:#fff;
-  font-family:var(--sans);font-weight:600;font-size:15.5px;cursor:pointer;
-  transition:background .2s var(--ease),color .2s var(--ease),transform .12s var(--ease);
+  margin-top:18px;width:100%;min-height:54px;padding:15px 22px;border-radius:999px;
+  border:0;background:var(--blue);color:#fff;font-family:var(--sans);
+  font-weight:600;font-size:16px;cursor:pointer;
+  box-shadow:0 10px 30px rgba(29,92,255,.34);
+  transition:background .2s var(--ease),transform .12s var(--ease);
 }
-button:hover:not(:disabled){background:#0B45E0;border-color:#0B45E0}
-button:active:not(:disabled){transform:translateY(1px)}
-button:disabled{opacity:.55;cursor:default}
-.msg{margin-top:12px;font-size:13.5px;line-height:1.55;text-align:center;min-height:1.2em;color:var(--mut)}
+button:active:not(:disabled){background:var(--blue-lift);transform:translateY(1px)}
+button:disabled{opacity:.55;cursor:default;box-shadow:none}
+.msg{margin-top:11px;font-size:13.5px;text-align:center;min-height:1.2em;color:var(--mut)}
 .msg.err{color:var(--neg)}
 
-/* Replaces the form once the lead is stored. The redirect fires immediately;
-   this is what people see if it is blocked or if they come back. */
 .done{display:none;text-align:center}
 .done.on{display:block}
-.done h2{font-size:22px;font-weight:700;letter-spacing:-.02em}
-.done p{margin-top:10px;font-size:14.5px;color:var(--mut)}
+.done h2{font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:-.01em}
+.done p{margin-top:9px;font-size:14.5px;color:var(--mut)}
 .tg{
-  margin-top:18px;display:flex;width:100%;align-items:center;justify-content:center;
-  gap:9px;padding:16px 20px;border-radius:999px;background:var(--navy);color:#fff;
-  font-weight:600;font-size:15.5px;text-decoration:none;
+  margin-top:16px;display:flex;align-items:center;justify-content:center;gap:9px;
+  width:100%;min-height:54px;border-radius:999px;background:var(--blue);color:#fff;
+  font-weight:600;font-size:16px;box-shadow:0 10px 30px rgba(29,92,255,.34);
 }
-.tg:hover{background:#153057}
 
-.fine{margin-top:26px;text-align:center;font-size:12px;line-height:1.6;color:var(--faint)}
+/* ── secondary route to the paid side ─────────────────── */
+.plans{
+  margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;min-height:52px;border-radius:999px;
+  background:transparent;border:1px solid var(--card-line);
+  color:var(--ink);font-weight:600;font-size:15px;
+}
+.plans:active{background:rgba(255,255,255,.07)}
+.plans .arrow{color:var(--faint);font-weight:400}
+
+.fine{margin-top:24px;text-align:center;font-size:12px;line-height:1.6;color:var(--faint)}
 .fine a{color:var(--mut);text-decoration:underline;text-underline-offset:2px}
-
-footer{border-top:1px solid var(--line);padding:22px 24px 30px;text-align:center;margin-top:20px}
-footer .links{display:flex;flex-wrap:wrap;gap:16px;justify-content:center;font-size:12.5px;color:var(--mut)}
-footer .links a{text-decoration:none}
-footer .links a:hover{color:var(--navy)}
-footer .tag{margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacing:2px;text-transform:uppercase;color:var(--faint)}
-
+.foot{margin-top:22px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;font-size:12.5px;color:var(--faint)}
+.foot a:active{color:var(--ink)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
 <script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
-<div class="top">
-  <a class="brand" href="/">
-    <img src="assets/logo.png" alt="">
-    <span>Wave<b>Hub</b></span>
-  </a>
-</div>
+<div class="col">
 
-<main>
-  <p class="eyebrow">Free · ATP only</p>
-  <h1>One free pick.<br>Every week.</h1>
-  <p class="lede">
-    Every week we post one ATP pick in the free Telegram group. The fair price
-    our model makes it, the price we actually took, and what happened.
+  <div class="avatar"><img src="assets/logo-square.png" alt="WaveHub"></div>
+  <h1>WaveHub Free Members</h1>
+  <p class="intro">
+    One ATP pick a week, free. Our model's fair price, the price we actually
+    took, and the result either way. Drop your name and email and the group
+    opens straight away.
   </p>
 
+  <div class="socials">
+    <a href="https://t.me/+IyD9Isx2p0VjNjNk" rel="noopener" aria-label="Telegram">
+      <svg viewBox="0 0 24 24"><path d="M21.9 4.3 18.6 20c-.2 1-.9 1.3-1.8.8l-4.9-3.6-2.4 2.3c-.3.3-.5.5-1 .5l.4-5 9.1-8.2c.4-.4-.1-.6-.6-.2L6.2 13.4l-4.8-1.5c-1-.3-1-1 .2-1.5l18.9-7.3c.9-.3 1.6.2 1.4 1.2z"/></svg>
+    </a>
+    <a href="https://www.instagram.com/wavehubtennis" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.8.1-.9 0-1.4.2-1.7.3-.4.2-.7.3-1 .6-.3.3-.5.6-.6 1-.1.3-.3.8-.3 1.7-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c0 .9.2 1.4.3 1.7.2.4.3.7.6 1 .3.3.6.5 1 .6.3.1.8.3 1.7.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.3 1-.6.3-.3.5-.6.6-1 .1-.3.3-.8.3-1.7.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c0-.9-.2-1.4-.3-1.7-.2-.4-.3-.7-.6-1-.3-.3-.6-.5-1-.6-.3-.1-.8-.3-1.7-.3-1.3-.1-1.7-.1-4.8-.1zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.2-8.3a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg>
+    </a>
+  </div>
+
+  <p class="label">Free Telegram channel</p>
+
   <div class="card">
+    <div class="shot"><img src="assets/telegram-card.png" alt="WaveHub Free Members on Telegram" width="368" height="237"></div>
+
     <ul class="gets">
       <li><span class="tick">✓</span><span><b>One pick a week</b>, posted before the price moves.</span></li>
-      <li><span class="tick">✓</span><span><b>The reasoning</b>, so you can see why our number differs from the market.</span></li>
+      <li><span class="tick">✓</span><span><b>The reasoning</b>, so you see why our number differs from the market.</span></li>
       <li><span class="tick">✓</span><span><b>The result, either way.</b> Wins and losses both get posted.</span></li>
-      <li><span class="tick">✓</span><span>Free to join, free to leave. No card, no catch.</span></li>
     </ul>
 
     <form id="f" novalidate>
       <div class="field">
         <label for="name">Your name</label>
-        <input id="name" name="name" type="text" autocomplete="given-name"
-               placeholder="Markus" required maxlength="80">
+        <input id="name" name="name" type="text" autocomplete="given-name" placeholder="Markus" required maxlength="80">
       </div>
       <div class="field">
         <label for="email">Your email</label>
-        <input id="email" name="email" type="email" inputmode="email" autocomplete="email"
-               placeholder="you@example.com" required>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
       </div>
-      <button id="submit" type="submit">Get access to the group</button>
+      <button id="submit" type="submit">Join the free group</button>
       <p class="msg" id="msg" role="status" aria-live="polite"></p>
     </form>
 
@@ -164,32 +203,28 @@ footer .tag{margin-top:14px;font-family:var(--mono);font-size:10px;letter-spacin
     </div>
   </div>
 
+  <!-- Route through to the paid side without competing with the form above. -->
+  <a class="plans" href="/#plans">See all plans <span class="arrow">→</span></a>
+
   <p class="fine">
     WaveHub publishes sports analysis. We are not a bookmaker, we take no bets
     and we hold no money. Nothing here is a promise of profit, and betting can
-    lose you money. By submitting you agree to our
+    lose you money. By joining you agree to our
     <a href="/privacy.html">privacy policy</a>.
   </p>
-</main>
 
-<footer>
-  <div class="links">
+  <div class="foot">
     <a href="/">Home</a>
     <a href="/imprint.html">Imprint</a>
     <a href="/privacy.html">Privacy</a>
     <a href="/terms.html">Terms</a>
   </div>
-  <p class="tag">Analysis, not a bookmaker · ATP only</p>
-</footer>
+
+</div>
 
 <script>
-/* The free Telegram group. This is the only thing this page exists to hand out.
-   Changing groups means changing this one line. */
 var TELEGRAM_INVITE = "https://t.me/+IyD9Isx2p0VjNjNk";
-
-/* Same origin: vercel.json rewrites /api/lead through to the app, so there is
-   no CORS preflight and no second domain in the network tab. */
-var LEAD_ENDPOINT = "/api/lead";
+var LEAD_ENDPOINT   = "/api/lead";
 
 (function () {
   var form  = document.getElementById("f");
@@ -200,80 +235,44 @@ var LEAD_ENDPOINT = "/api/lead";
   var done  = document.getElementById("done");
   var tg    = document.getElementById("tg");
 
-  function say(text, kind) {
-    msg.textContent = text;
-    msg.className = "msg" + (kind ? " " + kind : "");
-  }
-
-  function invalid(el, on) {
-    if (on) el.setAttribute("aria-invalid", "true");
-    else el.removeAttribute("aria-invalid");
-  }
+  function say(t, k) { msg.textContent = t; msg.className = "msg" + (k ? " " + k : ""); }
+  function invalid(el, on) { on ? el.setAttribute("aria-invalid", "true") : el.removeAttribute("aria-invalid"); }
 
   function succeed() {
     form.style.display = "none";
     done.classList.add("on");
     tg.href = TELEGRAM_INVITE;
-    // They asked for the group. Do not make them click a second time.
+    // They asked for the group; do not make them click twice.
     window.location.href = TELEGRAM_INVITE;
   }
 
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-
     var n = (name.value || "").trim();
     var m = (email.value || "").trim();
+    invalid(name, false); invalid(email, false);
 
-    invalid(name, false);
-    invalid(email, false);
+    if (n.length < 2) { invalid(name, true); say("Please enter your name.", "err"); name.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) { invalid(email, true); say("Please enter a valid email address.", "err"); email.focus(); return; }
 
-    if (n.length < 2) {
-      invalid(name, true);
-      say("Please enter your name.", "err");
-      name.focus();
-      return;
-    }
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) {
-      invalid(email, true);
-      say("Please enter a valid email address.", "err");
-      email.focus();
-      return;
-    }
-
-    btn.disabled = true;
-    btn.textContent = "One moment…";
-    say("");
+    btn.disabled = true; btn.textContent = "One moment…"; say("");
 
     fetch(LEAD_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({
-        name: n,
-        email: m,
-        kind: "free",
-        tournament: "free-telegram",
-        title: "Free weekly pick"
-      })
+      body: JSON.stringify({ name: n, email: m, kind: "free", tournament: "free-telegram", title: "Free weekly pick" })
     })
       .then(function (r) {
-        // A duplicate signup is a success from the visitor's side. They want
-        // the group, not a lecture about already being on the list.
         if (r.ok) return r.json().catch(function () { return {}; });
         return r.json().then(function (d) { throw new Error(d.error || "FAILED"); },
                              function () { throw new Error("FAILED"); });
       })
-      .then(function () { succeed(); })
+      .then(succeed)
       .catch(function (err) {
-        btn.disabled = false;
-        btn.textContent = "Get access to the group";
-        var m2 = String(err && err.message || "");
-        if (/valid email/i.test(m2)) {
-          invalid(email, true);
-          say(m2, "err");
-          email.focus();
-        } else {
-          say("Could not reach the server. Please try again.", "err");
-        }
+        btn.disabled = false; btn.textContent = "Join the free group";
+        var t = String(err && err.message || "");
+        if (/valid email/i.test(t)) { invalid(email, true); say(t, "err"); email.focus(); }
+        else { say("Could not reach the server. Please try again.", "err"); }
       });
   });
 })();
