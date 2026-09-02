@@ -2,618 +2,304 @@
 <html lang="en">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Copy my 100k betting framework — WaveHub</title>
-<meta name="description" content="The framework I use to structure sports betting into an income stream, built around your own stakes. Four questions, under a minute. ATP only.">
-<meta name="theme-color" content="#07070E">
-<meta name="robots" content="noindex">
-<meta property="og:type" content="website">
-<meta property="og:title" content="Copy my 100k betting framework">
-<meta property="og:description" content="How to structure sports betting into an income stream. Four questions, under a minute. ATP only.">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Free Data-Driven ATP Analysis — WaveHub</title>
+<meta name="description" content="Daily posts on how our model reads the ATP tour, plus one free pick a week. Every result documented, wins and losses both.">
+<meta name="theme-color" content="#05070D">
 <link rel="icon" href="assets/favicon-32.png">
-<link rel="preconnect" href="https://use.typekit.net" crossorigin>
-<link rel="stylesheet" href="https://use.typekit.net/amv8grb.css">
-<style>
-/* ==========================================================================
-   WaveHub — /start
-   A one-question-at-a-time opt-in funnel. Everything lives on one screen:
-   no navigation, no scrolling away, no second exit. That is the whole idea.
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Free Data-Driven ATP Analysis">
+<meta property="og:description" content="Daily ATP analysis plus one free pick a week, on Telegram. No card, no catch.">
+<meta property="og:url" content="https://www.wavehubtennis.com/start">
+<meta property="og:image" content="https://www.wavehubtennis.com/assets/logo-square.png">
+<meta name="robots" content="index,follow">
 
-   Comes off an Instagram link in bio, so the phone layout is the real one
-   and the desktop layout is the afterthought — not the other way round.
-   ========================================================================== */
+<!-- Link-in-bio layout: dark, single column, one action. Everyone arrives from
+     a phone, so it is built at 420px and simply centred on anything wider.
+     The Telegram invite is not handed over here: it is emailed, so the address
+     has to be a real one before anyone gets into the group. -->
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
 :root{
-  --bg:#07070E;--panel:#101018;--panel-2:#16161F;
-  --line:rgba(255,255,255,.10);--line-2:rgba(255,255,255,.20);
-  --ink:#FFFFFF;--mut:#9B9BAB;--faint:#61616E;
-  --blue:#3D7BFF;--blue-2:#1D5CFF;
-  /* Two faces, both from the Adobe kit, and they have fixed jobs.
-     Dunbar Low is the headliner: geometric, low x-height, gorgeous large and
-     unreadable small. It gets headlines, the big figures and the buttons.
-     Geologica does everything else. Nothing else gets to be a third font. */
-  --display:"dunbar-low","Futura","Century Gothic",sans-serif;
-  --sans:"geologica-variable",system-ui,-apple-system,sans-serif;
-  /* Figures line up in columns without a monospace face: Geologica carries
-     tabular figures, so €30,800 and €308 keep the same digit width. */
-  --mono:"geologica-variable",system-ui,sans-serif;
+  --ink:#F3F6FB; --mut:#9AA7BD; --faint:#6B7A93;
+  --blue:#1D5CFF; --blue-lift:#3D77FF;
+  --card:rgba(255,255,255,.055); --card-line:rgba(255,255,255,.11);
+  --field:rgba(255,255,255,.05);
+  --neg:#FF8A80; --ok:#4DE39B;
+  --sans:'Instrument Sans',system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
   --ease:cubic-bezier(.16,1,.3,1);
 }
 *{box-sizing:border-box;margin:0;padding:0}
-html,body{height:100%}
+::selection{background:var(--blue);color:#fff}
 body{
-  background:var(--bg);color:var(--ink);font-family:var(--sans);line-height:1.55;
-  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
-  overflow-x:hidden;
+  min-height:100dvh;
+  background:#0A1E3C;
+  /* Markus's gradient artwork. The image is dark throughout (luma 18–96), so
+     only a light scrim is needed to keep white text crisp over the brighter
+     lower band. Fixed so the backdrop stays put while the card scrolls. */
+  background-image:
+    linear-gradient(180deg, rgba(5,10,22,.34) 0%, rgba(5,10,22,.12) 42%, rgba(5,10,22,.42) 100%),
+    url("assets/gradient.jpg");
+  background-size:cover, cover;
+  background-position:center, center;
+  background-repeat:no-repeat, no-repeat;
+  background-attachment:fixed, fixed;
+  color:var(--ink);font-family:var(--sans);line-height:1.55;
+  -webkit-font-smoothing:antialiased;
+  display:flex;flex-direction:column;align-items:center;
+  padding:0 20px 40px;
 }
 a{color:inherit;text-decoration:none}
-button,input{font:inherit;color:inherit}
-::selection{background:var(--blue-2);color:#fff}
+img{max-width:100%;display:block}
+.col{width:100%;max-width:420px}
 
-/* A very slow blue wash behind everything. Barely there — it only stops the
-   page reading as a flat black rectangle on an OLED phone. */
-body::before{
-  content:"";position:fixed;inset:-30% -10% auto -10%;height:70vh;z-index:0;
-  background:radial-gradient(60% 60% at 50% 0%,rgba(29,92,255,.16),transparent 70%);
-  pointer-events:none;
+/* ── identity ─────────────────────────────────────────── */
+.avatar{
+  width:104px;height:104px;margin:38px auto 0;border-radius:50%;
+  background:#0A0D14;border:1px solid rgba(255,255,255,.14);
+  display:grid;place-items:center;overflow:hidden;
+  box-shadow:0 12px 44px rgba(0,0,0,.55), 0 0 0 6px rgba(29,92,255,.10);
 }
-
-/* ── shell ──────────────────────────────────────────────────────────────── */
-.shell{
-  position:relative;z-index:1;min-height:100dvh;
-  display:flex;flex-direction:column;
-  max-width:560px;margin:0 auto;padding:0 22px env(safe-area-inset-bottom);
-}
-.top{padding:22px 0 0;display:flex;align-items:center;justify-content:space-between;gap:14px}
-.brand{display:flex;align-items:center;gap:9px}
-.brand img{width:24px;height:24px;object-fit:contain;display:block}
-.brand span{font-family:var(--display);font-weight:700;font-size:16px;letter-spacing:.015em}
-.brand em{font-style:normal;color:var(--blue)}
-.back{
-  border:0;background:transparent;color:var(--faint);cursor:pointer;
-  font-size:13px;font-weight:500;padding:6px 2px;display:none;align-items:center;gap:6px;
-  transition:color .18s;
-}
-.back:hover{color:var(--ink)}
-.back.on{display:inline-flex}
-
-/* progress: four hairlines, filled left to right */
-/* Four empty hairlines above the very first screen just look like something
-   failed to load. The bar only earns its place once you are in the questions. */
-.bars{display:flex;gap:5px;margin:18px 0 0;opacity:0;transition:opacity .3s}
-.bars.on{opacity:1}
-.bars i{flex:1;height:3px;border-radius:2px;background:rgba(255,255,255,.10);overflow:hidden}
-.bars i::after{
-  content:"";display:block;height:100%;width:0;border-radius:2px;
-  background:var(--blue);transition:width .5s var(--ease);
-}
-.bars i.done::after{width:100%}
-
-.stage{flex:1;display:flex;flex-direction:column;justify-content:center;padding:30px 0 40px}
-
-/* ── steps ──────────────────────────────────────────────────────────────── */
-.step{display:none}
-.step.on{display:block;animation:rise .44s var(--ease) both}
-@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
-@media (prefers-reduced-motion:reduce){
-  .step.on{animation:none}
-  *{transition-duration:.01ms !important}
-}
-
-.kicker{
-  font-family:var(--sans);font-size:11px;font-weight:500;letter-spacing:2.4px;
-  text-transform:uppercase;color:var(--blue);margin-bottom:14px;
-}
-/* Dunbar Low sets its own rhythm. Its x-height is low and the letters are
-   already snug, so the tight tracking a grotesk needs would jam it shut. */
+.avatar img{width:70%;height:auto}
 h1{
-  font-family:var(--display);
-  font-size:clamp(30px,7.8vw,44px);font-weight:700;letter-spacing:-.012em;
-  line-height:1.06;margin-bottom:14px;
+  margin-top:20px;text-align:center;font-size:clamp(23px,6.4vw,28px);
+  font-weight:700;letter-spacing:-.01em;text-transform:uppercase;line-height:1.15;
 }
-h1 .dim{color:var(--mut)}
-.sub{color:var(--mut);font-size:15.5px;max-width:44ch}
-.q{
-  font-family:var(--display);
-  font-size:clamp(25px,6.4vw,34px);font-weight:700;letter-spacing:-.01em;
-  line-height:1.12;margin-bottom:8px;
-}
-.qs{color:var(--mut);font-size:14.5px;margin-bottom:24px}
+.intro{margin-top:12px;text-align:center;font-size:15px;color:var(--mut)}
 
-/* ── controls ───────────────────────────────────────────────────────────── */
-.fields{display:flex;gap:10px;margin-bottom:14px}
-.fields.one{display:block}
+.socials{margin-top:20px;display:flex;justify-content:center;gap:12px}
+.socials a{
+  width:44px;height:44px;border-radius:50%;display:grid;place-items:center;
+  background:var(--card);border:1px solid var(--card-line);
+  transition:background .18s var(--ease),border-color .18s var(--ease);
+}
+.socials a:active{background:rgba(255,255,255,.12)}
+.socials svg{width:20px;height:20px;fill:var(--ink)}
+
+.label{
+  margin-top:32px;text-align:center;font-family:var(--mono);font-size:10.5px;
+  font-weight:500;letter-spacing:2.6px;text-transform:uppercase;color:var(--faint);
+}
+
+/* ── the join card ────────────────────────────────────── */
+.card{
+  margin-top:14px;background:var(--card);border:1px solid var(--card-line);
+  border-radius:20px;padding:18px;backdrop-filter:blur(10px);
+}
+.shot{border-radius:14px;overflow:hidden;background:#F2F2F2}
+.shot img{width:100%;height:auto}
+
+.gets{margin-top:18px;list-style:none;display:flex;flex-direction:column;gap:11px}
+.gets li{display:flex;gap:11px;font-size:14.5px;color:var(--mut)}
+.gets b{color:var(--ink);font-weight:600}
+.tick{flex:none;width:18px;height:18px;margin-top:3px;border-radius:50%;background:rgba(77,227,155,.16);color:var(--ok);font-size:10px;font-weight:700;display:grid;place-items:center}
+
+form{margin-top:18px;border-top:1px solid var(--card-line);padding-top:18px}
+label{display:block;font-family:var(--mono);font-size:10px;font-weight:500;letter-spacing:1.4px;text-transform:uppercase;color:var(--faint);margin-bottom:6px}
+.field+.field{margin-top:13px}
 input{
-  width:100%;height:64px;padding:0 18px;border-radius:14px;
-  background:var(--panel-2);border:1px solid var(--line);
-  font-size:17px;outline:none;transition:border-color .18s,background .18s;
+  width:100%;min-height:52px;padding:14px 16px;border-radius:14px;
+  border:1px solid var(--card-line);background:var(--field);color:var(--ink);
+  font-family:var(--sans);font-size:16px;
+  transition:border-color .18s var(--ease),background .18s var(--ease);
 }
 input::placeholder{color:var(--faint)}
-input:focus{border-color:var(--line-2);background:#1B1B25}
+input:focus{outline:none;border-color:var(--blue-lift);background:rgba(255,255,255,.08);box-shadow:0 0 0 3px rgba(29,92,255,.22)}
+input[aria-invalid="true"]{border-color:var(--neg)}
+button{
+  margin-top:18px;width:100%;min-height:54px;padding:15px 22px;border-radius:999px;
+  border:0;background:var(--blue);color:#fff;font-family:var(--sans);
+  font-weight:600;font-size:16px;cursor:pointer;
+  box-shadow:0 10px 30px rgba(29,92,255,.34);
+  transition:background .2s var(--ease),transform .12s var(--ease);
+}
+button:active:not(:disabled){background:var(--blue-lift);transform:translateY(1px)}
+button:disabled{opacity:.55;cursor:default;box-shadow:none}
+.consent{
+  margin-top:16px;display:flex;gap:10px;align-items:flex-start;
+  font-size:12.5px;line-height:1.5;color:var(--faint);cursor:pointer;
+}
+.consent input{
+  flex:none;width:18px;height:18px;margin-top:0;min-height:0;
+  accent-color:var(--blue);cursor:pointer;
+}
+.consent:focus-within{outline:2px solid var(--blue-lift);outline-offset:4px;border-radius:6px}
+.consent[data-invalid="1"]{color:var(--neg)}
+.consent[data-invalid="1"] input{outline:2px solid var(--neg);outline-offset:2px;border-radius:4px}
+.msg{margin-top:11px;font-size:13.5px;text-align:center;min-height:1.2em;color:var(--mut)}
+.msg.err{color:var(--neg)}
 
-/* One option per row. Tall enough to hit with a thumb without looking. */
-.opts{display:flex;flex-direction:column;gap:9px}
-.opt{
-  display:flex;align-items:center;gap:14px;width:100%;text-align:left;
-  padding:17px 18px;border-radius:14px;cursor:pointer;
-  background:var(--panel-2);border:1px solid var(--line);
-  transition:border-color .16s,background .16s,transform .16s var(--ease);
+.done{display:none;text-align:center}
+.done.on{display:block}
+.done h2{font-size:20px;font-weight:700;text-transform:uppercase;letter-spacing:-.01em}
+.done p{margin-top:9px;font-size:14.5px;color:var(--mut)}
+/* ── secondary route to the paid side ─────────────────── */
+.plans{
+  margin-top:14px;display:flex;align-items:center;justify-content:center;gap:8px;
+  width:100%;min-height:52px;border-radius:999px;
+  background:transparent;border:1px solid var(--card-line);
+  color:var(--ink);font-weight:600;font-size:15px;
 }
-.opt:hover{border-color:var(--line-2);background:#1B1B25}
-.opt:active{transform:scale(.985)}
-.opt.pick{border-color:var(--blue);background:rgba(29,92,255,.13)}
-.opt b{font-size:16.5px;font-weight:600;letter-spacing:-.01em;display:block}
-.opt small{display:block;color:var(--faint);font-size:13px;font-weight:400;margin-top:2px}
-.opt .key{
-  flex:none;width:28px;height:28px;border-radius:8px;display:grid;place-items:center;
-  background:rgba(255,255,255,.06);border:1px solid var(--line);
-  font-family:var(--mono);font-size:12px;color:var(--mut);
-}
-.opt.pick .key{background:var(--blue-2);border-color:var(--blue-2);color:#fff}
+.plans:active{background:rgba(255,255,255,.07)}
+.plans .arrow{color:var(--faint);font-weight:400}
 
-.cta{
-  width:100%;height:60px;margin-top:4px;border:0;border-radius:999px;cursor:pointer;
-  background:#F5F5F5;color:#0A0A12;font-family:var(--display);
-  font-size:16px;font-weight:700;letter-spacing:.6px;
-  text-transform:uppercase;transition:transform .16s var(--ease),opacity .18s;
-}
-.cta:hover{transform:translateY(-1px)}
-.cta:disabled{opacity:.5;cursor:default;transform:none}
-.err{color:#FF8080;font-size:13.5px;margin-top:10px;min-height:18px}
-
-/* ── trust rows ─────────────────────────────────────────────────────────── */
-.trust{margin-top:26px;display:flex;flex-direction:column;gap:11px}
-.trust div{display:flex;align-items:center;gap:10px;color:var(--mut);font-size:14px}
-.trust svg{flex:none}
-
-/* ── result ─────────────────────────────────────────────────────────────── */
-.card{
-  background:var(--panel);border:1px solid var(--line);border-radius:20px;
-  padding:22px;margin:20px 0 0;
-}
-.row{
-  display:flex;align-items:baseline;justify-content:space-between;gap:16px;
-  padding:13px 0;border-bottom:1px solid var(--line);
-}
-.row:last-child{border-bottom:0;padding-bottom:0}
-/* Geologica's figures build wider than a monospace face at the same size, so
-   the label loses the room it had and wraps. Both come down a notch. */
-.row span{color:var(--mut);font-size:13.5px}
-.row b{font-family:var(--mono);font-variant-numeric:tabular-nums;font-size:16px;font-weight:600;letter-spacing:-.01em;white-space:nowrap}
-/* The method is a phrase, not a figure. In mono at figure size it eats the
-   whole row and shoves the label onto two lines. */
-.row b.word{font-family:var(--sans);font-size:15px;font-weight:600;letter-spacing:-.01em}
-.hero-num{
-  font-family:var(--display);font-variant-numeric:tabular-nums;
-  font-size:clamp(40px,11.5vw,60px);font-weight:700;
-  letter-spacing:-.02em;color:var(--blue);line-height:1;margin:2px 0 8px;
-}
-.note{color:var(--mut);font-size:14.5px;margin-top:18px}
-.note b{color:var(--ink);font-weight:600}
-
-/* The framework. Numbered down the left in mono so the four steps read as a
-   sequence you work through, not as four loose bullet points. */
-.steps{list-style:none;counter-reset:s;margin-top:14px}
-.steps li{
-  counter-increment:s;position:relative;padding:0 0 0 42px;margin-top:22px;
-}
-.steps li::before{
-  content:"0" counter(s);position:absolute;left:0;top:1px;
-  font-family:var(--mono);font-size:13px;font-weight:500;color:var(--blue);
-}
-.steps li::after{
-  /* hairline joining one step to the next */
-  content:"";position:absolute;left:11px;top:24px;bottom:-22px;width:1px;
-  background:linear-gradient(180deg,var(--line),transparent);
-}
-.steps li:last-child::after{display:none}
-.steps b{display:block;font-size:16.5px;font-weight:600;letter-spacing:-.015em}
-.steps p{color:var(--mut);font-size:14.5px;margin-top:5px}
-.steps p b{display:inline;color:var(--ink);font-size:inherit;letter-spacing:0}
-
-/* ── testimonial ────────────────────────────────────────────────────────── */
-.quote{margin:34px 0 0;padding:22px;border:1px solid var(--line);border-radius:20px;background:var(--panel)}
-.quote p{font-size:16px;letter-spacing:-.01em;line-height:1.6}
-.who{display:flex;align-items:center;gap:12px;margin-top:16px}
-.who img,.who .ph{width:42px;height:42px;border-radius:50%;flex:none;object-fit:cover;background:var(--panel-2);border:1px solid var(--line)}
-.who b{display:block;font-size:14.5px;font-weight:600}
-.who small{display:block;color:var(--faint);font-size:12.5px}
-
-footer{
-  padding:26px 0 30px;color:var(--faint);font-size:12.5px;
-  display:flex;flex-wrap:wrap;gap:6px 16px;align-items:center;justify-content:center;text-align:center;
-}
-footer a:hover{color:var(--mut)}
-
-/* First and Last stay side by side on a normal phone — stacking them pushes
-   the button below the fold on a small one. They only break apart below 360. */
-@media (max-width:359px){
-  .fields{flex-direction:column}
-}
-@media (max-width:400px){
-  .shell{padding-left:18px;padding-right:18px}
-}
+.fine{margin-top:24px;text-align:center;font-size:12px;line-height:1.6;color:var(--faint)}
+.fine a{color:var(--mut);text-decoration:underline;text-underline-offset:2px}
+.foot{margin-top:22px;display:flex;flex-wrap:wrap;gap:14px;justify-content:center;font-size:12.5px;color:var(--faint)}
+.foot a:active{color:var(--ink)}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
 </style>
+<script defer src="/_vercel/insights/script.js"></script>
 </head>
 <body>
 
-<div class="shell">
+<div class="col">
 
-  <header class="top">
-    <a class="brand" href="/">
-      <img src="assets/logo.png" alt="" width="24" height="24">
-      <span>Wave<em>Hub</em></span>
+  <div class="avatar"><img src="assets/logo-square.png" alt="WaveHub"></div>
+  <h1>Free Data-Driven ATP Analysis</h1>
+  <p class="intro">
+    Daily posts on how our model reads the tour, plus one free pick a week.
+    Leave your name and email and we'll send you the group link.
+  </p>
+
+  <!-- No Telegram icon here on purpose. The invite is the thing being gated,
+       so linking it in the header would let anyone skip the form entirely. -->
+  <div class="socials">
+    <a href="https://www.instagram.com/wavehubtennis" rel="noopener" aria-label="Instagram">
+      <svg viewBox="0 0 24 24"><path d="M12 2.2c3.2 0 3.6 0 4.9.1 1.2.1 1.8.2 2.2.4.6.2 1 .5 1.4.9.4.4.7.8.9 1.4.2.4.4 1 .4 2.2.1 1.3.1 1.7.1 4.9s0 3.6-.1 4.9c0 1.2-.2 1.8-.4 2.2-.2.6-.5 1-.9 1.4-.4.4-.8.7-1.4.9-.4.2-1 .4-2.2.4-1.3.1-1.7.1-4.9.1s-3.6 0-4.9-.1c-1.2 0-1.8-.2-2.2-.4-.6-.2-1-.5-1.4-.9-.4-.4-.7-.8-.9-1.4-.2-.4-.4-1-.4-2.2-.1-1.3-.1-1.7-.1-4.9s0-3.6.1-4.9c0-1.2.2-1.8.4-2.2.2-.6.5-1 .9-1.4.4-.4.8-.7 1.4-.9.4-.2 1-.4 2.2-.4C8.4 2.2 8.8 2.2 12 2.2zm0 1.8c-3.1 0-3.5 0-4.8.1-.9 0-1.4.2-1.7.3-.4.2-.7.3-1 .6-.3.3-.5.6-.6 1-.1.3-.3.8-.3 1.7-.1 1.3-.1 1.7-.1 4.8s0 3.5.1 4.8c0 .9.2 1.4.3 1.7.2.4.3.7.6 1 .3.3.6.5 1 .6.3.1.8.3 1.7.3 1.3.1 1.7.1 4.8.1s3.5 0 4.8-.1c.9 0 1.4-.2 1.7-.3.4-.2.7-.3 1-.6.3-.3.5-.6.6-1 .1-.3.3-.8.3-1.7.1-1.3.1-1.7.1-4.8s0-3.5-.1-4.8c0-.9-.2-1.4-.3-1.7-.2-.4-.3-.7-.6-1-.3-.3-.6-.5-1-.6-.3-.1-.8-.3-1.7-.3-1.3-.1-1.7-.1-4.8-.1zm0 3.1a4.9 4.9 0 1 1 0 9.8 4.9 4.9 0 0 1 0-9.8zm0 8.1a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4zm6.2-8.3a1.15 1.15 0 1 1-2.3 0 1.15 1.15 0 0 1 2.3 0z"/></svg>
     </a>
-    <button class="back" id="back" type="button">&larr; Back</button>
-  </header>
+  </div>
 
-  <div class="bars" id="bars"><i></i><i></i><i></i><i></i></div>
+  <p class="label">Free Telegram channel</p>
 
-  <main class="stage">
+  <div class="card">
+    <div class="shot"><img src="assets/telegram-card.png" alt="WaveHub Free Members on Telegram" width="368" height="237"></div>
 
-    <!-- 0 ─ name ─────────────────────────────────────────────────────── -->
-    <section class="step on" data-step="0">
-      <div class="kicker">Free · ATP only</div>
-      <h1>Copy my 100k betting framework. <span class="dim">And learn how to structure sports betting into an income stream.</span></h1>
-      <p class="sub">Four questions and you get the whole thing, built around your own stakes. Not tips. The structure underneath them.</p>
+    <ul class="gets">
+      <li><span class="tick">✓</span><span><b>One free pick a week</b>, plus daily analysis and tournament context.</span></li>
+      <li><span class="tick">✓</span><span><b>The reasoning</b>, so you see why our number differs from the market.</span></li>
+      <li><span class="tick">✓</span><span><b>Every result documented</b> &mdash; wins and losses both.</span></li>
+    </ul>
 
-      <div style="height:26px"></div>
-      <div class="q">What&rsquo;s your name?</div>
-      <div class="fields">
-        <input id="first" type="text" placeholder="First" autocomplete="given-name" enterkeyhint="next">
-        <input id="last" type="text" placeholder="Last" autocomplete="family-name" enterkeyhint="go">
+    <form id="f" novalidate>
+      <div class="field">
+        <label for="name">Your name</label>
+        <input id="name" name="name" type="text" autocomplete="given-name" placeholder="Markus" required maxlength="80">
       </div>
-      <button class="cta" data-next="0">Let&rsquo;s start</button>
-      <div class="err" id="e0"></div>
-
-      <div class="trust">
-        <div>
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#1D5CFF"/><path d="M5 9.2l2.6 2.6L13 6.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>Four steps, on screen in under a minute</span>
-        </div>
-        <div>
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#1D5CFF"/><path d="M5 9.2l2.6 2.6L13 6.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>ATP only &mdash; one tour, followed properly</span>
-        </div>
+      <div class="field">
+        <label for="email">Your email</label>
+        <input id="email" name="email" type="email" inputmode="email" autocomplete="email" placeholder="you@example.com" required>
       </div>
-    </section>
+      <label class="consent">
+        <input type="checkbox" id="news" name="news" required>
+        <span>Yes, I agree to receive the group link by email and occasional
+              insights on ATP matches.</span>
+      </label>
 
-    <!-- 1 ─ stake ────────────────────────────────────────────────────── -->
-    <section class="step" data-step="1">
-      <div class="kicker">Question 1 of 4</div>
-      <div class="q">What do you stake on an average match?</div>
-      <div class="qs">Roughly. It only needs to be the right order of size.</div>
-      <div class="opts" data-field="stake">
-        <button class="opt" data-val="25"  type="button"><span class="key">A</span><span><b>Around &euro;25</b></span></button>
-        <button class="opt" data-val="50"  type="button"><span class="key">B</span><span><b>Around &euro;50</b></span></button>
-        <button class="opt" data-val="100" type="button"><span class="key">C</span><span><b>Around &euro;100</b></span></button>
-        <button class="opt" data-val="250" type="button"><span class="key">D</span><span><b>&euro;250 or more</b></span></button>
-      </div>
-    </section>
+      <button id="submit" type="submit">Email me the link</button>
+      <p class="msg" id="msg" role="status" aria-live="polite"></p>
+    </form>
 
-    <!-- 2 ─ volume ───────────────────────────────────────────────────── -->
-    <section class="step" data-step="2">
-      <div class="kicker">Question 2 of 4</div>
-      <div class="q">How many bets in a normal week?</div>
-      <div class="qs">During the season, not in the December break.</div>
-      <div class="opts" data-field="vol">
-        <button class="opt" data-val="2"  type="button"><span class="key">A</span><span><b>1 to 3</b><small>A couple of matches I actually watch</small></span></button>
-        <button class="opt" data-val="7"  type="button"><span class="key">B</span><span><b>4 to 10</b><small>Most days there is something on</small></span></button>
-        <button class="opt" data-val="18" type="button"><span class="key">C</span><span><b>11 to 25</b><small>I follow the tour properly</small></span></button>
-        <button class="opt" data-val="35" type="button"><span class="key">D</span><span><b>More than 25</b><small>Volume is part of how I do it</small></span></button>
-      </div>
-    </section>
+    <div class="done" id="done">
+      <h2>Check your inbox.</h2>
+      <p>The group link is on its way to <b id="sentTo">your email</b>. It
+         normally lands within a minute. If it does not, look in spam.</p>
+    </div>
+  </div>
 
-    <!-- 3 ─ method ───────────────────────────────────────────────────── -->
-    <section class="step" data-step="3">
-      <div class="kicker">Question 3 of 4</div>
-      <div class="q">How do you decide a price is worth taking?</div>
-      <div class="qs">Be honest. The number at the end depends on it.</div>
-      <div class="opts" data-field="method">
-        <button class="opt" data-val="gut"     type="button"><span class="key">A</span><span><b>Feel and form</b><small>I know the players, I back the read</small></span></button>
-        <button class="opt" data-val="tipster" type="button"><span class="key">B</span><span><b>A tipster or a group</b><small>Someone else does the picking</small></span></button>
-        <button class="opt" data-val="compare" type="button"><span class="key">C</span><span><b>I compare bookmakers</b><small>I check a few books before I put it on</small></span></button>
-        <button class="opt" data-val="model"   type="button"><span class="key">D</span><span><b>My own numbers</b><small>I price the match myself first</small></span></button>
-      </div>
-    </section>
+  <!-- Route through to the paid side. Taken out for now on request; the CSS
+       below is left in place so putting it back is a one-line change.
+  <a class="plans" href="/#plans">See all plans <span class="arrow">→</span></a>
+  -->
 
-    <!-- 4 ─ email ────────────────────────────────────────────────────── -->
-    <section class="step" data-step="4">
-      <div class="kicker">Question 4 of 4</div>
-      <div class="q">Where should we send it?</div>
-      <div class="qs">The framework appears on the next screen. The email is your copy to keep.</div>
-      <div class="fields one">
-        <input id="email" type="email" placeholder="you@email.com" autocomplete="email" inputmode="email" enterkeyhint="go">
-      </div>
-      <button class="cta" data-next="4">Show me the framework</button>
-      <div class="err" id="e4"></div>
-      <div class="trust">
-        <div>
-          <svg width="18" height="18" viewBox="0 0 18 18" fill="none"><circle cx="9" cy="9" r="9" fill="#1D5CFF"/><path d="M5 9.2l2.6 2.6L13 6.4" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-          <span>One email with your framework. Leave whenever you like.</span>
-        </div>
-      </div>
-    </section>
+  <p class="fine">
+    WaveHub publishes sports analysis. We are not a bookmaker, we take no bets
+    and we hold no money. Nothing here is a promise of profit, and betting can
+    lose you money. By joining you agree to our
+    <a href="/privacy.html">privacy policy</a>.
+  </p>
 
-    <!-- 5 ─ result ───────────────────────────────────────────────────── -->
-    <section class="step" data-step="5">
-      <div class="kicker" id="rKicker">Your framework</div>
-      <div class="q" id="rHead">Here it is, built around your numbers.</div>
-      <div class="qs" id="rSub">Four steps. The same four every position goes through.</div>
-
-      <div class="card">
-        <div class="row"><span>Season turnover</span><b id="rTurn">&euro;0</b></div>
-        <div class="row"><span>One percent of that</span><b id="rPoint">&euro;0</b></div>
-        <div class="row"><span>How you price a match now</span><b class="word" id="rMethod">&mdash;</b></div>
-      </div>
-
-      <div style="margin-top:26px">
-        <div class="kicker" id="rGapLabel">What the structure is worth to you</div>
-        <div class="hero-num" id="rGap">&euro;0</div>
-        <p class="note" id="rNote"></p>
-      </div>
-
-      <!-- The framework itself. Steps 1 and 2 are the same for everybody;
-           3 and 4 get the person's own figures written into them. -->
-      <div style="margin-top:34px">
-        <div class="kicker">The framework</div>
-
-        <ol class="steps">
-          <li>
-            <b>One tour, all season.</b>
-            <p>ATP only, sixty-plus tournaments. Depth on one tour beats a thin read on four. You cannot know a market you visit twice a month.</p>
-          </li>
-          <li>
-            <b>Price the match before you open the book.</b>
-            <p>Rating in, win probability out, win probability into fair odds. You end up with your own number for the match. Until you have it, you have nothing to compare the bookmaker to.</p>
-          </li>
-          <li>
-            <b>Bet the gap, not the winner.</b>
-            <p id="s3">Your number and their price disagree, or you pass. Most matches you pass.</p>
-          </li>
-          <li>
-            <b>Flat stakes, sized to the bank.</b>
-            <p id="s4">The size of the bet never moves with how sure you feel.</p>
-          </li>
-        </ol>
-      </div>
-
-      <div style="height:30px"></div>
-      <a class="cta" id="rCta" href="/plans" style="display:grid;place-items:center;text-decoration:none">See it run on this week&rsquo;s draw</a>
-      <div class="err" id="e5"></div>
-
-      <!-- ────────────────────────────────────────────────────────────────
-           TESTIMONIAL — placeholder. Replace the quote, the name and the
-           line under it with a real member before you send traffic here,
-           or delete this whole <div class="quote"> block.
-           An avatar goes in assets/ and replaces <div class="ph">.
-           ──────────────────────────────────────────────────────────────── -->
-      <div class="quote">
-        <p>&ldquo;[Real member quote goes here &mdash; one or two sentences, in their own words.]&rdquo;</p>
-        <div class="who">
-          <div class="ph"></div>
-          <div>
-            <b>[Name]</b>
-            <small>[WaveHub member since &hellip;]</small>
-          </div>
-        </div>
-      </div>
-    </section>
-
-  </main>
-
-  <footer>
-    <span>&copy; 2026 WaveHub &middot; ATP only</span>
-    <a href="/privacy">Privacy</a>
-    <a href="/terms">Terms</a>
-    <a href="/imprint">Imprint</a>
-  </footer>
+  <div class="foot">
+    <a href="/imprint.html">Imprint</a>
+    <a href="/privacy.html">Privacy</a>
+    <a href="/terms.html">Terms</a>
+  </div>
 
 </div>
 
 <script>
-/* ══ CONFIG ═══════════════════════════════════════════════════════════════ */
-var API    = "/api/lead";
-var WEEKS  = 44;          // the ATP season, January to the Finals
-var SPREAD = 3.5;         // percentage points between the first price you see
-                          // and the best price on the same ATP match
-var SMALL  = 500;         // below this the figure is too small to lead with
-                          // and the closing copy switches tack. It is measured
-                          // on the figure shown, not on turnover — that is the
-                          // number the reader is looking at.
-/* ═════════════════════════════════════════════════════════════════════════ */
+/* The invite is delivered by email, not handed over on the page, so the
+   address has to be real before anyone gets in. */
+var LEAD_ENDPOINT = "/api/lead";
 
 (function () {
-  var steps  = [].slice.call(document.querySelectorAll(".step"));
-  var bars   = [].slice.call(document.querySelectorAll("#bars i"));
-  var back   = document.getElementById("back");
-  var at     = 0;
-  var answer = { stake: 0, vol: 0, method: "" };
-  var person = { first: "", last: "", email: "" };
-  var sent   = false;
+  var form  = document.getElementById("f");
+  var name  = document.getElementById("name");
+  var email = document.getElementById("email");
+  var news  = document.getElementById("news");
+  var btn   = document.getElementById("submit");
+  var msg   = document.getElementById("msg");
+  var done  = document.getElementById("done");
 
-  var METHOD = {
-    gut:     { label: "Feel and form",       recovers: 0   },
-    tipster: { label: "A tipster or group",  recovers: 0.5 },
-    compare: { label: "Compares bookmakers", recovers: 2.0 },
-    model:   { label: "Own numbers",         recovers: 3.0 }
-  };
+  function say(t, k) { msg.textContent = t; msg.className = "msg" + (k ? " " + k : ""); }
+  function invalid(el, on) { on ? el.setAttribute("aria-invalid", "true") : el.removeAttribute("aria-invalid"); }
 
-  function euro(n) {
-    return "€" + Math.round(n).toLocaleString("en-US");
+  function succeed(sentTo) {
+    document.getElementById("sentTo").textContent = sentTo;
+    form.style.display = "none";
+    done.classList.add("on");
+    done.scrollIntoView({ block: "nearest" });
   }
 
-  function show(i) {
-    if (i < 0 || i >= steps.length) return;
-    steps[at].classList.remove("on");
-    at = i;
-    steps[at].classList.add("on");
-    document.getElementById("bars").classList.toggle("on", at > 0);
-    bars.forEach(function (b, k) { b.classList.toggle("done", k < at); });
-    back.classList.toggle("on", at > 0 && at < 5);
-    scrollTo({ top: 0, behavior: "smooth" });
-    // Never auto-focus on a phone: the keyboard would jump up and cover
-    // the question the person is meant to be reading.
-    if (!matchMedia("(hover:none)").matches) {
-      var f = steps[at].querySelector("input");
-      if (f) f.focus({ preventScroll: true });
-    }
-  }
+  form.addEventListener("submit", function (e) {
+    e.preventDefault();
+    var n = (name.value || "").trim();
+    var m = (email.value || "").trim();
+    invalid(name, false); invalid(email, false);
+    news.closest("label").removeAttribute("data-invalid");
 
-  back.addEventListener("click", function () { show(at - 1); });
-
-  /* ── option buttons: picking one moves you on by itself ──────────────── */
-  document.querySelectorAll(".opts").forEach(function (group) {
-    var field = group.dataset.field;
-    group.querySelectorAll(".opt").forEach(function (btn) {
-      btn.addEventListener("click", function () {
-        group.querySelectorAll(".opt").forEach(function (o) { o.classList.remove("pick"); });
-        btn.classList.add("pick");
-        var v = btn.dataset.val;
-        answer[field] = (field === "method") ? v : parseFloat(v);
-        setTimeout(function () { show(at + 1); }, 260);
-      });
-    });
-  });
-
-  /* keyboard: A–D picks, Enter moves on */
-  addEventListener("keydown", function (ev) {
-    var group = steps[at].querySelector(".opts");
-    if (group) {
-      var k = "abcd".indexOf(ev.key.toLowerCase());
-      if (k > -1) { group.querySelectorAll(".opt")[k].click(); return; }
-    }
-    if (ev.key === "Enter") {
-      var b = steps[at].querySelector(".cta[data-next]");
-      if (b) { ev.preventDefault(); b.click(); }
-    }
-  });
-
-  /* ── name ────────────────────────────────────────────────────────────── */
-  document.querySelector('.cta[data-next="0"]').addEventListener("click", function () {
-    person.first = document.getElementById("first").value.trim();
-    person.last  = document.getElementById("last").value.trim();
-    var e = document.getElementById("e0");
-    if (person.first.length < 2) { e.textContent = "Your first name, so we know who we are talking to."; return; }
-    e.textContent = "";
-    show(1);
-  });
-
-  /* ── email + the read ────────────────────────────────────────────────── */
-  document.querySelector('.cta[data-next="4"]').addEventListener("click", function () {
-    var btn = this, e = document.getElementById("e4");
-    person.email = document.getElementById("email").value.trim();
-    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(person.email)) {
-      e.textContent = "That address does not look right.";
+    if (n.length < 2) { invalid(name, true); say("Please enter your name.", "err"); name.focus(); return; }
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(m)) { invalid(email, true); say("Please enter a valid email address.", "err"); email.focus(); return; }
+    // Required: the link is sent by email, so the box has to be ticked before
+    // we have anything to act on.
+    if (!news.checked) {
+      news.closest("label").setAttribute("data-invalid", "1");
+      say("Please tick the box so we can send you the link.", "err");
+      news.focus();
       return;
     }
-    e.textContent = "";
-    btn.disabled = true;
 
-    var read = build();
-    paint(read);
-    show(5);
-    btn.disabled = false;
+    btn.disabled = true; btn.textContent = "One moment…"; say("");
 
-    // Fire and forget. The person already has their read on screen — a slow
-    // or failed request must never stand between them and it.
-    if (sent) return;
-    sent = true;
-    fetch(API, {
+    fetch(LEAD_ENDPOINT, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
-        kind: "assessment",
-        name: (person.first + " " + person.last).trim(),
-        email: person.email,
-        tournament: "start-funnel",
-        title: "Your betting framework",
-        answers: {
-          stake: answer.stake,
-          bets_per_week: answer.vol,
-          method: answer.method,
-          method_label: METHOD[answer.method].label
-        },
-        read: read
+        name: n, email: m, kind: "free",
+        tournament: "free-telegram", title: "Free daily analysis",
+        newsletter: document.getElementById("news").checked
       })
     })
-    .then(function (r) { return r.ok ? r.json() : Promise.reject(new Error("failed")); })
-    .then(function (j) {
-      if (j.emailed === false) {
-        document.getElementById("e5").textContent =
-          "Your read is on screen — the email copy did not go through.";
-      }
-    })
-    .catch(function () {
-      document.getElementById("e5").textContent =
-        "Your read is on screen — the email copy did not go through.";
-    });
+      .then(function (r) {
+        if (r.ok) return r.json().catch(function () { return {}; });
+        return r.json().then(function (d) { throw new Error(d.error || "FAILED"); },
+                             function () { throw new Error("FAILED"); });
+      })
+      .then(function () { succeed(m); })
+      .catch(function (err) {
+        btn.disabled = false; btn.textContent = "Email me the link";
+        var t = String(err && err.message || "");
+        if (/valid email/i.test(t)) { invalid(email, true); say(t, "err"); email.focus(); }
+        else { say("Could not reach the server. Please try again.", "err"); }
+      });
   });
-
-  /* ── the arithmetic ──────────────────────────────────────────────────── */
-  function build() {
-    var turnover = answer.stake * answer.vol * WEEKS;
-    var point    = turnover / 100;
-    var m        = METHOD[answer.method];
-    var open     = Math.max(0, SPREAD - m.recovers);   // points still on the table
-    return {
-      turnover: turnover,
-      point: point,
-      method: m.label,
-      openPoints: open,
-      gap: point * open
-    };
-  }
-
-  function paint(r) {
-    document.getElementById("rKicker").textContent =
-      person.first ? person.first + ", here is your framework" : "Your framework";
-    document.getElementById("rTurn").textContent   = euro(r.turnover);
-    document.getElementById("rPoint").textContent  = euro(r.point);
-    document.getElementById("rMethod").textContent = r.method;
-    document.getElementById("rGap").textContent    = euro(r.gap);
-
-    /* Three closings, and the order is the point.
-
-       Someone who already prices matches themselves shows a small figure for
-       a good reason, not a bad one, so that case is settled first. Only then
-       does a figure under SMALL switch the copy — and it does not claim their
-       turnover is small, because it often is not. Somebody comparing books on
-       €30k of turnover lands under €500 too. */
-    var note;
-    if (r.openPoints <= 0.6) {
-      note = "You already do the hard part: you price the match before you look at the book. On "
-           + euro(r.turnover) + " of turnover there is very little left lying on the table, which means "
-           + "what you are missing is <b>coverage</b>, not method. Nobody watches sixty tournaments a "
-           + "year on their own.";
-    } else if (r.gap < SMALL) {
-      document.getElementById("rGapLabel").textContent = "What it is worth at your size";
-      note = "That is money you are handing over for nothing, at the size you play now. The four steps "
-           + "below cost the same to run at " + euro(answer.stake) + " a bet as they do at ten times that, "
-           + "which is the whole reason to put them in before the stakes go up rather than after. "
-           + "<b>Structure first, size second. It does not work in the other order.</b>";
-    } else {
-      note = "On the same ATP match, the first price you see and the best price available are routinely "
-           + SPREAD + " percent apart. Against how you pick now, about <b>" + r.openPoints.toFixed(1)
-           + " of those points</b> are still on the table. Across a season on your turnover, that is <b>"
-           + euro(r.gap) + "</b> that never depended on picking more winners.";
-    }
-    document.getElementById("rNote").innerHTML = note;
-
-    /* Steps 3 and 4 in the person's own numbers. Flat staking at one to two
-       percent of bank is what turns the other three steps into something that
-       survives a bad month, so it gets spelled out in euros. */
-    document.getElementById("s3").innerHTML =
-      "Your number and their price disagree by enough, or you pass. Most matches you pass. At your volume "
-      + "that is roughly <b>" + Math.round(answer.vol * WEEKS)
-      + " positions a season</b>, out of well over two thousand ATP matches.";
-
-    document.getElementById("s4").innerHTML =
-      "Every bet the same size, whatever your read says. At <b>" + euro(answer.stake)
-      + "</b> a bet, one to two percent of bank puts your working bank at <b>"
-      + euro(answer.stake * 50) + " to " + euro(answer.stake * 100)
-      + "</b>. Below that, one ordinary losing run takes you out before the edge has room to show up.";
-  }
 })();
 </script>
+
 </body>
 </html>
