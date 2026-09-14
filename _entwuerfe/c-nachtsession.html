@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entwurf C · Nachtsession · WaveHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Entwurf C: dunkel wie die "How it works"-Sektion im Template. Signaturelement ist
+     der Flutlicht-Horizont, darunter der Ablauf in drei Schritten (echte Reihenfolge). -->
+<style>
+:root{
+  --night:#05070B; --panel:rgba(255,255,255,.055); --panel-line:rgba(255,255,255,.1);
+  --ink:#F2F4F8; --mut:#9AA3B2; --faint:#6B7486;
+  --blue:#4C7DFF; --sky:#83E7EE; --ball:#D9F46B; --lemon:#F6EA6A;
+  --sans:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--night);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:999px}
+
+.nav{position:relative;z-index:2;max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:22px 24px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:-.02em}
+.brand img{height:26px;width:auto}
+.links{display:flex;gap:28px;font-size:14px;color:var(--mut)}
+.links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;border-radius:999px;font-size:14px;font-weight:500;padding:12px 22px;transition:transform .2s var(--ease)}
+.btn:hover{transform:translateY(-1px)}
+.btn-start{padding:14px 28px;font-size:15px;font-weight:600}
+.btn-white{background:#fff;color:#0B0E13}
+.btn-ghost{border:1px solid var(--panel-line);color:var(--ink)}
+
+.hero{position:relative;overflow:hidden;padding:84px 24px 110px;text-align:center;isolation:isolate}
+/* the floodlit horizon: a huge blurred ellipse sitting below the fold line */
+.glow{position:absolute;left:50%;top:640px;width:1500px;height:900px;transform:translateX(-50%);z-index:-1;border-radius:50%;
+  background:radial-gradient(closest-side,rgba(5,7,11,1) 72%,rgba(76,125,255,.0) 100%);
+  box-shadow:0 -40px 120px 20px rgba(76,125,255,.55),0 -10px 40px 0 rgba(131,231,238,.55);}
+.glow::after{content:"";position:absolute;inset:0;border-radius:50%;border-top:1.5px solid rgba(217,244,107,.9);
+  -webkit-mask:linear-gradient(90deg,transparent 15%,#000 40%,#000 60%,transparent 85%);mask:linear-gradient(90deg,transparent 15%,#000 40%,#000 60%,transparent 85%)}
+
+.pill{display:inline-block;background:rgba(246,234,106,.14);color:var(--lemon);border:1px solid rgba(246,234,106,.3);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:500}
+h1{font-weight:500;font-size:clamp(40px,6.2vw,78px);line-height:1.04;letter-spacing:-.032em;max-width:980px;margin:22px auto 0}
+h1 em{font-style:normal;color:var(--mut)}
+.sub{max-width:560px;margin:22px auto 0;color:var(--mut);font-size:17px}
+.cta{display:flex;gap:10px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+
+.steps{max-width:1100px;margin:150px auto 0;display:grid;grid-template-columns:repeat(3,1fr);gap:16px;text-align:left}
+.step{background:var(--panel);border:1px solid var(--panel-line);border-radius:20px;padding:24px;backdrop-filter:blur(10px)}
+.num{display:inline-grid;place-items:center;min-width:36px;height:24px;border-radius:999px;font-family:var(--mono);font-size:12px;color:#0B0E13}
+.s1 .num{background:var(--lemon)}.s2 .num{background:var(--ball)}.s3 .num{background:var(--sky)}
+.step h3{font-weight:500;font-size:21px;letter-spacing:-.02em;margin-top:18px}
+.step p{color:var(--mut);font-size:15px;margin-top:8px}
+.step .eg{margin-top:18px;padding-top:14px;border-top:1px solid var(--panel-line);font-family:var(--mono);font-size:12.5px;color:var(--faint)}
+.step .eg b{font-weight:500;color:var(--ink)}
+
+@media (max-width:860px){
+  .links{display:none}
+  .hero{padding-top:52px}
+  .glow{top:600px;width:900px}
+  .steps{grid-template-columns:1fr;margin-top:140px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="nav">
+  <a class="brand" href="#"><img src="../assets/logo.png" alt="">WaveHub</a>
+  <nav class="links"><a href="#">Record</a><a href="#">Method</a><a href="#">Membership</a><a href="#">Questions</a></nav>
+  <a class="btn btn-start btn-white" href="d-preise.html#pricing">Start now</a>
+</header>
+
+<section class="hero">
+  <div class="glow" aria-hidden="true"></div>
+  <span class="pill">ATP only, since 2022</span>
+  <h1>One tour. A fair price. <em>And an honest no bet.</em></h1>
+  <p class="sub">We follow the ATP tour and nothing else. Every call is a disagreement with the market, sized to your bank and tracked whether it wins or loses.</p>
+  <div class="cta">
+    <a class="btn btn-white" href="#">See membership</a>
+    <a class="btn btn-ghost" href="#">Join the free channel</a>
+  </div>
+
+  <div class="steps">
+    <article class="step s1">
+      <span class="num">01</span>
+      <h3>Price it ourselves</h3>
+      <p>Surface, form and fatigue go into the model first. The bookmaker's number comes after, so it can't anchor the read.</p>
+      <div class="eg">Fritz to win · fair <b>2.04</b></div>
+    </article>
+    <article class="step s2">
+      <span class="num">02</span>
+      <h3>Take the value</h3>
+      <p>The gap between fair price and market price sets the stake. No gap, no bet.</p>
+      <div class="eg">Taken <b>2.60</b> · stake <b>1.5%</b></div>
+    </article>
+    <article class="step s3">
+      <span class="num">03</span>
+      <h3>Track it in the open</h3>
+      <p>Wins and losses go into the same record, where members can see them.</p>
+      <div class="eg">Result <b>WON</b> · logged</div>
+    </article>
+  </div>
+</section>
+</body>
+</html>

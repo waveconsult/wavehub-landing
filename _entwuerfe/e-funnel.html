@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entwurf E · Funnel · WaveHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<!-- Entwurf E: erste Seite als Funnel, eine Spalte, gebaut fuers Handy.
+     Countdown -> Headline -> Text -> Video -> ein grosser Button.
+     Der Countdown laeuft immer 24 Stunden ab dem ersten Besuch und startet dann neu. -->
+<style>
+:root{
+  --bg:#FFFFFF; --ink:#0E1014; --mut:#5B6270; --faint:#8A919D; --line:#E4E7EC;
+  --blue:#1D5CFF; --blue-press:#154AD6; --haze-1:#E9E4FF; --haze-2:#FFE6EC; --haze-3:#DCEBFF;
+  --sans:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg)}
+body{color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5;
+  min-height:100dvh;position:relative;overflow-x:hidden;padding:0 18px 48px}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--blue);outline-offset:3px;border-radius:12px}
+
+/* soft pastel haze behind the video, like the reference */
+body::before{content:"";position:absolute;left:50%;top:420px;width:900px;height:700px;transform:translateX(-50%);z-index:-1;
+  background:
+    radial-gradient(40% 45% at 22% 40%,var(--haze-1),transparent 70%),
+    radial-gradient(38% 42% at 80% 55%,var(--haze-2),transparent 70%),
+    radial-gradient(45% 40% at 50% 80%,var(--haze-3),transparent 70%);
+  filter:blur(20px);opacity:.9}
+
+.top{max-width:720px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;padding:16px 0}
+.brand{display:flex;align-items:center;gap:9px;font-weight:700;font-size:17px;letter-spacing:-.02em}
+.brand img{height:24px;width:auto}
+.start{background:var(--ink);color:#fff;font-weight:600;font-size:15px;border-radius:999px;padding:12px 22px;
+  transition:transform .2s var(--ease)}
+.start:hover{transform:translateY(-1px)}
+
+.col{max-width:720px;margin:0 auto;text-align:center}
+
+/* countdown */
+.count{display:flex;justify-content:center;gap:8px;margin-top:22px}
+.unit{width:66px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:9px 0 7px;
+  box-shadow:0 1px 2px rgba(14,16,20,.04)}
+.unit b{display:block;font-weight:700;font-size:20px;letter-spacing:-.01em;font-variant-numeric:tabular-nums;line-height:1.1}
+.unit small{display:block;font-size:10.5px;color:var(--faint);margin-top:3px}
+
+h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spacing:-.034em;margin:26px auto 0;max-width:680px}
+.sub{font-size:clamp(16px,4.3vw,19px);color:var(--mut);margin:18px auto 0;max-width:560px;line-height:1.55}
+
+/* video card */
+.video{position:relative;margin:30px auto 0;border-radius:20px;overflow:hidden;background:#0E1014;aspect-ratio:4/3;
+  box-shadow:0 24px 60px rgba(29,92,255,.14),0 2px 8px rgba(14,16,20,.08)}
+.video video{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
+.caption{position:absolute;left:50%;bottom:26px;transform:translateX(-50%);white-space:nowrap;
+  color:#fff;font-weight:700;font-size:clamp(14px,3.8vw,17px);letter-spacing:-.01em;
+  text-shadow:0 1px 2px rgba(0,0,0,.7),0 0 18px rgba(0,0,0,.45)}
+.progress{position:absolute;left:0;right:0;bottom:0;height:4px;background:rgba(255,255,255,.18)}
+.progress i{display:block;height:100%;width:0;background:var(--blue)}
+
+/* the one action */
+.cta{display:block;margin:26px auto 0;background:var(--blue);color:#fff;border-radius:16px;padding:18px 20px 16px;
+  box-shadow:0 10px 30px rgba(29,92,255,.28);transition:transform .2s var(--ease),background .2s var(--ease)}
+.cta:hover{background:var(--blue-press);transform:translateY(-1px)}
+.cta b{display:block;font-weight:700;font-size:19px;letter-spacing:-.01em}
+.cta span{display:block;font-size:14.5px;opacity:.85;margin-top:3px}
+.alt{display:inline-block;margin-top:16px;font-size:14.5px;color:var(--mut);text-decoration:underline;text-underline-offset:3px}
+
+@media (min-width:760px){
+  body{padding-bottom:80px}
+  .top{padding:20px 0}
+  .count{margin-top:36px}
+  .unit{width:74px}
+  .video{aspect-ratio:16/9;margin-top:40px}
+  .cta{max-width:720px}
+}
+@media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<header class="top">
+  <a class="brand" href="#"><img src="../assets/logo.png" alt="">WaveHub</a>
+  <a class="start" href="d-preise.html#pricing">Start now</a>
+</header>
+
+<main class="col">
+  <div class="count" role="timer" aria-live="off">
+    <div class="unit"><b data-d>00</b><small>Days</small></div>
+    <div class="unit"><b data-h>00</b><small>Hours</small></div>
+    <div class="unit"><b data-m>00</b><small>Minutes</small></div>
+    <div class="unit"><b data-s>00</b><small>Seconds</small></div>
+  </div>
+
+  <h1>The bookmaker sets a price. We check if it's wrong.</h1>
+  <p class="sub">Our model prices every ATP match before we look at the odds. When the market is off, the call lands in Telegram with the price and the stake. When it isn't, you get an honest no bet.</p>
+
+  <div class="video">
+    <video src="../assets/hero-loop.mp4" poster="../assets/hero-poster.jpg" muted playsinline loop autoplay preload="metadata"></video>
+    <p class="caption">Fritz to win · taken 2.60 · fair 2.04</p>
+    <div class="progress" aria-hidden="true"><i></i></div>
+  </div>
+
+  <a class="cta" href="d-preise.html#pricing">
+    <b>Start now</b>
+    <span>Silver or Gold · cancel at the end of the term</span>
+  </a>
+  <a class="alt" href="#">Or join the free Telegram channel first</a>
+</main>
+
+<script>
+/* Countdown: always 24 hours from a visitor's first visit, then starts over.
+   Start time lives in localStorage; without storage it simply runs from page load. */
+const COUNTDOWN_MS = 24 * 3600 * 1000;
+const KEY = "wh_countdown_start";
+
+function readStart() {
+  try {
+    const v = +localStorage.getItem(KEY);
+    if (v && Date.now() - v < COUNTDOWN_MS) return v;
+    const now = Date.now(); localStorage.setItem(KEY, now); return now;
+  } catch (e) { return Date.now(); }
+}
+
+const el = k => document.querySelector("[data-" + k + "]");
+const pad = n => String(n).padStart(2, "0");
+let started = readStart();
+
+function tick() {
+  let left = started + COUNTDOWN_MS - Date.now();
+  if (left <= 0) {
+    started = Date.now();
+    try { localStorage.setItem(KEY, started); } catch (e) {}
+    left = COUNTDOWN_MS;
+  }
+  const s = Math.floor(left / 1000);
+  el("d").textContent = pad(Math.floor(s / 86400));
+  el("h").textContent = pad(Math.floor(s % 86400 / 3600));
+  el("m").textContent = pad(Math.floor(s % 3600 / 60));
+  el("s").textContent = pad(s % 60);
+}
+tick();
+setInterval(tick, 1000);
+
+/* Video: progress bar follows playback; no autoplay for people who asked for less motion. */
+const video = document.querySelector(".video video");
+const bar = document.querySelector(".progress i");
+video.addEventListener("timeupdate", () => { if (video.duration) bar.style.width = (video.currentTime / video.duration * 100) + "%"; });
+if (matchMedia("(prefers-reduced-motion: reduce)").matches) { video.removeAttribute("autoplay"); video.pause(); }
+</script>
+</body>
+</html>

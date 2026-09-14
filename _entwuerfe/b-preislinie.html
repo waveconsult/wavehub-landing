@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entwurf B · Preislinie · WaveHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Entwurf B: geteilter Hero wie die Feature-Sektion im Template. Signaturelement
+     ist die Preislinie: Marktquote gegen fairen Preis, die Luecke dazwischen ist der Wert. -->
+<style>
+:root{
+  --bg:#FFFFFF; --soft:#F5F6F8; --ink:#111317; --mut:#6B7280; --line:#E3E7ED;
+  --night:#0B0E13; --ball:#C9EE5A; --ball-soft:#EEF9C8; --sky:#83E7EE; --lemon:#F6EA6A;
+  --sans:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:999px}
+
+.wrap{max-width:1200px;margin:0 auto;padding:0 24px}
+.nav{display:flex;align-items:center;justify-content:space-between;padding:22px 0}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:-.02em}
+.brand img{height:26px;width:auto}
+.links{display:flex;gap:28px;font-size:14px;color:var(--mut)}
+.links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;border-radius:999px;font-size:14px;font-weight:500;padding:12px 22px;
+  transition:transform .2s var(--ease)}
+.btn:hover{transform:translateY(-1px)}
+.btn-start{padding:14px 28px;font-size:15px;font-weight:600}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-light{border:1px solid var(--line)}
+
+.hero{display:grid;grid-template-columns:1fr 1.05fr;gap:56px;align-items:center;padding:64px 0 96px}
+.pill{display:inline-block;background:var(--lemon);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:500}
+h1{font-weight:500;font-size:clamp(40px,5.2vw,68px);line-height:1.04;letter-spacing:-.032em;margin-top:20px}
+.sub{color:var(--mut);font-size:17px;margin-top:20px;max-width:470px}
+.ticks{list-style:none;margin-top:26px;display:grid;gap:10px;font-size:15px}
+.ticks li{display:flex;gap:10px;align-items:center}
+.ticks li::before{content:"";width:18px;height:18px;border-radius:50%;flex:none;
+  background:var(--ink) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 18 18'%3E%3Cpath d='M5 9.2l2.6 2.6L13 6.4' stroke='white' stroke-width='1.8' fill='none' stroke-linecap='round'/%3E%3C/svg%3E") center/18px no-repeat}
+.cta{display:flex;gap:10px;margin-top:34px;flex-wrap:wrap}
+
+/* board: soft panel with white cards, like the template's product mock */
+.board{background:var(--soft);border-radius:28px;padding:22px;display:grid;grid-template-columns:1.45fr 1fr;gap:14px}
+.card{background:#fff;border-radius:18px;padding:18px;border:1px solid #EDF0F4}
+.card h4{font-weight:500;font-size:15px;letter-spacing:-.01em}
+.card small{color:var(--mut);font-size:12.5px}
+.chart{grid-column:1 / -1}
+.chart-head{display:flex;justify-content:space-between;align-items:flex-start;gap:12px}
+.legend{display:flex;gap:14px;font-size:12px;color:var(--mut)}
+.legend span{display:flex;align-items:center;gap:6px}
+.legend i{width:14px;height:2px;background:var(--ink);display:inline-block}
+.legend i.d{background:repeating-linear-gradient(90deg,var(--mut) 0 4px,transparent 4px 7px)}
+svg.line{width:100%;height:auto;display:block;margin-top:10px}
+.tag{font-family:var(--mono);font-size:11.5px}
+
+.stat strong{display:block;font-family:var(--mono);font-weight:500;font-size:34px;letter-spacing:-.02em;margin-top:8px}
+.stat .bar{height:6px;border-radius:9px;background:var(--soft);margin-top:12px;overflow:hidden}
+.stat .bar i{display:block;height:100%;width:62%;background:var(--ball);border-radius:9px}
+
+.nobet{background:var(--night);color:#E9EDF3;border-color:var(--night)}
+.nobet small{color:#8A94A6}
+.nobet .big{font-weight:500;font-size:22px;letter-spacing:-.02em;margin-top:8px}
+.nobet .tag{display:inline-block;margin-top:12px;color:var(--night);background:var(--sky);padding:3px 9px;border-radius:999px}
+
+@media (max-width:900px){
+  .links{display:none}
+  .hero{grid-template-columns:1fr;padding-top:32px;gap:40px}
+}
+@media (max-width:480px){
+  .board{grid-template-columns:1fr;padding:14px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<div class="wrap">
+<header class="nav">
+  <a class="brand" href="#"><img src="../assets/logo.png" alt="">WaveHub</a>
+  <nav class="links"><a href="#">Record</a><a href="#">Method</a><a href="#">Membership</a><a href="#">Questions</a></nav>
+  <a class="btn btn-start btn-dark" href="d-preise.html#pricing">Start now</a>
+</header>
+
+<section class="hero">
+  <div>
+    <span class="pill">ATP only, since 2022</span>
+    <h1>We price the match first. Then we look at the bookmaker.</h1>
+    <p class="sub">A win probability, a fair price and a stake sized to your bank. If the market isn't wrong, we say no bet.</p>
+    <ul class="ticks">
+      <li>Calls sent the moment the odds are out</li>
+      <li>Every result tracked, wins and losses</li>
+      <li>Most matches get no call at all</li>
+    </ul>
+    <div class="cta">
+      <a class="btn btn-dark" href="#">See membership</a>
+      <a class="btn btn-light" href="#">Join the free channel</a>
+    </div>
+  </div>
+
+  <div class="board" aria-label="Example call">
+    <div class="card chart">
+      <div class="chart-head">
+        <div><h4>Fritz to win</h4><small>Market price vs our fair price, first 6 hours</small></div>
+        <div class="legend"><span><i></i>Market</span><span><i class="d"></i>Fair 2.04</span></div>
+      </div>
+      <svg class="line" viewBox="0 0 520 190" aria-hidden="true">
+        <defs><linearGradient id="gap" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#C9EE5A" stop-opacity=".55"/><stop offset="1" stop-color="#C9EE5A" stop-opacity="0"/></linearGradient></defs>
+        <path d="M0 40 C 70 34, 110 30, 150 44 S 250 70, 300 86 S 400 118, 520 124 L520 128 L0 128 Z" fill="url(#gap)"/>
+        <line x1="0" y1="128" x2="520" y2="128" stroke="#6B7280" stroke-width="1.4" stroke-dasharray="4 4"/>
+        <path d="M0 40 C 70 34, 110 30, 150 44 S 250 70, 300 86 S 400 118, 520 124" stroke="#111317" stroke-width="2.2" fill="none"/>
+        <circle cx="72" cy="35" r="6" fill="#111317"/><circle cx="72" cy="35" r="11" fill="none" stroke="#111317" stroke-opacity=".2"/>
+        <text x="86" y="26" class="tag" fill="#111317">taken 2.60</text>
+        <text x="440" y="112" class="tag" fill="#6B7280">now 2.12</text>
+        <text x="0" y="176" class="tag" fill="#6B7280">market opens</text>
+        <text x="520" y="176" class="tag" fill="#6B7280" text-anchor="end">+6h</text>
+      </svg>
+    </div>
+    <div class="card stat">
+      <small>Edge at the time of the call</small>
+      <strong>+27.5%</strong>
+      <div class="bar"><i></i></div>
+    </div>
+    <div class="card nobet">
+      <small>Tuesday, 14 matches</small>
+      <p class="big">No bet today.</p>
+      <span class="tag">nothing priced wrong</span>
+    </div>
+  </div>
+</section>
+</div>
+</body>
+</html>

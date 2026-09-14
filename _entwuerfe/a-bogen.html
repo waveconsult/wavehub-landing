@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Entwurf A · Bogen · WaveHub</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<!-- Entwurf A: helle Seite, dunkle Buehne. Das Signaturelement ist der leuchtende
+     Bogen, die Flugbahn eines Balls, auf der ein echter Call liegt. -->
+<style>
+:root{
+  --bg:#F5F6F8; --card:#FFFFFF; --ink:#111317; --mut:#6B7280; --line:#E3E7ED;
+  --night:#07090D; --night-2:#12161D; --night-line:#232A35;
+  --ball:#D9F46B; --sky:#83E7EE; --lemon:#F6EA6A;
+  --sans:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--sans);-webkit-font-smoothing:antialiased;line-height:1.5}
+a{color:inherit;text-decoration:none}
+:focus-visible{outline:2px solid var(--ink);outline-offset:3px;border-radius:999px}
+
+/* nav */
+.nav{position:sticky;top:14px;z-index:10;max-width:1180px;margin:14px auto 0;padding:0 16px}
+.nav-in{display:flex;align-items:center;justify-content:space-between;gap:16px;
+  background:rgba(255,255,255,.82);backdrop-filter:blur(14px);border:1px solid var(--line);
+  border-radius:999px;padding:8px 8px 8px 20px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:600;font-size:18px;letter-spacing:-.02em}
+.brand img{height:26px;width:auto}
+.links{display:flex;gap:28px;font-size:14px;color:var(--mut)}
+.links a:hover{color:var(--ink)}
+.btn{display:inline-flex;align-items:center;gap:8px;border-radius:999px;font-size:14px;font-weight:500;
+  padding:11px 20px;transition:transform .2s var(--ease),background .2s var(--ease)}
+.btn:hover{transform:translateY(-1px)}
+.btn-start{padding:14px 28px;font-size:15px;font-weight:600}
+.btn-dark{background:var(--ink);color:#fff}
+.btn-light{background:#fff;border:1px solid var(--line)}
+
+/* hero */
+.hero{position:relative;text-align:center;padding:92px 16px 0;overflow:hidden}
+.pill{display:inline-block;background:var(--lemon);border-radius:999px;padding:5px 12px;font-size:12.5px;font-weight:500}
+h1{font-weight:500;font-size:clamp(40px,6.4vw,76px);line-height:1.04;letter-spacing:-.032em;max-width:900px;margin:22px auto 0}
+.sub{max-width:560px;margin:22px auto 0;color:var(--mut);font-size:17px}
+.cta{display:flex;gap:10px;justify-content:center;margin-top:32px;flex-wrap:wrap}
+
+/* floating odds chips, where the template has avatars */
+.chip{position:absolute;font-family:var(--mono);font-size:12px;background:#fff;border:1px solid var(--line);
+  border-radius:999px;padding:6px 11px;box-shadow:0 8px 24px rgba(17,19,23,.06);animation:bob 7s ease-in-out infinite}
+.chip b{font-weight:500}
+.chip i{font-style:normal;color:var(--mut)}
+.c1{left:7%;top:150px}.c2{right:8%;top:120px;animation-delay:-2s}.c3{left:12%;top:330px;animation-delay:-4s}
+.c4{right:11%;top:350px;animation-delay:-1s}
+@keyframes bob{50%{transform:translateY(-8px)}}
+
+/* stage */
+.stage{position:relative;max-width:1180px;margin:72px auto 0;border-radius:28px;background:var(--night);
+  height:520px;overflow:hidden;isolation:isolate}
+.arc{position:absolute;inset:0;z-index:-1}
+.court{position:absolute;inset:auto 0 0 0;height:46%;z-index:-1;opacity:.35;
+  background:
+    linear-gradient(var(--night-line),var(--night-line)) center/1px 100% no-repeat,
+    linear-gradient(90deg,transparent 14%,var(--night-line) 14%,var(--night-line) calc(14% + 1px),transparent calc(14% + 1px),transparent 86%,var(--night-line) 86%,var(--night-line) calc(86% + 1px),transparent calc(86% + 1px));
+  -webkit-mask:linear-gradient(transparent,#000 60%);mask:linear-gradient(transparent,#000 60%)}
+
+.call{position:absolute;left:50%;top:54%;transform:translate(-50%,-50%);width:min(420px,calc(100% - 32px));
+  background:rgba(18,22,29,.78);backdrop-filter:blur(16px);border:1px solid var(--night-line);border-radius:22px;
+  padding:22px;color:#E9EDF3;text-align:left}
+.call-top{display:flex;justify-content:space-between;align-items:center;font-size:12.5px;color:#8A94A6}
+.won{font-family:var(--mono);font-size:11.5px;color:var(--night);background:var(--ball);border-radius:999px;padding:3px 9px}
+.call h3{font-weight:500;font-size:22px;letter-spacing:-.02em;margin-top:14px}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin-top:18px}
+.cell{background:rgba(255,255,255,.04);border:1px solid var(--night-line);border-radius:14px;padding:12px}
+.cell small{display:block;font-size:11.5px;color:#8A94A6}
+.cell strong{display:block;font-family:var(--mono);font-weight:500;font-size:22px;margin-top:4px}
+.cell.edge strong{color:var(--ball)}
+.note{margin-top:14px;font-size:13px;color:#8A94A6}
+
+@media (max-width:760px){
+  .links{display:none}
+  .chip{display:none}
+  .hero{padding-top:64px}
+  .stage{height:480px;border-radius:22px;margin-top:48px}
+  .cell strong{font-size:18px}
+}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<header class="nav"><div class="nav-in">
+  <a class="brand" href="#"><img src="../assets/logo.png" alt="">WaveHub</a>
+  <nav class="links"><a href="#">Record</a><a href="#">Method</a><a href="#">Membership</a><a href="#">Questions</a></nav>
+  <a class="btn btn-start btn-dark" href="d-preise.html#pricing">Start now</a>
+</div></header>
+
+<section class="hero">
+  <span class="chip c1"><b>Fritz</b> 2.60 <i>fair 2.04</i></span>
+  <span class="chip c2"><b>Jódar</b> 1.91 <i>fair 1.70</i></span>
+  <span class="chip c3"><b>Darderi</b> 2.43 <i>fair 1.98</i></span>
+  <span class="chip c4"><b>Tien</b> 2.12 <i>set 1</i></span>
+
+  <span class="pill">ATP only, since 2022</span>
+  <h1>Find the odds the market got wrong.</h1>
+  <p class="sub">Our model prices every ATP match before we look at the bookmaker. When the gap is big enough you get the call. When it isn't, you get an honest no bet.</p>
+  <div class="cta">
+    <a class="btn btn-dark" href="#">See membership</a>
+    <a class="btn btn-light" href="#">Join the free channel</a>
+  </div>
+
+  <div class="stage">
+    <svg class="arc" viewBox="0 0 1180 520" preserveAspectRatio="none" aria-hidden="true">
+      <defs>
+        <linearGradient id="g" x1="0" x2="1"><stop offset="0" stop-color="#83E7EE" stop-opacity="0"/><stop offset=".35" stop-color="#83E7EE"/><stop offset=".7" stop-color="#D9F46B"/><stop offset="1" stop-color="#D9F46B" stop-opacity="0"/></linearGradient>
+        <filter id="blur"><feGaussianBlur stdDeviation="38"/></filter>
+      </defs>
+      <path d="M-40 560 C 260 10, 920 10, 1220 560" stroke="url(#g)" stroke-width="120" fill="none" filter="url(#blur)" opacity=".55"/>
+      <path d="M-40 560 C 260 10, 920 10, 1220 560" stroke="url(#g)" stroke-width="2" fill="none"/>
+    </svg>
+    <div class="court"></div>
+    <article class="call">
+      <div class="call-top"><span>Match winner · US hard</span><span class="won">WON</span></div>
+      <h3>Fritz to win</h3>
+      <div class="row">
+        <div class="cell"><small>Taken</small><strong>2.60</strong></div>
+        <div class="cell"><small>Fair</small><strong>2.04</strong></div>
+        <div class="cell edge"><small>Edge</small><strong>+27%</strong></div>
+      </div>
+      <p class="note">Sent the moment the odds were out. Stake 1.5% of bank.</p>
+    </article>
+  </div>
+</section>
+</body>
+</html>
