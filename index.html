@@ -237,7 +237,7 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 
     <a class="cta" href="#pricing">
       <b>Start now</b>
-      <span>Silver or Gold · cancel at the end of the term</span>
+      <span>Silver or Betting Masterclass · cancel at the end of the term</span>
     </a>
     <a class="alt" href="https://t.me/+IyD9Isx2p0VjNjNk" target="_blank" rel="noopener">Or join the free Telegram channel first</a>
   </main>
@@ -246,7 +246,7 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 <section class="pricing" id="pricing">
   <span class="pill">Membership</span>
   <h2>Pick your seat. Start with the next call.</h2>
-  <p class="lede">Silver gets you the calls. Gold adds the models behind them, the courses and the insights.</p>
+  <p class="lede">Silver gets you the calls. Betting Masterclass adds the models behind them, the courses and the insights.</p>
 
   <div class="switch-wrap">
     <span data-term-label="quarter">3 months</span>
@@ -276,12 +276,12 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 
     <article class="plan gold" data-plan="gold">
       <span class="badge">Everything included</span>
-      <h3>Gold</h3>
+      <h3>Betting Masterclass</h3>
       <p class="desc">The calls plus the models, courses and insights.</p>
       <div class="price"><strong data-price></strong></div>
       <p class="per" data-per></p>
-      <a class="pbtn pbtn-white" data-checkout href="#pricing">Start now with Gold</a>
-      <p class="unavailable" data-unavailable hidden>Gold is billed yearly only.</p>
+      <a class="pbtn pbtn-white" data-checkout href="#pricing">Start now with Betting Masterclass</a>
+      <p class="unavailable" data-unavailable hidden>Betting Masterclass is billed yearly only.</p>
       <ul class="feats">
         <li>Everything in Silver</li>
         <li>A staking plan sized to your bankroll</li>
@@ -349,7 +349,7 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
   <div class="faq">
     <details open><summary>What exactly do I get?</summary><p>Every call, pushed to Telegram the moment the odds are out: the match, the bookmaker, the price and the stake as a percentage of your bank. Plus tournament previews and the results tracked in the open.</p></details>
     <details><summary>Is WaveHub a bookmaker?</summary><p>No. We publish analysis. We take no bets and hold no money. You place your bets with your own bookmaker.</p></details>
-    <details><summary>Do I need to be experienced?</summary><p>No. Every call tells you what to take, at what price, with how much of your bank, and why. Gold adds a staking plan and the full course library.</p></details>
+    <details><summary>Do I need to be experienced?</summary><p>No. Every call tells you what to take, at what price, with how much of your bank, and why. Betting Masterclass adds a staking plan and the full course library.</p></details>
     <details><summary>Why only ATP tennis?</summary><p>One tour followed properly beats ten followed badly. The model is built on ATP matches, surfaces and schedules, so that is the only place we price.</p></details>
     <details><summary>Can I cancel?</summary><p>Yes. Cancel before your membership renews and your access runs until the end of the term you paid for.</p></details>
   </div>
@@ -357,7 +357,7 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 
 <section class="final">
   <h2>Read the few matches that matter.</h2>
-  <a class="cta" href="#pricing"><b>Start now</b><span>Silver or Gold · cancel at the end of the term</span></a>
+  <a class="cta" href="#pricing"><b>Start now</b><span>Silver or Betting Masterclass · cancel at the end of the term</span></a>
   <a class="alt" href="https://t.me/+IyD9Isx2p0VjNjNk" target="_blank" rel="noopener">Or join the free Telegram channel first</a>
 </section>
 
@@ -399,11 +399,11 @@ video.addEventListener("timeupdate", () => { if (video.duration) bar.style.width
 if (matchMedia("(prefers-reduced-motion: reduce)").matches) { video.removeAttribute("autoplay"); video.pause(); }
 
 /* ── Pricing: the only place prices and Whop checkout links live.
-   PLATZHALTER: checkout = null heisst "Link fehlt noch", der Button bleibt dann auf der Seite.
+   Links = Whop-Produktseiten (Silver: scale-betting, Betting Masterclass: scale-betting-silver-copy), dort waehlt man die Laufzeit.
    price = null heisst "diese Laufzeit gibt es fuer den Plan nicht". ── */
 const PLANS = {
-  silver: { quarter: { price: 149,  checkout: null }, year: { price: 399, checkout: null } },
-  gold:   { quarter: { price: null, checkout: null }, year: { price: 599, checkout: null } }
+  silver: { quarter: { price: 149,  checkout: "https://whop.com/wavehubtennis/scale-betting/" }, year: { price: 399, checkout: "https://whop.com/wavehubtennis/scale-betting/" } },
+  gold:   { quarter: { price: null, checkout: null },               year: { price: 599, checkout: "https://whop.com/wavehubtennis/products/scale-betting-silver-copy/" } }
 };
 const MONTHS = { quarter: 3, year: 12 };
 const eur = n => "€" + n;
@@ -420,7 +420,9 @@ function render(term) {
     const shownTerm = has ? term : "year";
     card.querySelector("[data-price]").textContent = eur(offer.price);
     card.querySelector("[data-per]").innerHTML = (shownTerm === "year" ? "per year" : "every 3 months") + "<small>" + perMonth(offer.price, shownTerm) + "</small>";
-    card.querySelector("[data-checkout]").href = offer.checkout || "#pricing";
+    const btn = card.querySelector("[data-checkout]");
+    btn.href = offer.checkout || "#pricing";
+    if (offer.checkout) { btn.target = "_blank"; btn.rel = "noopener"; } else { btn.removeAttribute("target"); }
     card.querySelector("[data-unavailable]").hidden = has;
   }
   const pct = Object.values(PLANS).filter(p => p.quarter.price && p.year.price)
