@@ -2,28 +2,29 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/start",
-      "destination": "/start.html"
-    },
-    {
       "source": "/api/lead",
       "destination": "https://app.wavehubtennis.com/api/lead"
     }
   ],
   "redirects": [
     {
-      "source": "/",
-      "destination": "/start",
+      "source": "/start",
+      "destination": "/",
       "permanent": false
     },
     {
-      "source": "/index.html",
-      "destination": "/start",
+      "source": "/start.html",
+      "destination": "/",
       "permanent": false
     },
     {
       "source": "/free",
-      "destination": "/start",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/index.html",
+      "destination": "/",
       "permanent": false
     },
     {
