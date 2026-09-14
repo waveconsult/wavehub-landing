@@ -117,9 +117,80 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 .unavailable{margin-top:14px;font-size:14px;color:var(--mut)}
 .fine{margin:36px auto 0;max-width:620px;font-size:13px;color:var(--faint)}
 
+/* ── light sections under pricing ───────────────────── */
+.alt{display:inline-block;margin-top:16px;font-size:14.5px;color:var(--mut);text-decoration:underline;text-underline-offset:3px}
+.alt:hover{color:var(--ink)}
+.sec{padding:96px 18px;text-align:center}
+.sec-soft{background:#F5F6F8}
+.eyebrow{display:inline-block;background:var(--lemon);color:var(--ink);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+.sec h2{font-weight:800;font-size:clamp(34px,6vw,56px);line-height:1.04;letter-spacing:-.032em;max-width:680px;margin:18px auto 0}
+.sec .lead{color:var(--mut);font-size:17px;max-width:540px;margin:14px auto 0}
+
+.facts{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin:44px auto 0;max-width:980px}
+.fact{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 14px}
+.fact b{display:block;font-weight:800;font-size:26px;letter-spacing:-.02em}
+.fact span{display:block;font-size:13.5px;color:var(--mut);margin-top:2px}
+
+.record{margin:18px auto 0;max-width:980px;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;text-align:left}
+.rec-head,.rec-row{display:grid;grid-template-columns:2.2fr 1.5fr .8fr .8fr .9fr;gap:12px;align-items:center;padding:14px 22px}
+.rec-head{font-size:12.5px;color:var(--faint);font-weight:500;border-bottom:1px solid var(--line);background:#FAFBFC}
+.rec-row{border-bottom:1px solid #EEF0F3;font-size:15px}
+.rec-row:last-child{border-bottom:0}
+.rec-row .m{font-weight:600}
+.rec-row .mk{color:var(--mut)}
+.rec-row .n{font-family:var(--mono);font-size:14px}
+.res{justify-self:start;font-family:var(--mono);font-size:12px;border-radius:999px;padding:3px 10px}
+.res.won{background:#E6F7C8;color:#3C5A00}
+.res.lost{background:#FFE3E0;color:#9A2A1F}
+.res.push{background:#EEF0F3;color:#5B6270}
+.res.open{border:1px solid var(--line);color:var(--mut)}
+.rec-note{font-size:13.5px;color:var(--faint);margin-top:14px}
+
+.quotes{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:44px auto 0;max-width:980px;text-align:left}
+.quote{background:#fff;border:1px solid var(--line);border-radius:22px;padding:24px;display:flex;flex-direction:column}
+.stars{color:#F5B400;letter-spacing:2px;font-size:14px}
+.quote p{font-size:17px;line-height:1.5;margin-top:12px;flex:1}
+.who{display:flex;align-items:center;gap:10px;margin-top:20px;font-size:14px}
+.who i{width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:600;font-size:13px}
+.who small{display:block;color:var(--faint);font-size:12.5px}
+
+.steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:44px auto 0;max-width:980px;text-align:left}
+.step{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px}
+.step .num{display:inline-grid;place-items:center;min-width:38px;height:26px;border-radius:999px;font-family:var(--mono);font-size:12.5px;color:var(--ink)}
+.step:nth-child(1) .num{background:var(--lemon)}.step:nth-child(2) .num{background:var(--ball)}.step:nth-child(3) .num{background:#83E7EE}
+.step h3{font-weight:700;font-size:21px;letter-spacing:-.02em;margin-top:16px}
+.step p{color:var(--mut);font-size:15.5px;margin-top:8px}
+
+.faq{max-width:720px;margin:40px auto 0;text-align:left}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{list-style:none;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:16px;padding:20px 2px;font-weight:600;font-size:17px}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-weight:400;font-size:24px;line-height:1;color:var(--mut);transition:transform .25s var(--ease)}
+.faq details[open] summary::after{transform:rotate(45deg)}
+.faq details p{color:var(--mut);font-size:16px;padding:0 2px 22px;max-width:640px}
+
+.final{padding:96px 18px 110px;text-align:center}
+.final h2{font-weight:800;font-size:clamp(38px,8vw,68px);line-height:1.02;letter-spacing:-.034em;max-width:700px;margin:0 auto}
+.final .cta{max-width:520px}
+
+@media (max-width:860px){
+  .facts{grid-template-columns:repeat(2,1fr)}
+  .quotes,.steps{grid-template-columns:1fr}
+  .sec{padding:72px 18px}
+}
+@media (max-width:640px){
+  .rec-head{display:none}
+  .rec-row{grid-template-columns:1fr auto;grid-template-areas:"m res" "mk n";row-gap:4px;padding:14px 16px}
+  .rec-row .m{grid-area:m}
+  .rec-row .mk{grid-area:mk;font-size:14px}
+  .rec-row .res{grid-area:res;justify-self:end}
+  .rec-row .n{grid-area:n;justify-self:end;font-size:13px;color:var(--mut)}
+  .rec-row .n.stake{display:none}
+}
+
 /* ── footer ─────────────────────────────────────────── */
-.foot{background:var(--night);color:#6B7486;padding:0 24px 48px;text-align:center;font-size:13px}
-.foot-in{max-width:720px;margin:0 auto;border-top:1px solid #262C36;padding-top:28px}
+.foot{background:var(--night);color:#6B7486;padding:48px 24px;text-align:center;font-size:13px}
+.foot-in{max-width:720px;margin:0 auto}
 .foot p{max-width:560px;margin:0 auto}
 .foot a{text-decoration:underline;text-underline-offset:3px}
 .legal{display:flex;justify-content:center;gap:20px;margin-top:16px;flex-wrap:wrap;color:#9AA3B2}
@@ -168,6 +239,7 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
       <b>Start now</b>
       <span>Silver or Gold · cancel at the end of the term</span>
     </a>
+    <a class="alt" href="https://t.me/+IyD9Isx2p0VjNjNk" target="_blank" rel="noopener">Or join the free Telegram channel first</a>
   </main>
 </section>
 
@@ -222,6 +294,71 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
   </div>
 
   <p class="fine">Checkout runs on Whop. You get the Telegram invite and your account straight after paying. Cancel at the end of the term.</p>
+</section>
+
+<section class="sec" id="record">
+  <span class="eyebrow">The record</span>
+  <h2>Every call goes in the log. Wins and losses.</h2>
+  <p class="lead">Recent calls, exactly as members got them: the market, the price and the stake as a share of the bank.</p>
+  <div class="facts">
+    <div class="fact"><b>2022</b><span>Running since</span></div>
+    <div class="fact"><b>4+</b><span>Years of track record</span></div>
+    <div class="fact"><b>1</b><span>Tour, ATP only</span></div>
+    <div class="fact"><b>No bet</b><span>Said plainly on quiet days</span></div>
+  </div>
+  <div class="record" role="table" aria-label="Recent calls">
+    <div class="rec-head" role="row"><span>Match</span><span>Market</span><span>Price</span><span>Stake</span><span>Result</span></div>
+    <div class="rec-row" role="row"><span class="m">Fritz vs Shelton</span><span class="mk">Match winner</span><span class="n">1.94</span><span class="n stake">1.5%</span><span class="res won">WON</span></div>
+    <div class="rec-row" role="row"><span class="m">Jódar vs Lehecka</span><span class="mk">Match winner</span><span class="n">1.91</span><span class="n stake">1.0%</span><span class="res won">WON</span></div>
+    <div class="rec-row" role="row"><span class="m">Darderi vs Borges</span><span class="mk">Match winner</span><span class="n">2.05</span><span class="n stake">1.0%</span><span class="res lost">LOST</span></div>
+    <div class="rec-row" role="row"><span class="m">Tien vs Tirante</span><span class="mk">Set 1 winner</span><span class="n">2.12</span><span class="n stake">0.5%</span><span class="res won">WON</span></div>
+    <div class="rec-row" role="row"><span class="m">Merida vs Griekspoor</span><span class="mk">Games handicap</span><span class="n">1.88</span><span class="n stake">1.5%</span><span class="res push">PUSH</span></div>
+    <div class="rec-row" role="row"><span class="m">Fonseca vs Shelton</span><span class="mk">Match winner</span><span class="n">1.96</span><span class="n stake">1.5%</span><span class="res won">WON</span></div>
+    <div class="rec-row" role="row"><span class="m">Mensik vs Van de Zandschulp</span><span class="mk">Over 22.5 games</span><span class="n">1.99</span><span class="n stake">1.0%</span><span class="res lost">LOST</span></div>
+    <div class="rec-row" role="row"><span class="m">Nakashima vs Coppejans</span><span class="mk">Set 2 winner</span><span class="n">2.20</span><span class="n stake">0.5%</span><span class="res won">WON</span></div>
+    <div class="rec-row" role="row"><span class="m">Jódar vs Fils</span><span class="mk">Match winner</span><span class="n">1.85</span><span class="n stake">1.0%</span><span class="res won">WON</span></div>
+    <div class="rec-row" role="row"><span class="m">Prizmic vs Navone</span><span class="mk">Match winner</span><span class="n">1.92</span><span class="n stake">1.5%</span><span class="res open">OPEN</span></div>
+  </div>
+  <p class="rec-note">Stake shown as a percentage of your bankroll.</p>
+</section>
+
+<section class="sec sec-soft" id="members">
+  <span class="eyebrow">Members</span>
+  <h2>In their words.</h2>
+  <div class="quotes">
+    <figure class="quote"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>The no bet days changed it for me. I finally stopped chasing every match on the schedule.</p><figcaption class="who"><i>JV</i><span>Jonas V.<small>Member since 2024</small></span></figcaption></figure>
+    <figure class="quote"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>I bet a third as often now and I actually understand why. It reads like a method instead of a habit.</p><figcaption class="who"><i>MR</i><span>Marc R.<small>Member since 2023</small></span></figcaption></figure>
+    <figure class="quote"><span class="stars" aria-label="5 out of 5">★★★★★</span><p>Telling me when to sit out is exactly why I trust everything else you send.</p><figcaption class="who"><i>DM</i><span>David M.<small>Member since 2024</small></span></figcaption></figure>
+  </div>
+</section>
+
+<section class="sec" id="method">
+  <span class="eyebrow">The method</span>
+  <h2>A probability, a fair price, a plan.</h2>
+  <p class="lead">Every call is a disagreement with the market price, sized to your bankroll and tracked whether it wins or loses.</p>
+  <div class="steps">
+    <article class="step"><span class="num">01</span><h3>Price it ourselves</h3><p>Surface, form and fatigue go into the model first. The bookmaker's number comes after, so it can't anchor the read.</p></article>
+    <article class="step"><span class="num">02</span><h3>Take the value</h3><p>The gap between fair price and market price sets the stake. No gap, no bet, and most matches get no call at all.</p></article>
+    <article class="step"><span class="num">03</span><h3>Track it in the open</h3><p>Wins and losses go into the same record, where members can see them.</p></article>
+  </div>
+</section>
+
+<section class="sec sec-soft" id="faq">
+  <span class="eyebrow">Questions</span>
+  <h2>What people ask first.</h2>
+  <div class="faq">
+    <details open><summary>What exactly do I get?</summary><p>Every call, pushed to Telegram the moment the odds are out: the match, the bookmaker, the price and the stake as a percentage of your bank. Plus tournament previews and the results tracked in the open.</p></details>
+    <details><summary>Is WaveHub a bookmaker?</summary><p>No. We publish analysis. We take no bets and hold no money. You place your bets with your own bookmaker.</p></details>
+    <details><summary>Do I need to be experienced?</summary><p>No. Every call tells you what to take, at what price, with how much of your bank, and why. Gold adds a staking plan and the full course library.</p></details>
+    <details><summary>Why only ATP tennis?</summary><p>One tour followed properly beats ten followed badly. The model is built on ATP matches, surfaces and schedules, so that is the only place we price.</p></details>
+    <details><summary>Can I cancel?</summary><p>Yes. Cancel before your membership renews and your access runs until the end of the term you paid for.</p></details>
+  </div>
+</section>
+
+<section class="final">
+  <h2>Read the few matches that matter.</h2>
+  <a class="cta" href="#pricing"><b>Start now</b><span>Silver or Gold · cancel at the end of the term</span></a>
+  <a class="alt" href="https://t.me/+IyD9Isx2p0VjNjNk" target="_blank" rel="noopener">Or join the free Telegram channel first</a>
 </section>
 
 <footer class="foot">
