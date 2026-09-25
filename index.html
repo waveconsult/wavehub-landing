@@ -121,6 +121,15 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 .sec{padding:96px 18px;text-align:center}
 .sec-soft{background:#F5F6F8}
 .eyebrow{display:inline-block;background:var(--lemon);color:var(--ink);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
+.offer{max-width:640px;margin:0 auto 18px;background:var(--night);color:#fff;border-radius:18px;padding:16px 18px;text-align:center}
+.offer-tag{display:inline-block;background:var(--ball);color:var(--night);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
+.offer p{margin:10px 0 0;font-size:16.5px;line-height:1.45;color:#D7DBE2}
+.offer b{color:#fff}
+.code{display:inline-flex;align-items:center;gap:7px;background:#1A1F27;border:1px dashed #49505C;color:var(--ball);
+  font:700 15px/1 var(--mono);letter-spacing:.06em;border-radius:10px;padding:8px 12px;margin-left:6px;cursor:pointer}
+.code i{width:12px;height:12px;border:1.6px solid currentColor;border-radius:3px;box-shadow:3px -3px 0 -1.6px #1A1F27,3px -3px 0 0 currentColor}
+.code.done{color:#fff;border-style:solid}
+.code.done i{display:none}
 .sec h2{font-weight:800;font-size:clamp(34px,6vw,56px);line-height:1.04;letter-spacing:-.032em;max-width:680px;margin:18px auto 0}
 .sec .lead{color:var(--mut);font-size:17px;max-width:540px;margin:14px auto 0}
 
@@ -224,8 +233,13 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
   </header>
 
   <main class="col">
+    <div class="offer">
+      <span class="offer-tag">Asian swing offer</span>
+      <p><b>10% off</b> every plan with the code
+        <button class="code" type="button" data-code="ASIAN" title="Copy the code">ASIAN<i></i></button></p>
+    </div>
+
     <div class="count" role="timer" aria-live="off">
-      <div class="unit"><b data-d>00</b><small>Days</small></div>
       <div class="unit"><b data-h>00</b><small>Hours</small></div>
       <div class="unit"><b data-m>00</b><small>Minutes</small></div>
       <div class="unit"><b data-s>00</b><small>Seconds</small></div>
@@ -388,23 +402,30 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 
 <script>
 /* ── Countdown: always 24 hours from a visitor's first visit, then starts over. ── */
-const COUNTDOWN_MS = 24 * 3600 * 1000;
-const KEY = "wh_countdown_start";
-function readStart() {
-  try {
-    const v = +localStorage.getItem(KEY);
-    if (v && Date.now() - v < COUNTDOWN_MS) return v;
-    const now = Date.now(); localStorage.setItem(KEY, now); return now;
-  } catch (e) { return Date.now(); }
+/* Der Zaehler laeuft bis Mitternacht in Wien und ist damit fuer jeden Besucher
+   derselbe, egal in welcher Zeitzone er sitzt. Danach faengt er wieder bei 24
+   Stunden an. */
+const TZ = "Europe/Vienna";
+function msLeft() {
+  const parts = new Intl.DateTimeFormat("en-GB", {
+    timeZone: TZ, hour12: false, hour: "2-digit", minute: "2-digit", second: "2-digit",
+  }).formatToParts(new Date());
+  const get = t => +parts.find(p => p.type === t).value;
+  const h = get("hour") % 24, m = get("minute"), sec = get("second");
+  return ((23 - h) * 3600 + (59 - m) * 60 + (60 - sec)) * 1000;
 }
 const q = s => document.querySelector(s);
+/* Angebotscode: antippen kopiert ihn, damit ihn am Handy niemand abtippen muss. */
+document.addEventListener("click", async (e) => {
+  const b = e.target.closest(".code"); if (!b) return;
+  try { await navigator.clipboard.writeText(b.dataset.code); } catch (err) {}
+  const before = b.firstChild.nodeValue;
+  b.classList.add("done"); b.firstChild.nodeValue = "Copied";
+  setTimeout(() => { b.classList.remove("done"); b.firstChild.nodeValue = before; }, 1400);
+});
 const pad = n => String(n).padStart(2, "0");
-let started = readStart();
 function tick() {
-  let left = started + COUNTDOWN_MS - Date.now();
-  if (left <= 0) { started = Date.now(); try { localStorage.setItem(KEY, started); } catch (e) {} left = COUNTDOWN_MS; }
-  const s = Math.min(Math.floor(left / 1000), COUNTDOWN_MS / 1000 - 1);
-  q("[data-d]").textContent = pad(Math.floor(s / 86400));
+  const s = Math.max(0, Math.floor(msLeft() / 1000));
   q("[data-h]").textContent = pad(Math.floor(s % 86400 / 3600));
   q("[data-m]").textContent = pad(Math.floor(s % 3600 / 60));
   q("[data-s]").textContent = pad(s % 60);
