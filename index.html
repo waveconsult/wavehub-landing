@@ -128,6 +128,12 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 .fact{background:#fff;border:1px solid var(--line);border-radius:16px;padding:18px 14px}
 .fact b{display:block;font-weight:800;font-size:26px;letter-spacing:-.02em}
 .fact span{display:block;font-size:13.5px;color:var(--mut);margin-top:2px}
+.gets{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px auto 0;max-width:980px;text-align:left}
+.get{background:#fff;border:1px solid var(--line);border-radius:18px;padding:22px 20px}
+.get b{display:block;font-size:17.5px;letter-spacing:-.01em;margin-bottom:8px}
+.get p{color:var(--mut);font-size:15px;line-height:1.55;margin:0}
+.get .tag{display:inline-block;background:var(--haze-3);color:var(--blue);border-radius:999px;
+  padding:2px 10px;font-size:12.5px;font-weight:600;margin-left:4px;white-space:nowrap}
 
 .record{margin:18px auto 0;max-width:980px;background:#fff;border:1px solid var(--line);border-radius:22px;overflow:hidden;text-align:left}
 .rec-head,.rec-row{display:grid;grid-template-columns:2.2fr 1.5fr .8fr .8fr .9fr;gap:12px;align-items:center;padding:14px 22px}
@@ -173,6 +179,7 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 
 @media (max-width:860px){
   .facts{grid-template-columns:repeat(2,1fr)}
+  .gets{grid-template-columns:1fr}
   .quotes,.steps{grid-template-columns:1fr}
   .sec{padding:72px 18px}
 }
@@ -294,30 +301,43 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
   <p class="fine"><b>Plans renew automatically for the same term.</b> Cancel anytime in your Whop account and your access runs until the end of the term you paid for. Checkout runs on Whop. You get the Telegram invite and your account straight after paying.</p>
 </section>
 
-<section class="sec" id="record">
-  <span class="eyebrow">The record</span>
-  <h2>Every call goes in the log. Wins and losses.</h2>
-  <p class="lead">Recent calls, exactly as members got them: the market, the price and the stake as a share of the bank.</p>
+<section class="sec" id="get">
+  <span class="eyebrow">What you get</span>
+  <h2>Everything you need to place one good bet a day.</h2>
+  <p class="lead">Not a feed of tips. The reasoning, the price and the plan behind every call, plus the weeks where the honest answer is no bet.</p>
   <div class="facts">
-    <div class="fact"><b>2022</b><span>Running since</span></div>
-    <div class="fact"><b>4+</b><span>Years of track record</span></div>
-    <div class="fact"><b>1</b><span>Tour, ATP only</span></div>
-    <div class="fact"><b>No bet</b><span>Said plainly on quiet days</span></div>
+    <div class="fact"><b>ATP only</b><span>One tour, done properly</span></div>
+    <div class="fact"><b>Selective</b><span>Only when there is value</span></div>
+    <div class="fact"><b>Every call</b><span>Logged, wins and losses</span></div>
+    <div class="fact"><b>Seconds</b><span>Straight to your phone</span></div>
   </div>
-  <div class="record" role="table" aria-label="Recent calls">
-    <div class="rec-head" role="row"><span>Match</span><span>Market</span><span>Price</span><span>Stake</span><span>Result</span></div>
-    <div class="rec-row" role="row"><span class="m">Fritz vs Shelton</span><span class="mk">Match winner</span><span class="n">1.94</span><span class="n stake">1.5%</span><span class="res won">WON</span></div>
-    <div class="rec-row" role="row"><span class="m">Jódar vs Lehecka</span><span class="mk">Match winner</span><span class="n">1.91</span><span class="n stake">1.0%</span><span class="res won">WON</span></div>
-    <div class="rec-row" role="row"><span class="m">Darderi vs Borges</span><span class="mk">Match winner</span><span class="n">2.05</span><span class="n stake">1.0%</span><span class="res lost">LOST</span></div>
-    <div class="rec-row" role="row"><span class="m">Tien vs Tirante</span><span class="mk">Set 1 winner</span><span class="n">2.12</span><span class="n stake">0.5%</span><span class="res won">WON</span></div>
-    <div class="rec-row" role="row"><span class="m">Merida vs Griekspoor</span><span class="mk">Games handicap</span><span class="n">1.88</span><span class="n stake">1.5%</span><span class="res push">PUSH</span></div>
-    <div class="rec-row" role="row"><span class="m">Fonseca vs Shelton</span><span class="mk">Match winner</span><span class="n">1.96</span><span class="n stake">1.5%</span><span class="res won">WON</span></div>
-    <div class="rec-row" role="row"><span class="m">Mensik vs Van de Zandschulp</span><span class="mk">Over 22.5 games</span><span class="n">1.99</span><span class="n stake">1.0%</span><span class="res lost">LOST</span></div>
-    <div class="rec-row" role="row"><span class="m">Nakashima vs Coppejans</span><span class="mk">Set 2 winner</span><span class="n">2.20</span><span class="n stake">0.5%</span><span class="res won">WON</span></div>
-    <div class="rec-row" role="row"><span class="m">Jódar vs Fils</span><span class="mk">Match winner</span><span class="n">1.85</span><span class="n stake">1.0%</span><span class="res won">WON</span></div>
-    <div class="rec-row" role="row"><span class="m">Prizmic vs Navone</span><span class="mk">Match winner</span><span class="n">1.92</span><span class="n stake">1.5%</span><span class="res open">OPEN</span></div>
+  <div class="gets">
+    <article class="get">
+      <b>Every pick, with the reasoning</b>
+      <p>Never just a name and a price. You see why the market is wrong, the fair price from my model and the stake as a share of your bank.</p>
+    </article>
+    <article class="get">
+      <b>A gameplan for every tournament</b>
+      <p>Conditions first: court speed, altitude, heat and humidity. Then who those conditions reward, who they punish, and the underdogs the market has not priced.</p>
+    </article>
+    <article class="get">
+      <b>Live calls when a match turns</b>
+      <p>Some spots only appear once the match is running. You get them the moment I take them, not in a recap afterwards.</p>
+    </article>
+    <article class="get">
+      <b>Insights between the picks</b>
+      <p>What I am watching, what changed overnight, and just as often why I am staying away from a match everyone else is betting.</p>
+    </article>
+    <article class="get">
+      <b>The app on your phone</b>
+      <p>Every pick and every insight arrives as a push notification. Add it to your home screen and you will never miss a price.</p>
+    </article>
+    <article class="get">
+      <b>The engine behind the calls</b>
+      <p>Put any two players in and get the model price for the match, the same model the calls are built on. <span class="tag">Silver and Gold</span></p>
+    </article>
   </div>
-  <p class="rec-note">Stake shown as a percentage of your bankroll.</p>
+  <p class="rec-note">Gold adds the models as a spreadsheet, a staking plan sized to your bankroll and the full course library.</p>
 </section>
 
 <section class="sec sec-soft" id="members">
@@ -400,8 +420,11 @@ if (matchMedia("(prefers-reduced-motion: reduce)").matches) { video.removeAttrib
    Links = Whop-Produktseiten (Silver: scale-betting, Betting Masterclass: scale-betting-silver-copy), dort waehlt man die Laufzeit.
    price = null heisst "diese Laufzeit gibt es fuer den Plan nicht". ── */
 const PLANS = {
-  silver: { quarter: { price: 149,  checkout: "https://whop.com/wavehubtennis/scale-betting/" }, year: { price: 399, checkout: "https://whop.com/wavehubtennis/scale-betting/" } },
-  gold:   { quarter: { price: null, checkout: null },               year: { price: 599, checkout: "https://whop.com/wavehubtennis/products/scale-betting-silver-copy/" } }
+  // Direkte Whop-Checkouts, dieselben wie in der App.
+  silver: { quarter: { price: 149,  checkout: "https://whop.com/checkout/ch_3fGnxuJlfOAvIzp/" },
+            year:    { price: 399,  checkout: "https://whop.com/checkout/ch_Z93jG68rmsY7Idt/" } },
+  gold:   { quarter: { price: null, checkout: null },
+            year:    { price: 599,  checkout: "https://whop.com/checkout/ch_0BDGObRJ38jAd8w/" } }
 };
 const MONTHS = { quarter: 3, year: 12 };
 const eur = n => "€" + n;
