@@ -139,7 +139,12 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
 .fact span{display:block;font-size:13.5px;color:var(--mut);margin-top:2px}
 .gets{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:18px auto 0;max-width:980px;text-align:left}
 .get{background:#fff;border:1px solid var(--line);border-radius:18px;overflow:hidden;display:flex;flex-direction:column}
-.get img{display:block;width:100%;height:150px;object-fit:cover;background:#EEF0F4}
+.get img{display:block;width:100%;height:220px;object-fit:cover;background:#EEF0F4}
+.tiers{display:flex;gap:6px;margin-bottom:10px}
+.tier{font:700 11.5px/1 var(--sans);letter-spacing:.06em;text-transform:uppercase;border-radius:999px;padding:5px 10px}
+.tier.silver{background:#EDEFF3;color:#4A5160}
+.tier.gold{background:#F7E9C2;color:#6B5310}
+.tier.free{background:var(--haze-3);color:var(--blue)}
 .get-txt{padding:18px 20px 22px}
 .get b{display:block;font-size:17.5px;letter-spacing:-.01em;margin-bottom:8px}
 .get p{color:var(--mut);font-size:15px;line-height:1.55;margin:0}
@@ -321,45 +326,54 @@ h1{font-weight:800;font-size:clamp(42px,11.5vw,76px);line-height:1.02;letter-spa
   <span class="eyebrow">What you get</span>
   <h2>Everything you need to place one good bet a day.</h2>
   <p class="lead">Not a feed of tips. The reasoning, the price and the plan behind every call, plus the weeks where the honest answer is no bet.</p>
-  <div class="facts">
-    <div class="fact"><b>ATP only</b><span>One tour, done properly</span></div>
-    <div class="fact"><b>Selective</b><span>Only when there is value</span></div>
-    <div class="fact"><b>Every call</b><span>Logged, wins and losses</span></div>
-    <div class="fact"><b>Seconds</b><span>Straight to your phone</span></div>
-  </div>
+</div>
   <div class="gets">
     <article class="get">
       <img src="assets/get-1.jpg" alt="Notes and a laptop on a desk" loading="lazy" width="720" height="400">
-      <div class="get-txt"><b>Every pick, with the reasoning</b>
+      <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+        <b>Every pick, with the reasoning</b>
       <p>Never just a name and a price. You see why the market is wrong, the fair price from my model and the stake as a share of your bank.</p></div>
     </article>
     <article class="get">
       <img src="assets/get-2.jpg" alt="A tournament being worked through on screen" loading="lazy" width="720" height="400">
-      <div class="get-txt"><b>A gameplan for every tournament</b>
+      <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+        <b>A gameplan for every tournament</b>
       <p>Conditions first: court speed, altitude, heat and humidity. Then who those conditions reward, who they punish, and the underdogs the market has not priced.</p></div>
     </article>
     <article class="get">
       <img src="assets/get-3.jpg" alt="A player serving under floodlights" loading="lazy" width="720" height="400">
-      <div class="get-txt"><b>Live calls when a match turns</b>
+      <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+        <b>Live calls when a match turns</b>
       <p>Some spots only appear once the match is running. You get them the moment I take them, not in a recap afterwards.</p></div>
     </article>
     <article class="get">
       <img src="assets/get-4.jpg" alt="Working through the morning notes" loading="lazy" width="720" height="400">
-      <div class="get-txt"><b>Insights between the picks</b>
+      <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+        <b>Insights between the picks</b>
       <p>What I am watching, what changed overnight, and just as often why I am staying away from a match everyone else is betting.</p></div>
     </article>
     <article class="get">
       <img src="assets/get-5.jpg" alt="The app open on a phone" loading="lazy" width="720" height="400">
-      <div class="get-txt"><b>The app on your phone</b>
+      <div class="get-txt"><div class="tiers"><span class="tier free">Free</span></div>
+        <b>The app on your phone</b>
       <p>Every pick and every insight arrives as a push notification. Add it to your home screen and you will never miss a price.</p></div>
     </article>
     <article class="get">
       <img src="assets/get-6.jpg" alt="An odds movement chart" loading="lazy" width="720" height="400">
-      <div class="get-txt"><b>The engine behind the calls</b>
-      <p>Put any two players in and get the model price for the match, the same model the calls are built on. <span class="tag">Silver and Gold</span></p></div>
+      <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+        <b>The engine behind the calls</b>
+      <p>Put any two players in and get the model price for the match, the same model the calls are built on.</p></div>
+    </article>
+    <article class="get">
+      <img src="assets/get-7.jpg" alt="Working through the models" loading="lazy" width="720" height="400">
+      <div class="get-txt">
+        <div class="tiers"><span class="tier gold">Gold</span></div>
+        <b>The models, the courses, the staking plan</b>
+        <p>The models the calls are built on as a spreadsheet, a staking plan sized to your bankroll, and the full course library.</p>
+      </div>
     </article>
   </div>
-  <p class="rec-note">Gold adds the models as a spreadsheet, a staking plan sized to your bankroll and the full course library.</p>
+
 </section>
 
 <section class="sec sec-soft" id="members">
