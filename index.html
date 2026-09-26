@@ -180,9 +180,6 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
   background:rgba(11,14,19,.78);backdrop-filter:blur(3px);transition:transform .18s ease,background .18s ease}
 .ytlite .play::after{content:"";position:absolute;left:52%;top:50%;transform:translate(-50%,-50%);
   border-left:22px solid #fff;border-top:14px solid transparent;border-bottom:14px solid transparent}
-.sound{margin-top:12px;background:var(--night);color:#fff;border:0;border-radius:999px;
-  padding:11px 18px;font:600 14.5px/1 var(--sans);cursor:pointer}
-.sound:hover{opacity:.88}
 .ytlite:hover .play{transform:translate(-50%,-50%) scale(1.08);background:rgba(11,14,19,.92)}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:44px auto 0;max-width:980px;text-align:left}
 .step{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px}
@@ -260,14 +257,13 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
     <p class="sub">Our model prices every ATP match before we look at the odds. When the market is off, the call lands in the WaveHub app with the price and the stake.</p>
 
     <div class="video">
-      <button class="ytlite" type="button" data-yt="4NKHI-_JmMs" aria-label="Play the full analysis with sound">
+      <button class="ytlite" type="button" data-yt="4NKHI-_JmMs" aria-label="Play the full analysis">
         <img src="assets/analysis-session.jpg" alt="The Montreal preview with the dark horse call on Jodar"
              width="1600" height="718">
         <span class="play" aria-hidden="true"></span>
       </button>
     </div>
     <p class="vq">How do we analyze games and choose an odd?</p>
-    <button class="sound" type="button" hidden>Turn the sound on</button>
 
     <a class="cta" href="#pricing">
       <b>Start now</b>
@@ -489,46 +485,16 @@ render("year");
 (function () {
   const box = document.querySelector(".ytlite");
   if (!box) return;
-  const id = box.dataset.yt;
-  let frame = null;
-
-  function start() {
-    if (frame) return;
-    frame = document.createElement("iframe");
-    frame.className = "ytframe";
-    frame.src = "https://www.youtube-nocookie.com/embed/" + id +
-      "?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&enablejsapi=1&vq=hd2160";
-    frame.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
-    frame.allowFullscreen = true;
-    frame.title = "How we analyze our games, Jodar against Lehecka";
-    box.replaceWith(frame);
-    wrap.hidden = false;
-  }
-
-  const wrap = document.querySelector(".sound");
-  wrap.hidden = true;
-  wrap.addEventListener("click", function () {
-    if (!frame) return;
-    ["unMute", "setVolume"].forEach(function (fn) {
-      frame.contentWindow.postMessage(JSON.stringify({
-        event: "command", func: fn, args: fn === "setVolume" ? [100] : []
-      }), "*");
-    });
-    wrap.hidden = true;
-  });
-
-  box.addEventListener("click", start);
-
-  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
-
-  if ("IntersectionObserver" in window) {
-    const io = new IntersectionObserver(function (es) {
-      if (es.some(e => e.isIntersecting)) { io.disconnect(); start(); }
-    }, { threshold: 0.4 });
-    io.observe(box);
-  } else {
-    start();
-  }
+  box.addEventListener("click", function () {
+    const f = document.createElement("iframe");
+    f.className = "ytframe";
+    f.src = "https://www.youtube-nocookie.com/embed/" + box.dataset.yt +
+      "?autoplay=1&playsinline=1&controls=1&rel=0&modestbranding=1&vq=hd2160";
+    f.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
+    f.allowFullscreen = true;
+    f.title = "How we analyze our games, Jodar against Lehecka";
+    box.replaceWith(f);
+  }, { once: true });
 })();
 </script>
 </body>
