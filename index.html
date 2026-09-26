@@ -178,7 +178,15 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
 .session{max-width:980px;margin:44px auto 0;text-align:left}
 .session h3{font-size:clamp(21px,5vw,26px);letter-spacing:-.02em;margin:0 0 10px}
 .session p{color:var(--mut);font-size:15.5px;line-height:1.6;margin:0 0 18px;max-width:640px}
-.session video{display:block;width:100%;border-radius:18px;border:1px solid var(--line);background:#0E1014}
+.ytlite{position:relative;display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:18px;
+  overflow:hidden;background:#0E1014;cursor:pointer;aspect-ratio:2.2278}
+.ytframe{display:block;width:100%;aspect-ratio:2.2278;border:1px solid var(--line);border-radius:18px;background:#0E1014}
+.ytlite img,.ytframe{display:block;width:100%;height:100%;border:0;object-fit:cover}
+.ytlite .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;
+  background:rgba(11,14,19,.78);backdrop-filter:blur(3px);transition:transform .18s ease,background .18s ease}
+.ytlite .play::after{content:"";position:absolute;left:52%;top:50%;transform:translate(-50%,-50%);
+  border-left:22px solid #fff;border-top:14px solid transparent;border-bottom:14px solid transparent}
+.ytlite:hover .play{transform:translate(-50%,-50%) scale(1.08);background:rgba(11,14,19,.92)}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:44px auto 0;max-width:980px;text-align:left}
 .step{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px}
 .step .num{display:inline-grid;place-items:center;min-width:38px;height:26px;border-radius:999px;font-family:var(--mono);font-size:12.5px;color:var(--ink)}
@@ -405,8 +413,11 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
     <h3>The whole thing, start to finish</h3>
     <p>One match, priced from scratch: Rafael Jodar against Jiri Lehecka in Montreal. The form, the serve numbers,
        the model price against the market price, and the bet at the end of it.</p>
-    <video src="assets/analysis-session.mp4" poster="assets/analysis-session.jpg"
-           controls preload="none" playsinline></video>
+    <button class="ytlite" type="button" data-yt="4NKHI-_JmMs" aria-label="Play the full analysis on YouTube">
+      <img src="assets/analysis-session.jpg" alt="The Montreal preview with the dark horse call on Jodar"
+           loading="lazy" width="1600" height="718">
+      <span class="play" aria-hidden="true"></span>
+    </button>
   </div>
 </section>
 
@@ -509,6 +520,20 @@ function render(term) {
 }
 sw.addEventListener("click", () => render(sw.getAttribute("aria-checked") === "true" ? "quarter" : "year"));
 render("year");
+</script>
+<script>
+document.addEventListener("click", function (e) {
+  const b = e.target.closest(".ytlite");
+  if (!b) return;
+  const f = document.createElement("iframe");
+  f.src = "https://www.youtube-nocookie.com/embed/" + b.dataset.yt +
+          "?autoplay=1&rel=0&modestbranding=1&vq=hd2160";
+  f.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
+  f.allowFullscreen = true;
+  f.title = "How we analyze our games, Jodar against Lehecka";
+  b.replaceWith(f);
+  f.className = "ytframe";
+});
 </script>
 </body>
 </html>
