@@ -175,6 +175,10 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
 .who i{width:36px;height:36px;border-radius:50%;background:var(--ink);color:#fff;display:grid;place-items:center;font-style:normal;font-weight:600;font-size:13px}
 .who small{display:block;color:var(--faint);font-size:12.5px}
 
+.session{max-width:980px;margin:44px auto 0;text-align:left}
+.session h3{font-size:clamp(21px,5vw,26px);letter-spacing:-.02em;margin:0 0 10px}
+.session p{color:var(--mut);font-size:15.5px;line-height:1.6;margin:0 0 18px;max-width:640px}
+.session video{display:block;width:100%;border-radius:18px;border:1px solid var(--line);background:#0E1014}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:44px auto 0;max-width:980px;text-align:left}
 .step{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px}
 .step .num{display:inline-grid;place-items:center;min-width:38px;height:26px;border-radius:999px;font-family:var(--mono);font-size:12.5px;color:var(--ink)}
@@ -261,7 +265,7 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
       <p class="caption">Fritz to win · taken 2.60 · fair 2.04</p>
       <div class="progress" aria-hidden="true"><i></i></div>
     </div>
-    <p class="vq">How do we analyze games and choose an odd?</p>
+    <p class="vq"><a href="#session">How do we analyze games and choose an odd?</a></p>
 
     <a class="cta" href="#pricing">
       <b>Start now</b>
@@ -395,6 +399,14 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
     <article class="step"><span class="num">01</span><h3>Price it ourselves</h3><p>Surface, form and fatigue go into the model first. The bookmaker's number comes after, so it can't anchor the read.</p></article>
     <article class="step"><span class="num">02</span><h3>Take the value</h3><p>The gap between fair price and market price sets the stake. No gap, no bet, and most matches get no call at all.</p></article>
     <article class="step"><span class="num">03</span><h3>Track it in the open</h3><p>Wins and losses go into the same record, where members can see them.</p></article>
+  </div>
+
+  <div class="session" id="session">
+    <h3>The whole thing, start to finish</h3>
+    <p>One match, priced from scratch: Rafael Jodar against Jiri Lehecka in Montreal. The form, the serve numbers,
+       the model price against the market price, and the bet at the end of it.</p>
+    <video src="assets/analysis-session.mp4" poster="assets/analysis-session.jpg"
+           controls preload="none" playsinline></video>
   </div>
 </section>
 
