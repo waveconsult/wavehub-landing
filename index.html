@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>WaveHub · ATP calls priced by a model</title>
-<meta name="description" content="Our model prices every ATP match before we look at the odds. When the market is off, the call lands in Telegram with the price and the stake. When it isn't, you get an honest no bet.">
+<meta name="description" content="Our model prices every ATP match before we look at the odds. When the market is off, the call lands in the WaveHub app with the price and the stake.">
 <meta name="theme-color" content="#FFFFFF">
 <link rel="icon" href="assets/favicon-32.png">
 <link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
@@ -58,7 +58,8 @@ button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
 h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spacing:-.028em;margin:26px auto 0;max-width:780px}
 .sub{font-size:clamp(16px,4.3vw,19px);color:var(--mut);margin:18px auto 0;max-width:560px;line-height:1.55}
 
-.video{position:relative;margin:30px auto 0;border-radius:20px;overflow:hidden;background:#0E1014;aspect-ratio:4/3;
+.video{position:relative;margin:30px auto 0;border-radius:20px;overflow:hidden;aspect-ratio:2.2278;
+  background:#0E1014 url("assets/analysis-session.jpg") center/cover;
   box-shadow:0 24px 60px rgba(29,92,255,.14),0 2px 8px rgba(14,16,20,.08)}
 .video video{width:100%;height:100%;object-fit:cover;object-position:50% 38%;display:block}
 .vq{margin:18px auto 0;max-width:560px;font-size:clamp(17px,4.6vw,20px);font-weight:700;letter-spacing:-.01em}
@@ -122,15 +123,6 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
 .sec{padding:96px 18px;text-align:center}
 .sec-soft{background:#F5F6F8}
 .eyebrow{display:inline-block;background:var(--lemon);color:var(--ink);border-radius:999px;padding:6px 14px;font-size:13px;font-weight:600}
-.offer{max-width:640px;margin:0 auto 18px;background:var(--night);color:#fff;border-radius:18px;padding:16px 18px;text-align:center}
-.offer-tag{display:inline-block;background:var(--ball);color:var(--night);border-radius:999px;padding:4px 12px;font-size:12px;font-weight:700;letter-spacing:.04em;text-transform:uppercase}
-.offer p{margin:10px 0 0;font-size:16.5px;line-height:1.45;color:#D7DBE2}
-.offer b{color:#fff}
-.code{display:inline-flex;align-items:center;gap:7px;background:#1A1F27;border:1px dashed #49505C;color:var(--ball);
-  font:700 15px/1 var(--mono);letter-spacing:.06em;border-radius:10px;padding:8px 12px;margin-left:6px;cursor:pointer}
-.code i{width:12px;height:12px;border:1.6px solid currentColor;border-radius:3px;box-shadow:3px -3px 0 -1.6px #1A1F27,3px -3px 0 0 currentColor}
-.code.done{color:#fff;border-style:solid}
-.code.done i{display:none}
 .sec h2{font-weight:800;font-size:clamp(34px,6vw,56px);line-height:1.04;letter-spacing:-.032em;max-width:680px;margin:18px auto 0}
 .sec .lead{color:var(--mut);font-size:17px;max-width:540px;margin:14px auto 0}
 
@@ -178,14 +170,17 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
 .session{max-width:980px;margin:44px auto 0;text-align:left}
 .session h3{font-size:clamp(21px,5vw,26px);letter-spacing:-.02em;margin:0 0 10px}
 .session p{color:var(--mut);font-size:15.5px;line-height:1.6;margin:0 0 18px;max-width:640px}
-.ytlite{position:relative;display:block;width:100%;padding:0;border:1px solid var(--line);border-radius:18px;
-  overflow:hidden;background:#0E1014;cursor:pointer;aspect-ratio:2.2278}
-.ytframe{display:block;width:100%;aspect-ratio:2.2278;border:1px solid var(--line);border-radius:18px;background:#0E1014}
+.ytlite{position:relative;display:block;width:100%;height:100%;padding:0;border:0;overflow:hidden;
+  background:#0E1014;cursor:pointer}
+.ytframe{display:block;width:100%;height:100%;border:0;background:#0E1014}
 .ytlite img,.ytframe{display:block;width:100%;height:100%;border:0;object-fit:cover}
 .ytlite .play{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);width:76px;height:76px;border-radius:50%;
   background:rgba(11,14,19,.78);backdrop-filter:blur(3px);transition:transform .18s ease,background .18s ease}
 .ytlite .play::after{content:"";position:absolute;left:52%;top:50%;transform:translate(-50%,-50%);
   border-left:22px solid #fff;border-top:14px solid transparent;border-bottom:14px solid transparent}
+.sound{margin-top:12px;background:var(--night);color:#fff;border:0;border-radius:999px;
+  padding:11px 18px;font:600 14.5px/1 var(--sans);cursor:pointer}
+.sound:hover{opacity:.88}
 .ytlite:hover .play{transform:translate(-50%,-50%) scale(1.08);background:rgba(11,14,19,.92)}
 .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin:44px auto 0;max-width:980px;text-align:left}
 .step{background:#fff;border:1px solid var(--line);border-radius:22px;padding:26px}
@@ -233,7 +228,7 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
   .top{padding:20px 0}
   .count{margin-top:36px}
   .unit{width:74px}
-  .video{aspect-ratio:16/9;margin-top:40px}
+  .video{margin-top:40px}
   .funnel{padding-bottom:110px}
 }
 @media (max-width:820px){
@@ -253,12 +248,6 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
   </header>
 
   <main class="col">
-    <div class="offer">
-      <span class="offer-tag">Asian swing offer</span>
-      <p><b>10% off</b> every plan with the code
-        <button class="code" type="button" data-code="ASIAN" title="Copy the code">ASIAN<i></i></button></p>
-    </div>
-
     <div class="count" role="timer" aria-live="off">
       <div class="unit"><b data-h>00</b><small>Hours</small></div>
       <div class="unit"><b data-m>00</b><small>Minutes</small></div>
@@ -266,14 +255,17 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
     </div>
 
     <h1>Stop picking winners out of gut feeling. Start with a structured, model based approach.</h1>
-    <p class="sub">Our model prices every ATP match before we look at the odds. When the market is off, the call lands in Telegram with the price and the stake. When it isn't, you get an honest no bet.</p>
+    <p class="sub">Our model prices every ATP match before we look at the odds. When the market is off, the call lands in the WaveHub app with the price and the stake.</p>
 
     <div class="video">
-      <video src="assets/hero-loop.mp4" poster="assets/hero-poster.jpg" muted playsinline loop autoplay preload="metadata"></video>
-      <p class="caption">Fritz to win · taken 2.60 · fair 2.04</p>
-      <div class="progress" aria-hidden="true"><i></i></div>
+      <button class="ytlite" type="button" data-yt="4NKHI-_JmMs" aria-label="Play the full analysis with sound">
+        <img src="assets/analysis-session.jpg" alt="The Montreal preview with the dark horse call on Jodar"
+             width="1600" height="718">
+        <span class="play" aria-hidden="true"></span>
+      </button>
     </div>
-    <p class="vq"><a href="#session">How do we analyze games and choose an odd?</a></p>
+    <p class="vq">How do we analyze games and choose an odd?</p>
+    <button class="sound" type="button" hidden>Turn the sound on</button>
 
     <a class="cta" href="#pricing">
       <b>Start now</b>
@@ -409,16 +401,6 @@ h1{font-weight:800;font-size:clamp(33px,8.4vw,56px);line-height:1.07;letter-spac
     <article class="step"><span class="num">03</span><h3>Track it in the open</h3><p>Wins and losses go into the same record, where members can see them.</p></article>
   </div>
 
-  <div class="session" id="session">
-    <h3>The whole thing, start to finish</h3>
-    <p>One match, priced from scratch: Rafael Jodar against Jiri Lehecka in Montreal. The form, the serve numbers,
-       the model price against the market price, and the bet at the end of it.</p>
-    <button class="ytlite" type="button" data-yt="4NKHI-_JmMs" aria-label="Play the full analysis on YouTube">
-      <img src="assets/analysis-session.jpg" alt="The Montreal preview with the dark horse call on Jodar"
-           loading="lazy" width="1600" height="718">
-      <span class="play" aria-hidden="true"></span>
-    </button>
-  </div>
 </section>
 
 <section class="sec sec-soft" id="faq">
@@ -461,14 +443,6 @@ function msLeft() {
   return ((23 - h) * 3600 + (59 - m) * 60 + (60 - sec)) * 1000;
 }
 const q = s => document.querySelector(s);
-/* Angebotscode: antippen kopiert ihn, damit ihn am Handy niemand abtippen muss. */
-document.addEventListener("click", async (e) => {
-  const b = e.target.closest(".code"); if (!b) return;
-  try { await navigator.clipboard.writeText(b.dataset.code); } catch (err) {}
-  const before = b.firstChild.nodeValue;
-  b.classList.add("done"); b.firstChild.nodeValue = "Copied";
-  setTimeout(() => { b.classList.remove("done"); b.firstChild.nodeValue = before; }, 1400);
-});
 const pad = n => String(n).padStart(2, "0");
 function tick() {
   const s = Math.max(0, Math.floor(msLeft() / 1000));
@@ -477,11 +451,6 @@ function tick() {
   q("[data-s]").textContent = pad(s % 60);
 }
 tick(); setInterval(tick, 1000);
-
-/* ── Video: progress bar follows playback; no autoplay for reduced motion. ── */
-const video = q(".video video"), bar = q(".progress i");
-video.addEventListener("timeupdate", () => { if (video.duration) bar.style.width = (video.currentTime / video.duration * 100) + "%"; });
-if (matchMedia("(prefers-reduced-motion: reduce)").matches) { video.removeAttribute("autoplay"); video.pause(); }
 
 /* ── Pricing: the only place prices and Whop checkout links live.
    Links = Whop-Produktseiten (Silver: scale-betting, Betting Masterclass: scale-betting-silver-copy), dort waehlt man die Laufzeit.
@@ -522,18 +491,53 @@ sw.addEventListener("click", () => render(sw.getAttribute("aria-checked") === "t
 render("year");
 </script>
 <script>
-document.addEventListener("click", function (e) {
-  const b = e.target.closest(".ytlite");
-  if (!b) return;
-  const f = document.createElement("iframe");
-  f.src = "https://www.youtube-nocookie.com/embed/" + b.dataset.yt +
-          "?autoplay=1&rel=0&modestbranding=1&vq=hd2160";
-  f.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
-  f.allowFullscreen = true;
-  f.title = "How we analyze our games, Jodar against Lehecka";
-  b.replaceWith(f);
-  f.className = "ytframe";
-});
+// Das Video startet stumm, sobald der Abschnitt im Bild ist. Vorher wird von
+// YouTube nichts geladen. Der Knopf schaltet den Ton ueber postMessage dazu,
+// dafuer braucht es die IFrame-API nicht.
+(function () {
+  const box = document.querySelector(".ytlite");
+  if (!box) return;
+  const id = box.dataset.yt;
+  let frame = null;
+
+  function start() {
+    if (frame) return;
+    frame = document.createElement("iframe");
+    frame.className = "ytframe";
+    frame.src = "https://www.youtube-nocookie.com/embed/" + id +
+      "?autoplay=1&mute=1&playsinline=1&controls=1&rel=0&modestbranding=1&enablejsapi=1&vq=hd2160";
+    frame.allow = "accelerometer; autoplay; encrypted-media; picture-in-picture; fullscreen";
+    frame.allowFullscreen = true;
+    frame.title = "How we analyze our games, Jodar against Lehecka";
+    box.replaceWith(frame);
+    wrap.hidden = false;
+  }
+
+  const wrap = document.querySelector(".sound");
+  wrap.hidden = true;
+  wrap.addEventListener("click", function () {
+    if (!frame) return;
+    ["unMute", "setVolume"].forEach(function (fn) {
+      frame.contentWindow.postMessage(JSON.stringify({
+        event: "command", func: fn, args: fn === "setVolume" ? [100] : []
+      }), "*");
+    });
+    wrap.hidden = true;
+  });
+
+  box.addEventListener("click", start);
+
+  if (matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(function (es) {
+      if (es.some(e => e.isIntersecting)) { io.disconnect(); start(); }
+    }, { threshold: 0.4 });
+    io.observe(box);
+  } else {
+    start();
+  }
+})();
 </script>
 </body>
 </html>
