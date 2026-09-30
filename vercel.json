@@ -2,8 +2,8 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/previews",
-      "destination": "/previews.html"
+      "source": "/gameplans",
+      "destination": "/gameplans.html"
     },
     {
       "source": "/api/lead",
@@ -11,6 +11,16 @@
     }
   ],
   "redirects": [
+    {
+      "source": "/previews",
+      "destination": "/gameplans",
+      "permanent": false
+    },
+    {
+      "source": "/previews.html",
+      "destination": "/gameplans",
+      "permanent": false
+    },
     {
       "source": "/start",
       "destination": "/",
