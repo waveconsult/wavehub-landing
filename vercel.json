@@ -2,6 +2,10 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
+      "source": "/previews",
+      "destination": "/previews.html"
+    },
+    {
       "source": "/api/lead",
       "destination": "https://app.wavehubtennis.com/api/lead"
     }
