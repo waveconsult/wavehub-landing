@@ -13,6 +13,21 @@
       "permanent": false
     },
     {
+      "source": "/gameplans.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/previews.html",
+      "destination": "/",
+      "permanent": false
+    },
+    {
+      "source": "/previews",
+      "destination": "/",
+      "permanent": false
+    },
+    {
       "source": "/gameplans",
       "destination": "/",
       "permanent": false
