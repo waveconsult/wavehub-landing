@@ -1,0 +1,640 @@
+<!DOCTYPE html>
+<html lang="en" data-view="start">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WaveHub · ATP calls priced by a model</title>
+<meta name="description" content="Our model prices every ATP match before we look at the odds. When the market is off, the call lands in the WaveHub app with the price and the stake.">
+<meta name="theme-color" content="#0A0C10">
+<!-- Vercel Analytics: Besucher und Seitenaufrufe, ohne Cookies. Laeuft nur auf der Vercel-Domain. -->
+<script defer src="/_vercel/insights/script.js"></script>
+<link rel="icon" href="assets/favicon-32.png">
+<link rel="apple-touch-icon" href="assets/apple-touch-icon.png">
+<meta property="og:type" content="website">
+<meta property="og:title" content="WaveHub · ATP calls priced by a model">
+<meta property="og:description" content="A fair price for every ATP match, the call when the market is off, and an honest no bet when it isn't.">
+<meta property="og:url" content="https://www.wavehubtennis.com/">
+<meta property="og:image" content="https://www.wavehubtennis.com/assets/logo-square.png">
+<meta name="robots" content="noindex,nofollow">
+<link href="/assets/fonts/fonts.css" rel="stylesheet">
+
+<!-- Startseite in zwei Ansichten.
+     #start  = Hero mit drei Zugaengen: Premium Access, Free Telegram, Get App.
+     #plans  = Shanghai Pass (noch gesperrt), Silver, Gold (geschlossen).
+     Umgeschaltet ueber den Hash, damit der Zurueck-Button funktioniert.
+     Preise und Whop-Links stehen NUR in PLANS im Script unten. -->
+<style>
+:root{
+  /* Eine Akzentfarbe fuer die ganze Seite: das Markenblau. Sonst nur Platin-Neutrale. */
+  --accent:#4E80FF; --accent-deep:#1D5CFF; --accent-press:#154AD6;
+  --bg:#0A0C10; --bg-2:#0E1117; --bg-3:#141821;
+  --ink:#F4F6FA; --mut:#A4ADBD; --faint:#737D8E; --line:#232936; --line-soft:#1A1F2A;
+  --plat:#E8EBF1; --plat-2:#C9D0DC;
+  --sans:'Inter Tight',system-ui,-apple-system,Segoe UI,sans-serif;
+  --mono:'IBM Plex Mono',ui-monospace,monospace;
+  --ease:cubic-bezier(.16,1,.3,1);
+  /* Radien-System: Flaechen 18px, Felder 12px, alles Klickbare als Pille. */
+  --r-card:18px; --r-field:12px; --r-pill:999px;
+  --wrap:1180px;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{background:var(--bg);scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+body{color:var(--ink);background:var(--bg);font-family:var(--sans);line-height:1.55;
+  -webkit-font-smoothing:antialiased;overflow-x:hidden}
+img,svg{display:block;max-width:100%}
+a{color:inherit;text-decoration:none}
+button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+:focus-visible{outline:2px solid var(--accent);outline-offset:3px;border-radius:var(--r-field)}
+.wrap{width:100%;max-width:var(--wrap);margin:0 auto;padding:0 20px}
+
+/* ── Ansichtswechsel ────────────────────────────────── */
+.view{display:none}
+html[data-view="start"] .view-start{display:block}
+html[data-view="plans"] .view-plans{display:block}
+
+/* ── Navigation: eine Zeile, max 72px ───────────────── */
+.nav{height:72px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:700;font-size:17px;letter-spacing:-.02em}
+.brand img{height:24px;width:auto}
+.nav-act{display:flex;align-items:center;gap:10px}
+.ghost{border:1px solid var(--line);border-radius:var(--r-pill);padding:9px 18px;
+  font-size:14px;font-weight:600;color:var(--mut);transition:color .2s var(--ease),border-color .2s var(--ease)}
+.ghost:hover{color:var(--ink);border-color:var(--plat-2)}
+
+/* ── Link-in-Bio Startseite ───────────────────────────────────────────────────
+   Aufbau wie eine Beacons-Seite: Avatar, Name, eine Zeile, darunter gestapelte
+   Buttons ueber die volle Breite. Dahinter ein Foto, damit es nicht nackt wirkt. */
+.hero{position:relative;min-height:100dvh;display:flex;flex-direction:column;
+  align-items:center;justify-content:center;padding:34px 0 48px;isolation:isolate;overflow:hidden}
+.hero-photo{position:absolute;inset:0;z-index:-3;pointer-events:none}
+.hero-photo img{width:100%;height:100%;object-fit:cover;object-position:50% 40%}
+.hero-photo::after{content:"";position:absolute;inset:0;
+  background:
+    linear-gradient(180deg,rgba(10,12,16,.86) 0%,rgba(10,12,16,.72) 38%,rgba(10,12,16,.94) 84%,var(--bg) 100%),
+    radial-gradient(66% 50% at 50% 38%,rgba(78,128,255,.20),transparent 72%)}
+/* Eigene Drachenzeichnung als Wasserzeichen. */
+.dragon{position:absolute;right:-20%;top:46%;transform:translateY(-50%);width:min(880px,130vw);
+  opacity:.12;color:var(--accent);z-index:-2;pointer-events:none}
+.dragon path,.dragon circle{vector-effect:non-scaling-stroke}
+
+.bio{width:100%;max-width:460px;margin:0 auto;padding:0 20px;text-align:center;
+  display:flex;flex-direction:column;align-items:center}
+.avatar{width:104px;height:104px;border-radius:50%;overflow:hidden;
+  border:2px solid rgba(255,255,255,.22);
+  box-shadow:0 0 0 6px rgba(78,128,255,.16), 0 20px 46px -12px rgba(0,0,0,.8)}
+.avatar img{width:100%;height:100%;object-fit:cover;object-position:50% 28%}
+.bio h1{margin-top:16px;font-size:clamp(26px,6.4vw,32px);letter-spacing:-.03em;font-weight:720;
+  line-height:1.1;text-shadow:0 2px 20px rgba(0,0,0,.6)}
+.handle{margin-top:5px;font-family:var(--mono);font-size:12.5px;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--accent)}
+.bioline{margin-top:12px;color:#C7CEDA;font-size:15.5px;line-height:1.5;max-width:34ch;
+  text-shadow:0 1px 12px rgba(0,0,0,.6)}
+
+/* ── Die Buttons: gestapelt, volle Breite, echte Tasten ──────────────────── */
+.links{width:100%;margin-top:26px;display:grid;grid-template-columns:minmax(0,1fr);gap:12px}
+.lnk{--edge:#11161F; --glow:rgba(0,0,0,.6);
+  /* min-width:0 ist noetig, sonst drueckt der lange Untertitel den Button
+     ueber seine Zelle hinaus und er ragt rechts aus dem Bild. */
+  position:relative;min-width:0;display:flex;align-items:center;gap:13px;min-height:62px;padding:14px 18px;
+  border-radius:16px;font-size:16.5px;font-weight:650;letter-spacing:-.01em;text-align:left;
+  color:var(--plat);background:linear-gradient(180deg,#232A36 0%,#1A202A 100%);
+  touch-action:manipulation;-webkit-tap-highlight-color:transparent;
+  box-shadow:0 5px 0 var(--edge), 0 14px 30px -12px var(--glow), inset 0 1px 0 rgba(255,255,255,.14);
+  transition:transform .15s var(--ease), box-shadow .15s var(--ease), filter .2s var(--ease)}
+.lnk:hover{transform:translateY(-2px);filter:brightness(1.08);
+  box-shadow:0 7px 0 var(--edge), 0 20px 40px -12px var(--glow), inset 0 1px 0 rgba(255,255,255,.2)}
+.lnk:active{transform:translateY(4px);
+  box-shadow:0 1px 0 var(--edge), 0 5px 12px -8px var(--glow), inset 0 1px 0 rgba(255,255,255,.1)}
+.lnk .ic{width:36px;height:36px;border-radius:11px;display:grid;place-items:center;flex:none;
+  background:rgba(255,255,255,.12);box-shadow:inset 0 1px 0 rgba(255,255,255,.26)}
+.lnk .ic svg{width:20px;height:20px}
+.lnk .tx{flex:1;min-width:0}
+.lnk .tx b{display:block;font-weight:680;line-height:1.2}
+.lnk .tx span{display:block;font-size:13px;font-weight:500;opacity:.72;margin-top:2px;
+  white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lnk .arw{width:18px;height:18px;flex:none;opacity:.62;transition:transform .2s var(--ease)}
+.lnk:hover .arw{transform:translateX(4px);opacity:1}
+
+/* Premium ist die goldene Taste. Gold steht hier fuer die Stufe, nicht als
+   Dekoration, deshalb bekommt auch der Schein die Farbe. */
+.lnk-prem{--edge:#A07C28; --glow:rgba(212,176,90,.6);
+  color:#160F02;background:linear-gradient(180deg,#FDF3D2 0%,#F0D894 34%,#DFBC66 68%,#C9A245 100%);
+  min-height:74px;font-size:18px}
+.lnk-prem .ic{background:rgba(22,15,2,.14);box-shadow:inset 0 1px 0 rgba(255,255,255,.55)}
+.lnk-prem .tx span{opacity:.66}
+.lnk-prem .arw{opacity:.72}
+@media (prefers-reduced-motion:no-preference){
+  .lnk-prem{animation:pulse 3.8s var(--ease) infinite}
+  @keyframes pulse{
+    0%,100%{box-shadow:0 5px 0 var(--edge),0 16px 34px -12px rgba(212,176,90,.46),inset 0 1px 0 rgba(255,255,255,.6)}
+    50%{box-shadow:0 5px 0 var(--edge),0 24px 52px -12px rgba(224,188,100,.8),inset 0 1px 0 rgba(255,255,255,.75)}
+  }
+  .lnk-prem:hover,.lnk-prem:active{animation:none}
+}
+.lnk-tele{--edge:#115A7D; --glow:rgba(33,153,212,.5);color:#fff;
+  background:linear-gradient(180deg,#2AA8E6 0%,#2199D4 54%,#1A80B2 100%)}
+.lnk-tele .ic{background:rgba(255,255,255,.9);color:#2199D4}
+.lnk-app{--edge:#1B2029;background:linear-gradient(180deg,#59637400 0%,#00000000 100%),
+  linear-gradient(180deg,#4C5667 0%,#39424F 54%,#2A3140 100%)}
+
+/* Kleine Hinweiszeile unter den Buttons. */
+.bionote{margin-top:20px;color:#8B94A4;font-size:12.5px;max-width:34ch}
+/* ── Abschnitte ─────────────────────────────────────── */
+.sec{padding:clamp(72px,9vw,120px) 0;border-top:1px solid var(--line-soft)}
+.h2{font-size:clamp(28px,4vw,44px);line-height:1.1;letter-spacing:-.03em;font-weight:700;max-width:18ch}
+.lead{margin-top:14px;color:var(--mut);font-size:17px;max-width:62ch}
+.eyebrow{font-family:var(--mono);font-size:11px;letter-spacing:.18em;text-transform:uppercase;
+  color:var(--faint);display:block;margin-bottom:14px}
+
+/* Bento mit Rhythmus: 7 Inhalte, 7 Zellen, erste gross. */
+.gets{margin-top:clamp(28px,4vw,44px);display:grid;gap:14px;grid-template-columns:repeat(6,1fr)}
+.get{grid-column:span 2;border:1px solid var(--line);border-radius:var(--r-card);overflow:hidden;
+  background:var(--bg-2);display:flex;flex-direction:column;
+  transition:border-color .28s var(--ease),transform .28s var(--ease)}
+.get:hover{border-color:#2F3747;transform:translateY(-2px)}
+.get:nth-child(1){grid-column:span 4}
+.get:nth-child(7){grid-column:span 6}
+.get img{width:100%;height:auto;aspect-ratio:8/5;object-fit:cover;border-bottom:1px solid var(--line)}
+.get:nth-child(7) img{aspect-ratio:16/5}
+.get-txt{padding:20px;display:flex;flex-direction:column;gap:7px}
+.get-txt b{font-size:17px;letter-spacing:-.015em;font-weight:650}
+.get-txt p{color:var(--mut);font-size:14.5px}
+.tiers{display:flex;gap:6px;margin-bottom:3px}
+.tier{font-family:var(--mono);font-size:10px;letter-spacing:.1em;text-transform:uppercase;
+  padding:4px 9px;border-radius:var(--r-pill);border:1px solid var(--line);color:var(--faint)}
+.tier.silver{color:var(--plat-2);border-color:#333B4B}
+.tier.gold{color:var(--accent);border-color:rgba(78,128,255,.42)}
+.tier.free{color:var(--mut)}
+
+/* Methode: gestapelte Zeilen statt drei gleicher Karten. */
+.steps{margin-top:clamp(26px,4vw,40px);display:grid;gap:0}
+.step{display:grid;grid-template-columns:minmax(220px,.9fr) 1.4fr;gap:24px;align-items:start;
+  padding:26px 0;border-top:1px solid var(--line-soft)}
+.step:last-child{border-bottom:1px solid var(--line-soft)}
+.step h3{font-size:21px;letter-spacing:-.02em;font-weight:650}
+.step p{color:var(--mut);font-size:15.5px;max-width:58ch}
+
+.faq{margin-top:clamp(24px,3.5vw,38px);max-width:820px}
+.faq details{border-top:1px solid var(--line-soft);padding:4px 0}
+.faq details:last-child{border-bottom:1px solid var(--line-soft)}
+.faq summary{list-style:none;cursor:pointer;padding:18px 34px 18px 0;position:relative;
+  font-size:17px;font-weight:600;letter-spacing:-.015em}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"";position:absolute;right:6px;top:50%;width:9px;height:9px;
+  border-right:1.6px solid var(--faint);border-bottom:1.6px solid var(--faint);
+  transform:translateY(-70%) rotate(45deg);transition:transform .25s var(--ease)}
+.faq details[open] summary::after{transform:translateY(-30%) rotate(225deg)}
+.faq p{color:var(--mut);font-size:15.5px;padding:0 0 20px;max-width:66ch}
+
+.final{padding:clamp(72px,9vw,118px) 0;border-top:1px solid var(--line-soft);text-align:left}
+
+/* ── Preisansicht ───────────────────────────────────── */
+.pass-wrap{padding:26px 0 0}
+.marquee{overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line);
+  background:linear-gradient(90deg,rgba(78,128,255,.10),transparent 45%,rgba(78,128,255,.10));
+  padding:11px 0;-webkit-mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent);
+  mask-image:linear-gradient(90deg,transparent,#000 9%,#000 91%,transparent)}
+.mq-track{display:flex;width:max-content;animation:mq 34s linear infinite}
+.mq-track span{font-family:var(--mono);font-size:11.5px;letter-spacing:.3em;text-transform:uppercase;
+  color:var(--plat-2);padding:0 22px;display:inline-flex;align-items:center;gap:22px;white-space:nowrap}
+.mq-track svg{width:17px;height:17px;color:var(--accent);flex:none}
+@keyframes mq{to{transform:translateX(-50%)}}
+
+.pass{margin-top:clamp(26px,4vw,40px);border:1px solid rgba(78,128,255,.34);border-radius:var(--r-card);
+  background:linear-gradient(150deg,rgba(78,128,255,.13),var(--bg-2) 56%);
+  padding:clamp(24px,3.4vw,38px);display:grid;grid-template-columns:1.5fr auto;gap:26px;align-items:center}
+.pass h2{font-size:clamp(24px,3.2vw,34px);letter-spacing:-.03em;font-weight:700}
+.pass p{color:var(--mut);margin-top:9px;font-size:15.5px;max-width:52ch}
+.locked{display:inline-flex;align-items:center;gap:9px;border:1px dashed #394254;color:var(--faint);
+  border-radius:var(--r-pill);padding:14px 26px;font-weight:600;font-size:15px;white-space:nowrap;
+  cursor:not-allowed}
+.locked svg{width:16px;height:16px}
+
+.plans-head{padding:clamp(54px,7vw,84px) 0 0}
+.switch-wrap{margin-top:26px;display:inline-flex;align-items:center;gap:12px;
+  border:1px solid var(--line);border-radius:var(--r-pill);padding:6px 8px;background:var(--bg-2)}
+.switch-wrap button{border-radius:var(--r-pill);padding:9px 18px;font-size:14px;font-weight:600;
+  color:var(--mut);transition:background .22s var(--ease),color .22s var(--ease)}
+.switch-wrap button[aria-pressed="true"]{background:var(--plat);color:#0B0E13}
+.save{font-family:var(--mono);font-size:11px;letter-spacing:.1em;text-transform:uppercase;
+  color:var(--accent);padding-right:8px}
+
+.plans{margin-top:clamp(24px,3.4vw,38px);display:grid;gap:16px;grid-template-columns:1fr 1fr;
+  padding-bottom:clamp(60px,8vw,100px)}
+.plan{border:1px solid var(--line);border-radius:var(--r-card);padding:clamp(24px,3vw,32px);
+  background:var(--bg-2);display:flex;flex-direction:column;gap:4px}
+.plan-live{border-color:rgba(78,128,255,.40);background:linear-gradient(170deg,rgba(78,128,255,.09),var(--bg-2) 52%)}
+.plan h3{font-size:23px;letter-spacing:-.02em;font-weight:700}
+.plan .desc{color:var(--mut);font-size:15px;margin-top:5px}
+.price{margin-top:20px;display:flex;align-items:baseline;gap:9px}
+.price strong{font-size:clamp(34px,4.6vw,46px);letter-spacing:-.04em;font-weight:700;line-height:1}
+.per{color:var(--faint);font-family:var(--mono);font-size:12.5px;margin-top:7px}
+.pbtn{margin-top:22px;display:block;text-align:center;border-radius:var(--r-pill);padding:15px 24px;
+  font-weight:650;font-size:15.5px;transition:transform .22s var(--ease),background .22s var(--ease)}
+.pbtn-go{background:var(--plat);color:#0B0E13}
+.pbtn-go:hover{background:#fff;transform:translateY(-1px)}
+.pbtn-go:active{transform:translateY(0) scale(.99)}
+.pbtn-closed{border:1px dashed #394254;color:var(--faint);cursor:not-allowed}
+.closed-note{color:var(--faint);font-size:13.5px;margin-top:11px;text-align:center}
+.feats{list-style:none;margin-top:24px;display:grid;gap:11px;border-top:1px solid var(--line-soft);padding-top:22px}
+.feats li{position:relative;padding-left:26px;color:var(--plat-2);font-size:14.5px}
+.feats li::before{content:"";position:absolute;left:3px;top:7px;width:9px;height:5px;
+  border-left:1.7px solid var(--accent);border-bottom:1.7px solid var(--accent);transform:rotate(-45deg)}
+.feats li.no{color:var(--faint)}
+.feats li.no::before{border-color:#394254;transform:none;top:9px;width:9px;height:1.7px;
+  border-left:0;border-bottom:1.7px solid #394254}
+.fine{color:var(--faint);font-size:13.5px;max-width:74ch;padding-bottom:clamp(50px,7vw,90px)}
+.fine b{color:var(--mut)}
+
+/* ── Fuss ───────────────────────────────────────────── */
+.foot{border-top:1px solid var(--line-soft);padding:36px 0 46px}
+.foot p{color:var(--faint);font-size:13px;max-width:78ch}
+.foot a{color:var(--mut);text-decoration:underline;text-underline-offset:3px}
+.legal{margin-top:14px;display:flex;flex-wrap:wrap;gap:18px}
+.legal a{font-size:13px;text-decoration:none;color:var(--faint)}
+.legal a:hover{color:var(--ink)}
+
+/* ── Einblenden beim Laden und beim Scrollen ────────── */
+.rise{opacity:0;transform:translateY(16px)}
+.rise.in{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+
+/* ── Mobil ──────────────────────────────────────────── */
+@media (max-width:860px){
+  /* Premium oben ueber die volle Breite, darunter die zwei kleinen nebeneinander.
+     So sind alle drei Tasten ohne Scrollen sichtbar. */
+  .doors{gap:12px;grid-template-columns:1fr 1fr;grid-template-areas:"prem prem" "tele app"}
+  .door{padding:18px}
+  .door h2{font-size:18px}
+  .door .go{padding-top:12px;font-size:13.5px}
+  .door-prem{min-height:0;padding:22px}
+  .door-prem h2{font-size:28px}
+  .door-prem p{font-size:15px;margin-top:8px;max-width:none}
+  .prem-cta{margin-top:18px;padding:15px 26px;font-size:16px}
+  .dmark{width:40px;height:40px;margin-bottom:12px;border-radius:12px}
+  .dmark svg{width:22px;height:22px}
+
+  .hero{min-height:0;padding:16px 0 48px}
+  .h1{font-size:clamp(29px,7.6vw,40px);max-width:none}
+  .sub{margin-top:12px;font-size:15.5px}
+  .dragon{right:-34%;opacity:.1;width:150vw}
+
+  .gets{grid-template-columns:1fr}
+  .get,.get:nth-child(1),.get:nth-child(7){grid-column:span 1}
+  .get:nth-child(7) img{aspect-ratio:8/5}
+  .step{grid-template-columns:1fr;gap:10px}
+  .pass{grid-template-columns:1fr;align-items:start}
+  .plans{grid-template-columns:1fr}
+}
+/* Sehr schmale Geraete: die zwei kleinen Tasten bleiben nebeneinander,
+   nur die Beschriftung wird kompakter. */
+@media (max-width:380px){
+  .door h2{font-size:16.5px}
+  .door .go{font-size:12.5px;gap:6px}
+  .door-prem h2{font-size:25px}
+}
+
+/* ── Weniger Bewegung ───────────────────────────────── */
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;
+    transition-duration:.001ms!important;scroll-behavior:auto!important}
+  .rise{opacity:1;transform:none}
+  .mq-track{animation:none;transform:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ══ Ansicht 1: Start ══════════════════════════════ -->
+<div class="view view-start">
+  <div class="wrap">
+    <header class="nav">
+      <a class="brand" href="/"><img src="assets/logo.png" alt="">WaveHub</a>
+      <div class="nav-act">
+        <a class="ghost" href="/login">Get app</a>
+      </div>
+    </header>
+  </div>
+
+  <section class="hero">
+    <div class="hero-photo"><img src="assets/hero-court.png" alt="" width="1376" height="768" fetchpriority="high"></div>
+    <svg class="dragon" viewBox="0 0 900 620" fill="none" aria-hidden="true" focusable="false">
+      <g stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M42 470c86 34 150 6 196-52 44-56 36-124-6-156-40-30-96-16-112 26-14 38 10 76 54 80 40 4 72-22 78-58"/>
+        <path d="M118 368c22 6 46-4 56-26"/>
+        <path d="M232 418c74 60 158 70 232 26 62-36 92-100 86-166-6-62-50-110-112-118-58-8-108 26-120 78-10 46 20 88 68 94 42 6 78-20 86-58"/>
+        <path d="M384 238c24 8 50-2 62-24"/>
+        <path d="M546 264c62 46 132 46 186-6 46-44 58-110 30-166"/>
+        <path d="M620 118c34-40 86-56 136-40 54 18 86 70 78 126-6 46-40 82-84 92"/>
+        <path d="M756 78c16-12 36-16 56-10"/>
+        <path d="M800 196c26 10 44 34 46 62 2 34-18 64-50 74"/>
+        <path d="M60 520c120 44 236 40 344-14"/>
+        <path d="M196 556c96 26 190 16 276-30"/>
+        <path d="M688 150c-14 18-14 42 2 58"/>
+        <path d="M252 332c-10 16-8 36 4 50"/>
+      </g>
+      <circle cx="742" cy="126" r="7" fill="currentColor"/>
+      <circle cx="430" cy="276" r="5.5" fill="currentColor"/>
+      <circle cx="162" cy="398" r="4.5" fill="currentColor"/>
+    </svg>
+
+    <div class="bio">
+      <span class="avatar"><img src="assets/logo-square.png" alt="WaveHub" width="208" height="208"></span>
+      <h1>WaveHub</h1>
+      <span class="handle">ATP Tennis</span>
+      <p class="bioline">We price the match first. The call comes only when the market is wrong enough to matter.</p>
+
+      <nav class="links">
+        <a class="lnk lnk-prem" href="#plans" data-go-plans>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5l4.2 3L12 4l4.8 6.5L21 7.5l-1.7 10.2a1.3 1.3 0 0 1-1.28 1.08H5.98a1.3 1.3 0 0 1-1.28-1.08z"/></svg></span>
+          <span class="tx"><b>Premium Access</b><span>Silver is open, Gold is closed</span></span>
+          <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="lnk lnk-tele" href="https://t.me/+IyD9Isx2p0VjNjNk" target="_blank" rel="noopener">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M11.944 0A12 12 0 0 0 0 12a12 12 0 0 0 12 12 12 12 0 0 0 12-12A12 12 0 0 0 12 0a12 12 0 0 0-.056 0zm4.962 7.224c.1-.002.321.023.465.14a.506.506 0 0 1 .171.325c.016.093.036.306.02.472-.18 1.898-.962 6.502-1.36 8.627-.168.9-.499 1.201-.82 1.23-.696.065-1.225-.46-1.9-.902-1.056-.693-1.653-1.124-2.678-1.8-1.185-.78-.417-1.21.258-1.91.177-.184 3.247-2.977 3.307-3.23.007-.032.014-.15-.056-.212s-.174-.041-.249-.024c-.106.024-1.793 1.14-5.061 3.345-.48.33-.913.49-1.302.48-.428-.008-1.252-.241-1.865-.44-.752-.245-1.349-.374-1.297-.789.027-.216.325-.437.893-.663 3.498-1.524 5.83-2.529 6.998-3.014 3.332-1.386 4.025-1.627 4.476-1.635z"/></svg></span>
+          <span class="tx"><b>Free Telegram</b><span>Selected calls, free to join</span></span>
+          <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="lnk lnk-app" href="/login">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2.2" width="12" height="19.6" rx="3.2"/><path d="M12 7.6v6.6"/><path d="M9.2 11.6 12 14.4l2.8-2.8"/></svg></span>
+          <span class="tx"><b>Get the app</b><span>Every call as a push notification</span></span>
+          <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+        <a class="lnk " href="mailto:management@wavehubtennis.com?subject=WaveHub%20support">
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20.5 12.3c0 4.1-3.8 7.2-8.5 7.2a9.7 9.7 0 0 1-2.6-.35L4.8 20.5l1.1-3.4A6.9 6.9 0 0 1 3.5 12.3c0-4.1 3.8-7.2 8.5-7.2s8.5 3.1 8.5 7.2z"/><path d="M9.9 10.2a2.2 2.2 0 0 1 4.2.8c0 1.5-2.1 1.7-2.1 3"/><path d="M12 15.9h.01"/></svg></span>
+          <span class="tx"><b>Support</b><span>Membership or app questions</span></span>
+          <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+      </nav>
+
+      <p class="bionote">Analysis only. We are not a bookmaker and we hold no money.</p>
+    </div>
+  </section>
+
+  <section class="sec" id="get">
+    <div class="wrap">
+      <span class="eyebrow">What you get</span>
+      <h2 class="h2 rise">Everything you need to place one good bet a day.</h2>
+      <p class="lead rise">Not a feed of tips. The reasoning, the price and the plan behind every call, plus the weeks where the honest answer is no bet.</p>
+      <div class="gets">
+        <article class="get rise">
+          <img src="assets/get-1.jpg" alt="A pick posted with the odds, the stake and the reasoning" loading="lazy" width="800" height="500">
+          <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+            <b>Every pick, with the reasoning</b>
+            <p>Never just a name and a price. You see why the market is wrong, the fair price from my model and the stake as a share of your bank.</p></div>
+        </article>
+        <article class="get rise">
+          <img src="assets/get-2.jpg" alt="A gameplan page showing who benefits, who does not, and the takeaway" loading="lazy" width="800" height="500">
+          <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+            <b>A gameplan for every tournament</b>
+            <p>Conditions first: court speed, altitude, heat and humidity. Then who those conditions reward and who they punish.</p></div>
+        </article>
+        <article class="get rise">
+          <img src="assets/get-3.jpg" alt="A live call sent while the match was running" loading="lazy" width="800" height="500">
+          <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+            <b>Live calls when a match turns</b>
+            <p>Some spots only appear once the match is running. You get them the moment I take them, not in a recap afterwards.</p></div>
+        </article>
+        <article class="get rise">
+          <img src="assets/get-4.jpg" alt="Working through the morning notes" loading="lazy" width="800" height="500">
+          <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+            <b>Insights between the picks</b>
+            <p>What I am watching, what changed overnight, and just as often why I am staying away from a match everyone else is betting.</p></div>
+        </article>
+        <article class="get rise">
+          <img src="assets/get-5.jpg" alt="A WaveHub push notification on a phone lock screen" loading="lazy" width="800" height="500">
+          <div class="get-txt"><div class="tiers"><span class="tier free">Free</span></div>
+            <b>The app on your phone</b>
+            <p>Every pick and every insight arrives as a push notification. Add it to your home screen and you will never miss a price.</p></div>
+        </article>
+        <article class="get rise">
+          <img src="assets/get-6.jpg" alt="An odds movement chart" loading="lazy" width="800" height="500">
+          <div class="get-txt"><div class="tiers"><span class="tier silver">Silver</span><span class="tier gold">Gold</span></div>
+            <b>The engine behind the calls</b>
+            <p>Put any two players in and get the model price for the match, the same model the calls are built on.</p></div>
+        </article>
+        <article class="get rise">
+          <img src="assets/get-7.jpg" alt="Working through the models" loading="lazy" width="800" height="500">
+          <div class="get-txt"><div class="tiers"><span class="tier gold">Gold</span></div>
+            <b>The models, the courses, the staking plan</b>
+            <p>The models the calls are built on as a spreadsheet, a staking plan sized to your bankroll, and the full course library.</p></div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="method">
+    <div class="wrap">
+      <h2 class="h2 rise">A probability, a fair price, a plan.</h2>
+      <p class="lead rise">Every call is a disagreement with the market price, sized to your bankroll and tracked whether it wins or loses.</p>
+      <div class="steps">
+        <article class="step rise"><h3>Price it ourselves</h3><p>Surface, form and fatigue go into the model first. The bookmaker's number comes after, so it cannot anchor the read.</p></article>
+        <article class="step rise"><h3>Take the value</h3><p>The gap between fair price and market price sets the stake. No gap, no bet, and most matches get no call at all.</p></article>
+        <article class="step rise"><h3>Track it in the open</h3><p>Wins and losses go into the same record, where members can see them.</p></article>
+      </div>
+    </div>
+  </section>
+
+  <section class="sec" id="faq">
+    <div class="wrap">
+      <h2 class="h2 rise">What people ask first.</h2>
+      <div class="faq">
+        <details open><summary>What exactly do I get?</summary><p>Every call, pushed to Telegram the moment the odds are out: the match, the bookmaker, the price and the stake as a percentage of your bank. Plus tournament previews and the results tracked in the open.</p></details>
+        <details><summary>Is WaveHub a bookmaker?</summary><p>No. We publish analysis. We take no bets and hold no money. You place your bets with your own bookmaker.</p></details>
+        <details><summary>Do I need to be experienced?</summary><p>No. Every call tells you what to take, at what price, with how much of your bank, and why. Gold adds a staking plan and the full course library.</p></details>
+        <details><summary>Why only ATP tennis?</summary><p>One tour followed properly beats ten followed badly. The model is built on ATP matches, surfaces and schedules, so that is the only place we price.</p></details>
+        <details><summary>Can I cancel?</summary><p>Yes. Cancel before your membership renews and your access runs until the end of the term you paid for.</p></details>
+      </div>
+    </div>
+  </section>
+
+  <section class="final">
+    <div class="wrap">
+      <h2 class="h2 rise">Read the few matches that matter.</h2>
+      <nav class="links rise" style="max-width:460px">
+        <a class="lnk lnk-prem" href="#plans" data-go-plans>
+          <span class="ic"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7.5l4.2 3L12 4l4.8 6.5L21 7.5l-1.7 10.2a1.3 1.3 0 0 1-1.28 1.08H5.98a1.3 1.3 0 0 1-1.28-1.08z"/></svg></span>
+          <span class="tx"><b>Premium Access</b><span>Silver is open, Gold is closed</span></span>
+          <svg class="arw" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h13M13 6l6 6-6 6"/></svg>
+        </a>
+      </nav>
+    </div>
+  </section>
+</div>
+
+<!-- ══ Ansicht 2: Pakete ═════════════════════════════ -->
+<div class="view view-plans">
+  <div class="wrap">
+    <header class="nav">
+      <a class="brand" href="/"><img src="assets/logo.png" alt="">WaveHub</a>
+      <div class="nav-act">
+        <a class="ghost" href="#start" data-go-start>Back</a>
+      </div>
+    </header>
+  </div>
+
+  <div class="pass-wrap">
+    <div class="marquee" aria-hidden="true">
+      <div class="mq-track" id="mq"></div>
+    </div>
+
+    <div class="wrap">
+      <article class="pass">
+        <div>
+          <h2>Shanghai Pass</h2>
+          <p>A limited run tied to the Shanghai swing. Every call of the tournament, no membership needed. It is not on sale yet.</p>
+        </div>
+        <span class="locked" role="status">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4.5" y="10.5" width="15" height="10" rx="2.5"/><path d="M8.2 10.5V7.4a3.8 3.8 0 0 1 7.6 0v3.1"/></svg>
+          Not available yet
+        </span>
+      </article>
+    </div>
+  </div>
+
+  <div class="wrap">
+    <div class="plans-head">
+      <h2 class="h2">Pick your seat.</h2>
+      <p class="lead">Silver gets you the calls. Gold adds the models behind them, the courses and the staking plan.</p>
+      <div class="switch-wrap" role="group" aria-label="Billing term">
+        <button type="button" data-term="quarter" aria-pressed="false">3 months</button>
+        <button type="button" data-term="year" aria-pressed="true">Yearly</button>
+        <span class="save" hidden></span>
+      </div>
+    </div>
+
+    <div class="plans">
+      <article class="plan plan-live" data-plan="silver">
+        <h3>Silver</h3>
+        <p class="desc">The calls, with the reasoning behind every one.</p>
+        <div class="price"><strong data-price></strong></div>
+        <p class="per" data-per></p>
+        <a class="pbtn pbtn-go" data-checkout href="#plans">Start with Silver</a>
+        <ul class="feats">
+          <li>Every pick, with the reasoning behind it</li>
+          <li>Tournament gameplans and previews</li>
+          <li>Live in-play calls as matches turn</li>
+          <li class="no">A staking plan sized to your bankroll</li>
+          <li class="no">The full course library</li>
+          <li class="no">The models as a spreadsheet</li>
+        </ul>
+      </article>
+
+      <article class="plan" data-plan="gold">
+        <h3>Gold</h3>
+        <p class="desc">The calls plus the models, courses and insights.</p>
+        <div class="price"><strong>Closed</strong></div>
+        <p class="per">Currently not taking new members</p>
+        <span class="pbtn pbtn-closed" role="status">Currently closed</span>
+        <p class="closed-note">Gold reopens when there is room to look after every member properly.</p>
+        <ul class="feats">
+          <li>Everything in Silver</li>
+          <li>A staking plan sized to your bankroll</li>
+          <li>The full course library</li>
+          <li>The models as a spreadsheet</li>
+          <li>Insights as they are written</li>
+          <li>Results tracked in the open</li>
+        </ul>
+      </article>
+    </div>
+
+    <p class="fine"><b>Plans renew automatically for the same term.</b> Cancel anytime in your Whop account and your access runs until the end of the term you paid for. Checkout runs on Whop. You get the Telegram invite and your account straight after paying.</p>
+  </div>
+</div>
+
+<footer class="foot">
+  <div class="wrap">
+    <p>WaveHub publishes sports analysis. We are not a bookmaker, we take no bets and we hold no money. Nothing here is a promise of profit, and betting can lose you money. See our <a href="/privacy.html">privacy policy</a>.</p>
+    <nav class="legal"><a href="/imprint.html">Imprint</a><a href="/privacy.html">Privacy</a><a href="/terms.html">Terms</a><a href="/withdrawal.html">Withdrawal</a></nav>
+  </div>
+</footer>
+
+<script>
+/* ── Preise und Whop-Links. Nur hier aendern. ───────────────────────────────
+   price = null heisst: diese Laufzeit gibt es fuer den Plan nicht.
+   Gold ist derzeit geschlossen und wird im Markup als "Closed" gezeigt. */
+const PLANS = {
+  silver: { quarter: { price: 149, checkout: "https://whop.com/checkout/ch_3fGnxuJlfOAvIzp/" },
+            year:    { price: 399, checkout: "https://whop.com/checkout/ch_Z93jG68rmsY7Idt/" } }
+};
+const MONTHS = { quarter: 3, year: 12 };
+
+/* ── Ansichtswechsel ueber den Hash, damit Zurueck funktioniert ── */
+const root = document.documentElement;
+/* Der Browser stellt beim Zurueckgehen sonst die alte Scrollposition wieder her
+   und man landet mitten in der anderen Ansicht. */
+if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+
+function toTop(){
+  const prev = root.style.scrollBehavior;
+  root.style.scrollBehavior = "auto";            /* nicht weich scrollen */
+  window.scrollTo(0, 0);
+  requestAnimationFrame(() => {                  /* nach dem Umbau nochmal */
+    window.scrollTo(0, 0);
+    setTimeout(() => { window.scrollTo(0, 0); root.style.scrollBehavior = prev; }, 0);
+  });
+}
+function applyView(){
+  root.dataset.view = location.hash === "#plans" ? "plans" : "start";
+  toTop();
+}
+addEventListener("hashchange", applyView);
+for (const el of document.querySelectorAll("[data-go-start]")) {
+  el.addEventListener("click", e => { e.preventDefault(); history.pushState(null, "", location.pathname); applyView(); });
+}
+addEventListener("popstate", applyView);
+applyView();
+
+/* ── Laufzeit umschalten ── */
+const saveEl = document.querySelector(".save");
+function render(term){
+  for (const btn of document.querySelectorAll("[data-term]")) {
+    btn.setAttribute("aria-pressed", String(btn.dataset.term === term));
+  }
+  for (const card of document.querySelectorAll("[data-plan]")) {
+    const plan = PLANS[card.dataset.plan];
+    if (!plan) continue;                         /* Gold: fester Closed-Zustand */
+    const offer = plan[term].price != null ? plan[term] : plan.year;
+    const shown = plan[term].price != null ? term : "year";
+    card.querySelector("[data-price]").textContent = "€" + offer.price;
+    card.querySelector("[data-per]").textContent =
+      "= €" + (offer.price / MONTHS[shown]).toFixed(2).replace(".", ",") + " per month";
+    const btn = card.querySelector("[data-checkout]");
+    if (btn) { btn.href = offer.checkout; btn.rel = "noopener"; btn.target = "_blank"; }
+  }
+  const s = PLANS.silver;
+  const pct = Math.round((1 - (s.year.price / 12) / (s.quarter.price / 3)) * 100);
+  if (term === "year" && pct > 0) { saveEl.hidden = false; saveEl.textContent = "Save " + pct + "%"; }
+  else saveEl.hidden = true;
+}
+for (const btn of document.querySelectorAll("[data-term]")) {
+  btn.addEventListener("click", () => render(btn.dataset.term));
+}
+render("year");
+
+/* ── Lauftext fuer den Shanghai Pass. Zweimal befuellt, damit die Schleife nahtlos ist. ── */
+const mark = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2.5 16c4 2 7-.5 8.5-3.5S13 6 10 4.8"/><path d="M11 12.5c3 2.5 7 2.5 9.5-.5"/><path d="M17 6.5c1.8-1.5 4-1 4.5 1"/><circle cx="19.2" cy="8.4" r="1" fill="currentColor"/></svg>';
+const mq = document.getElementById("mq");
+if (mq) {
+  const one = '<span>Shanghai Pass' + mark + 'Limited Edition' + mark + '</span>';
+  mq.innerHTML = one.repeat(12);
+}
+
+/* ── Sanftes Einblenden. IntersectionObserver statt Scroll-Listener. ── */
+const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const risers = document.querySelectorAll(".rise");
+if (reduce) { for (const el of risers) el.classList.add("in"); }
+else {
+  const io = new IntersectionObserver((entries) => {
+    for (const en of entries) {
+      if (!en.isIntersecting) continue;
+      const row = en.target.parentElement ? [...en.target.parentElement.children].indexOf(en.target) : 0;
+      en.target.style.transitionDelay = Math.min(row, 5) * 60 + "ms";
+      en.target.classList.add("in");
+      io.unobserve(en.target);
+    }
+  }, { threshold: .18, rootMargin: "0px 0px -8% 0px" });
+  for (const el of risers) io.observe(el);
+}
+</script>
+</body>
+</html>

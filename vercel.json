@@ -12,6 +12,11 @@
   ],
   "redirects": [
     {
+      "source": "/",
+      "destination": "https://app.wavehubtennis.com/",
+      "permanent": false
+    },
+    {
       "source": "/previews",
       "destination": "/gameplans",
       "permanent": false
