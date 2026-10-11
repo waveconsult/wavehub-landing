@@ -2,10 +2,6 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/gameplans",
-      "destination": "/gameplans.html"
-    },
-    {
       "source": "/api/lead",
       "destination": "https://app.wavehubtennis.com/api/lead"
     }
@@ -17,13 +13,8 @@
       "permanent": false
     },
     {
-      "source": "/previews",
-      "destination": "/gameplans",
-      "permanent": false
-    },
-    {
-      "source": "/previews.html",
-      "destination": "/gameplans",
+      "source": "/gameplans",
+      "destination": "/",
       "permanent": false
     },
     {
