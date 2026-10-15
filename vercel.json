@@ -4,6 +4,10 @@
     {
       "source": "/api/lead",
       "destination": "https://app.wavehubtennis.com/api/lead"
+    },
+    {
+      "source": "/stats",
+      "destination": "/stats.html"
     }
   ],
   "redirects": [
