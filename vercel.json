@@ -8,6 +8,10 @@
     {
       "source": "/stats",
       "destination": "/stats.html"
+    },
+    {
+      "source": "/vienna",
+      "destination": "/vienna.html"
     }
   ],
   "redirects": [
