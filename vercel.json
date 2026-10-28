@@ -2,108 +2,30 @@
   "$schema": "https://openapi.vercel.sh/vercel.json",
   "rewrites": [
     {
-      "source": "/api/lead",
-      "destination": "https://app.wavehubtennis.com/api/lead"
-    },
-    {
       "source": "/stats",
       "destination": "/stats.html"
-    },
-    {
-      "source": "/vienna",
-      "destination": "/vienna.html"
     }
   ],
   "redirects": [
-    {
-      "source": "/",
-      "destination": "https://app.wavehubtennis.com/",
-      "permanent": false
-    },
-    {
-      "source": "/gameplans.html",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/previews.html",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/previews",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/gameplans",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/start",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/start.html",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/free",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/index.html",
-      "destination": "/",
-      "permanent": false
-    },
-    {
-      "source": "/plans",
-      "destination": "https://app.wavehubtennis.com/plans",
-      "permanent": false
-    },
-    {
-      "source": "/login",
-      "destination": "https://app.wavehubtennis.com/login",
-      "permanent": false
-    },
-    {
-      "source": "/signup",
-      "destination": "https://app.wavehubtennis.com/signup",
-      "permanent": false
-    },
-    {
-      "source": "/apply",
-      "destination": "https://app.wavehubtennis.com/signup",
-      "permanent": false
-    },
-    {
-      "source": "/bets",
-      "destination": "https://app.wavehubtennis.com/bets",
-      "permanent": false
-    },
-    {
-      "source": "/profile",
-      "destination": "https://app.wavehubtennis.com/profile",
-      "permanent": false
-    },
-    {
-      "source": "/tools",
-      "destination": "https://app.wavehubtennis.com/tools",
-      "permanent": false
-    },
-    {
-      "source": "/tournaments",
-      "destination": "https://app.wavehubtennis.com/tournaments",
-      "permanent": false
-    },
-    {
-      "source": "/quiz",
-      "destination": "https://app.wavehubtennis.com/quiz",
-      "permanent": false
-    }
+    { "source": "/", "destination": "/stats", "permanent": false },
+    { "source": "/index.html", "destination": "/stats", "permanent": false },
+    { "source": "/vienna", "destination": "/stats", "permanent": false },
+    { "source": "/vienna.html", "destination": "/stats", "permanent": false },
+    { "source": "/gameplans", "destination": "/stats", "permanent": false },
+    { "source": "/gameplans.html", "destination": "/stats", "permanent": false },
+    { "source": "/previews", "destination": "/stats", "permanent": false },
+    { "source": "/previews.html", "destination": "/stats", "permanent": false },
+    { "source": "/start", "destination": "/stats", "permanent": false },
+    { "source": "/start.html", "destination": "/stats", "permanent": false },
+    { "source": "/free", "destination": "/stats", "permanent": false },
+    { "source": "/plans", "destination": "/stats", "permanent": false },
+    { "source": "/login", "destination": "/stats", "permanent": false },
+    { "source": "/signup", "destination": "/stats", "permanent": false },
+    { "source": "/apply", "destination": "/stats", "permanent": false },
+    { "source": "/bets", "destination": "/stats", "permanent": false },
+    { "source": "/profile", "destination": "/stats", "permanent": false },
+    { "source": "/tools", "destination": "/stats", "permanent": false },
+    { "source": "/tournaments", "destination": "/stats", "permanent": false },
+    { "source": "/quiz", "destination": "/stats", "permanent": false }
   ]
 }
