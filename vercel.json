@@ -4,6 +4,10 @@
     {
       "source": "/stats",
       "destination": "/stats.html"
+    },
+    {
+      "source": "/basel",
+      "destination": "/basel.html"
     }
   ],
   "redirects": [
